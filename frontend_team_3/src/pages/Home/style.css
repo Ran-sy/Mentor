@@ -1,0 +1,595 @@
+.mentor-bg {
+  background: url('../../assets/images/slide-bg.jpg');
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 450px;
+  border-radius: 50px;
+  position: relative;
+}
+
+.best-mentor {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translate(0, -50%);
+  width: 45%;
+  padding: 10px 30px;
+  border-radius: 30px;
+  background-color: #ffffff;
+}
+
+@media only screen and (max-width: 1024px) {
+  .best-mentor {
+    width: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.best-ment-search-form {
+  width: 100%;
+  align-items: center;
+}
+
+.best-ment-search-form select {
+  border-radius: 20px 0 0 20px;
+  height: 45px;
+  max-width: 30%;
+}
+
+.best-ment-search-form input {
+  border-radius: 0 20px 20px 0;
+  height: 45px;
+  /* width: 90%; */
+}
+
+.search-bar-parent {
+  position: relative;
+  width: 70%;
+}
+
+.search-bar-parent svg {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 18px;
+  background-color: #000000;
+  padding: 9px;
+  border-radius: 100%;
+}
+
+.best-mentor a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.img-result img {
+  width: 100%;
+  height: 100%;
+}
+
+/************top mentors**********/
+.top-mentors {
+  padding-top: 8em;
+}
+
+.top-mentors h2 {
+  padding-bottom: 30px;
+}
+
+.slick-slide {
+  /* margin: 0 10px; */
+  padding-right: 30px;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.slick-slide,
+.slick-slide:focus * {
+  outline: none !important;
+}
+
+.top-ment-info {
+  position: relative;
+}
+
+.top-ment-info img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.slick-prev,
+.slick-next {
+  top: -45px;
+  background: transparent !important;
+}
+
+.slick-next {
+  right: 4%;
+}
+
+.slick-prev {
+  left: 91.5%;
+}
+
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .slick-prev {
+    left: 91%;
+  }
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  .slick-prev {
+    left: 89%;
+  }
+
+  .slick-prev,
+  .slick-next {
+    top: -40px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .slick-prev {
+    left: 87%;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .slick-prev {
+    left: 85%;
+  }
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 18px;
+  line-height: 0;
+  background: transparent;
+  border: 1px solid #0000008c;
+  border-radius: 50%;
+  color: #000000;
+  padding: 2px;
+}
+
+.slick-prev:before {
+  content: "\1F828";
+}
+
+.slick-next:before {
+  content: "\1F82A";
+}
+
+.top-ment-info .rate {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: #fafafa;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+
+.mentors-cont {
+  padding-bottom: 30px;
+}
+
+.mentors-cont .mentor-details {
+  margin-top: 15px;
+}
+
+.top-ment-info .rate p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.top-ment-info .rate svg {
+  margin-right: 5px;
+}
+
+.top-ment-info .rate span {
+  font-weight: 300;
+  color: #a1a1a1;
+  padding-left: 2px;
+}
+
+/*********mentor-opportunities**********/
+.recent-oppurtunities {
+  margin: 8rem 0;
+}
+
+.more {
+  text-decoration: none;
+  color: #000;
+}
+
+.more h5 {
+  text-align: right;
+}
+
+.mentor-opportunities {
+  background: #fafafa;
+  width: 100%;
+  padding: 15px 30px;
+  /* min-height: 300px; */
+  margin: 30px 0;
+  border: 1.5px solid rgba(212, 212, 212, 0.555);
+  border-radius: 30px;
+}
+
+.ment-opp-head h6 {
+  margin: 0;
+  line-height: 30px;
+}
+
+.ment-opp-head p {
+  font-size: 16px;
+  word-spacing: 1px;
+}
+
+.ment-opp-head span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.ment-opp-req button {
+  width: 120px;
+  height: 26px;
+  text-align: center;
+  line-height: 10px;
+  border: none;
+  background-color: #FED049;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 15px;
+}
+
+.ment-opp-req button:hover {
+  background-color: #00758098 !important;
+}
+
+.tags .badge {
+  padding: 7px 15px;
+  font-size: 12px;
+  border-radius: 15px;
+  font-weight: 700;
+  background: #007580 !important;
+}
+
+
+@media (max-width:480px) {
+  .mentor-opportunities {
+    padding: 10px 15px;
+  }
+
+  .mentor-opportunities p {
+    font-size: 14px;
+  }
+
+  .ment-opp-head {
+    padding-bottom: 10px;
+  }
+
+  .ment-opp-req button {
+    width: 100px;
+    font-size: 13px;
+    font-weight: 300;
+  }
+
+  .ment-opp-head h6 {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .mentor-opportunities p {
+    font-size: 12px;
+    word-spacing: 0px;
+  }
+
+  .ment-opp-head span {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .tags .badge {
+    font-weight: 500;
+  }
+}
+
+/***************Invite Mentor**********/
+.invite-mentor {
+  padding-bottom: 8rem;
+}
+
+.invite-mentor .row {
+  background: #fafafa;
+  border-radius: 10px;
+}
+
+.invite-mentor img {
+  width: 100%;
+  height: 100%;
+  margin-left: 0;
+}
+
+.mail-invite {
+  position: relative;
+  padding-top: 20px;
+}
+
+.invite-sec h4 {
+  font-weight: 700;
+}
+
+.invite-sec p {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.mail-invite input {
+  border-radius: 20px;
+  height: 45px;
+  background-color: #ffffff;
+}
+
+.mail-invite button {
+  position: absolute;
+  top: 20px;
+  right: -3px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #d6d6d6;
+  background-color: #000000;
+  height: 45px;
+  line-height: 45px;
+  text-decoration: none;
+  padding: 0 20px;
+  border-radius: 30px;
+}
+
+.invite-mentor .invite-sec {
+  display: block;
+  margin: 40px 0;
+  padding: 50px;
+  max-width: 500px;
+}
+
+/***********FAQ**********/
+.faq p:first-of-type {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.faq .accordion {
+  border: none !important;
+  border-width: 0;
+}
+
+.faq .accordion-item {
+  border-bottom: 1px solid #00000038 !important;
+  border: none;
+
+}
+
+.faq .accordion-header button {
+  font-size: 18px;
+  font-weight: 500;
+  background: #ffffff;
+}
+
+.faq .accordion-header button:active,
+.faq .accordion-header button:focus {
+  border: none;
+
+}
+
+.faq .accordion-body {
+  font-size: 16px;
+  color: #5e5e5eea;
+}
+
+
+/***********Open request*********/
+.open-requests {
+  padding-bottom: 50px;
+}
+
+.bg-grayColor {
+  background-color: #c5c5c5;
+}
+
+.bg-secondaryColor {
+  background-color: var(--secondaryColor);
+}
+
+.bg-secondaryColor-op {
+  background-color: #0075807a
+}
+
+.text-main-color {
+  color: var(--mainColor);
+}
+
+.bg-main-color {
+  background-color: var(--mainColor);
+}
+
+.text-sec-color {
+  color: var(--secondaryColor);
+}
+
+.text-small {
+  font-size: 12px;
+}
+
+.outlint-focus {
+  border: 0;
+  border-bottom: 1px solid var(--mainColor);
+  padding-bottom: 7px;
+}
+
+.outlint-focus:focus {
+  border: 0;
+  border-bottom: 1px solid var(--mainColor);
+  outline: 0;
+}
+
+.custom-padding {
+  padding: 2px 30px;
+}
+
+/* End General Statments */
+/* Start Header  */
+/* Custom toogle  */
+.switch {
+  width: 60px;
+  height: 35px;
+  transition: 1s;
+}
+
+.switch span {
+  height: 35px;
+  width: 35px;
+  transition: 1s;
+}
+
+/* Start Select box */
+/* Start Arrow */
+.arrow {
+  border: 7px solid transparent;
+  border-color: var(--secondaryColor) transparent transparent transparent;
+
+}
+
+/* End   Arrow */
+.selecteList {
+  border: none;
+  outline: none;
+  border-radius: 0;
+  background-image: none
+}
+
+.selecteList-mentor {
+  background-image: none;
+  border-color: var(--mainColor);
+  background-color: #e6f2f2;
+}
+
+.selecteList-mentor:focus {
+  border-color: var(--mainColor);
+}
+
+.arrow-mentor {
+  position: relative;
+  left: -28px;
+}
+
+.selectBox {
+  border-bottom: 1px solid white;
+  padding-bottom: 7px;
+}
+
+.selectIcon-without-circle {
+  font-size: 24px;
+  color: white;
+}
+
+.selectIcon-with-circle {
+  padding: 3px;
+  font-size: 22px;
+  color: white;
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
+
+.form-select:focus {
+  box-shadow: none;
+}
+
+/* End Select box */
+/* End Header  */
+/* Start Mentor */
+/* Start Custom check box */
+.form-check-input:checked {
+  background-color: var(--mainColor);
+  border-color: var(--mainColor);
+}
+
+.form-check-input:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+/* MenortPersons*/
+.mentorPersons {
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 200px;
+  border-radius: 10px;
+}
+
+/* End Custom check box */
+
+/* Start Custom range */
+.multi-range-slider .thumb::before {
+  box-shadow: none;
+  border: 0;
+  width: 15px;
+  height: 15px;
+  margin: -5px -12px;
+}
+
+.multi-range-slider .bar-left,
+.multi-range-slider .bar-right,
+.multi-range-slider .bar-inner {
+  box-shadow: none;
+  padding: 3px 0;
+  border: 0;
+}
+
+.multi-range-slider .thumb .caption * {
+  background-color: #e6f2f2;
+  box-shadow: none;
+  color: #000;
+  padding: 0px 20px;
+}
+
+/* End Custom range */
+/* End Mentor */
+
+/* Start Media */
+@media (max-width: 575.98px) {
+  .responsive {
+    background-color: white;
+  }
+
+  .mobile-list {
+    background-color: #0075807a;
+    margin-top: 5px;
+  }
+
+  .moblie-font {
+    font-size: 10px;
+  }
+
+  .custom-padding {
+    padding: 2px 14px;
+    font-size: 12px;
+  }
+
+  .moblie-font-req {
+    font-size: 13px;
+  }
+
+  .text-respon {
+    color: #000 !important;
+  }
+}
+
+/* End Media */

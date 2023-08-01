@@ -1,0 +1,366 @@
+/* .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+label {
+    color: #007580;
+    opacity: 0.5;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+p {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.message {
+    resize: none;
+}
+
+input[type="radio"] {
+    appearance: none !important;
+    width: 15px !important;
+    height: 15px !important;
+    border: 2px solid #FED049 !important;
+    border-radius: 50% !important;
+    background-clip: content-box !important;
+    padding: 3px !important;
+}
+
+input[type="radio"]:checked {
+    background-color: #FED049 !important;
+}
+
+::placeholder,
+select {
+    color: #007580 !important;
+    opacity: 0.5 !important;
+    font-weight: 600 !important;
+    font-size: 19px !important;
+}
+
+.form-title {
+    border: 2px solid #007580;
+    display: inline-block;
+    color: white;
+    background-color: #007580;
+    padding: 5px 80px;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 0 20px 0 80px;
+    position: relative;
+    bottom: 1px;
+    left: 648px;
+    letter-spacing: 0.8px;
+}
+
+.plus-icon1 {
+    position: relative;
+    bottom: -1px;
+    color: #007580;
+}
+
+.plus-icon {
+    position: relative;
+    top: 33px;
+    left: 7px;
+    color: #007580;
+}
+
+.plus-icon {
+    cursor: pointer;
+}
+
+.button3 {
+    border: 0;
+    border-radius: 20px;
+    background-color: #007580;
+    opacity: 0.9;
+    color: white;
+    padding: 5px 30px;
+    font-size: 18px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+
+
+.button3:hover {
+    opacity: 1;
+}
+
+.form-control {
+    box-shadow: none !important;
+}
+
+#inputEmail4,
+#inputPassword4,
+#inputAddress,
+#inputAddress2,
+#exampleFormControlTextarea1 {
+    border: none !important;
+    border-bottom: 1px solid #FED049 !important;
+}
+
+
+.form-check-label {
+    margin-right: 30px;
+}
+
+#inputEmail4:focus,
+#inputPassword4:focus,
+#inputAddress:focus,
+#inputAddress2:focus,
+#exampleFormControlTextarea1:focus {
+    border: 1px solid #FED049 !important;
+}
+
+.div-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 720px) {
+    .div-button .button3 {
+        position: relative;
+        font-size: 17px;
+        right: 40%;
+    }
+
+    .div-button {
+        text-align: center;
+        position: relative;
+        left: 10%;
+    }
+
+    .plus-icon {
+        left: 435px;
+        top: -35px;
+    }
+
+    .form-title {
+        left: -16px;
+        padding: 7px 34px;
+        margin-bottom: 40px;
+    }
+
+    .form-title h5 {
+        font-size: 22px;
+        width: 230px;
+        margin-left: 170px;
+        margin-top: 7px;
+    }
+
+    select,
+    .amount {
+        width: 440px !important;
+    }
+
+    .exp {
+        width: 445px !important;
+    }
+
+    .side-bar {
+        display: none !important;
+    }
+
+    input[type="radio"] {
+        appearance: none !important;
+        position: relative;
+        left: 360px;
+        width: 15px !important;
+        height: 15px !important;
+        border: 2px solid #FED049 !important;
+        border-radius: 2px !important;
+        padding: 2px !important;
+    }
+
+    input[type="radio"]:checked {
+        background-color: #FED049 !important;
+    }
+
+    .label-radio {
+        font-size: 20px;
+    }
+
+    .form-check {
+        margin-bottom: 30px !important;
+    }
+
+} */
+
+/* .row{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+label {
+    color: #007580;
+    opacity: 0.5;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+p {
+    font-weight: bold;
+    font-size: 13px;
+} */
+
+
+.message {
+    resize: none;
+}
+
+.form-title {
+    border: 2px solid #007580;
+    display: inline-block;
+    color: white;
+    background-color: #007580;
+    padding: 5px 80px;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 0 20px 0 80px;
+    position: relative;
+    bottom: 1px;
+    left: 648px;
+    letter-spacing: 0.8px;
+}
+
+.plus-icon1 {
+    position: relative;
+    bottom: -1px;
+    color: #007580;
+}
+
+.plus-icon {
+    position: relative;
+    top: 33px;
+    left: 7px;
+    color: #007580;
+}
+
+.plus-icon {
+    cursor: pointer;
+}
+
+.button3 {
+    border: 0;
+    border-radius: 20px;
+    background-color: #007580;
+    opacity: 0.9;
+    color: white;
+    padding: 5px 30px;
+    font-size: 18px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.button3:hover {
+    opacity: 1;
+}
+
+.form-control {
+    box-shadow: none !important;
+}
+
+#inputEmail4,
+#inputPassword4,
+#inputAddress,
+#inputAddress2,
+#exampleFormControlTextarea1 {
+    border: none !important;
+    pointer-events: fill;
+    border-bottom: 1px solid #FED049 !important;
+}
+
+
+.form-check-label {
+    margin-right: 30px;
+}
+
+#inputEmail4:focus,
+#inputPassword4:focus,
+#inputAddress:focus,
+#inputAddress2:focus,
+#exampleFormControlTextarea1:focus {
+    border: 1px solid #FED049 !important;
+}
+
+.div-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 720px) {
+    .div-button .button3 {
+        position: relative;
+        font-size: 17px;
+        right: 40%;
+    }
+
+    .div-button {
+        text-align: center;
+        position: relative;
+        left: 10%;
+    }
+
+    .plus-icon {
+        left: 435px;
+        top: -35px;
+    }
+
+    .form-title {
+        left: -16px;
+        padding: 7px 34px;
+        margin-bottom: 40px;
+    }
+
+    .form-title h5 {
+        font-size: 22px;
+        width: 230px;
+        margin-left: 170px;
+        margin-top: 7px;
+    }
+
+    select,
+    .amount {
+        width: 440px !important;
+    }
+
+    .exp {
+        width: 445px !important;
+    }
+
+    .side-bar {
+        display: none !important;
+    }
+
+    input[type="radio"] {
+        appearance: none !important;
+        position: relative;
+        left: 360px;
+        width: 15px !important;
+        height: 15px !important;
+        border: 2px solid #FED049 !important;
+        border-radius: 2px !important;
+        padding: 2px !important;
+    }
+
+    input[type="radio"]:checked {
+        background-color: #FED049 !important;
+    }
+
+    .label-radio {
+        font-size: 20px;
+    }
+
+    .form-check {
+        margin-bottom: 30px !important;
+    }
+
+}

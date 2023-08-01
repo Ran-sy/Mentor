@@ -1,0 +1,55 @@
+.top-ment-info {
+    position: relative;
+}
+
+.top-ment-info img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.top-ment-info .rate {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: #fafafa;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.slick-prev,
+.slick-next {
+    top: -45px;
+    background: transparent !important;
+}
+
+.slick-next {
+    right: 4%;
+}
+
+.slick-prev {
+    left: 91.5%;
+}
+
+.mentors-cont {
+    padding-bottom: 30px;
+}
+
+.mentors-cont .mentor-details {
+    margin-top: 15px;
+}
+
+.top-ment-info .rate p {
+    margin: 0;
+    font-weight: 500;
+}
+
+.top-ment-info .rate svg {
+    margin-right: 5px;
+}
+
+.top-ment-info .rate span {
+    font-weight: 300;
+    color: #a1a1a1;
+    padding-left: 2px;
+}

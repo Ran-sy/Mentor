@@ -1,0 +1,275 @@
+/* Style the container */
+.container {
+    max-width: 100%;
+    padding: 0 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  
+  /* Style the row */
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+  }
+  /* Style the columns */
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 10px;
+    position: relative;
+  }
+  /* Style the wrapper */
+  .wrapper {
+    width:450px;
+    background: hsl(0, 0%, 100%);
+    padding-right: 30px;
+  }
+  
+  /* Style the header */
+  header {
+    display: flex;
+    gap: 136px;
+    align-items: center;
+  }
+  header .current-date{
+    color: #007580;
+    font-weight: bolder;
+    font-size: 24px;
+    margin-left: 30px;
+  }
+  
+  /* Style the icons */
+  .icons {
+    display: flex;
+    position: relative;
+    left: 1%;
+    top: -30%;
+  }
+  
+  .icons span:last-child{
+    margin-right: -10px;
+  }
+  header .icons span:hover{
+    background: #FAFAFA;
+  }
+  
+  
+  /* Style the calendar */
+  .calendar {
+    background-color: #fff;
+    padding: 20px;
+  }
+  
+  /* Style the days list */
+  .days-list {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    list-style: none;
+  }
+  
+  .days-list li {
+    width: calc(100% / 7);
+    text-align: center;
+    font-weight: bold;
+    color: #000000;
+  }
+  /* sunday in red color */
+  .calendar .days-list .red-text{
+    color: red;
+  }
+  .days-list .red-text::after {
+   content: '';
+   display: block;
+   width: 80%;
+   height: 3px;
+   background-color: red;
+   position: absolute;
+   bottom: -5px;
+   left: 10%;
+   border-radius: 5px;
+  }
+  li.sunday {
+   color: red;
+   font-weight: bold;
+  }
+  /* bar under days */
+  .calendar .days-list li{
+    font-weight: 500;
+    cursor: default;
+    position: relative;
+  }
+  .days-list li::after {
+    content: '';
+    display: block;
+    width: 80%;
+    height: 3px;
+    background-color: #000000;
+    position: absolute;
+    bottom: -5px;
+    left: 10%;
+    border-radius: 5px;
+  }
+  
+  
+  /* Style the days */
+  .days {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    width: 79%;
+  }
+  ul{
+    padding: 0 !important;
+  }
+  
+  .calendar .days li{
+    width: calc(100% / 7);
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1;
+    cursor: pointer;
+    position: relative;
+    margin-top: 20px;
+  }
+  .days li.inactive{
+    color: #aaa;
+  }
+  .days li.active{
+    color: #fff;
+  }
+  .days li::before{
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .days li.active::before{
+    background: #FED049;
+  }
+  .days li:not(.active):hover::before{
+    background: #FAFAFA;
+  }
+  
+  /* Style the wrapper2 */
+  .wrapper2 {
+    justify-content: center;
+    align-items: center;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-top: 50px;
+    margin-left: 100px;
+  
+  
+  }
+  @media (max-width: 767px) {
+    .wrapper2 {
+      display: inline-block;
+      flex-direction: row;
+      margin-left: 300px;
+      position: relative;
+    }
+    /* .icons{
+      display: none;
+    } */
+    .current-date{
+      padding-bottom: -10px !important;
+      text-align: right;
+      transform: translateY(-500%);
+    }
+  
+  }
+  
+  
+  
+  /* Style the circle and rectangle containers */
+  .circle-container,
+  .rectangle-container {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+  }
+  
+  /* Style the circle */
+  .circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    clip-path: circle(3/4);
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    background-image: linear-gradient(white, white), radial-gradient(circle at top left, #007580,#FED049);
+    background-origin: border-box;
+    background-clip: content-box, border-box; 
+    border: 5px solid transparent; 
+  }
+  
+  /* Style the rectangle */
+  .rectangle {
+    font-size: 24px;
+    display: flex;
+    position: fixed;
+    color: #FAFAFA;
+    justify-content: center;
+    align-items: center;
+    height: 18px;
+    width: 150px;
+    border: none;
+    border-radius: 20px;
+    transform: translateY(190%);
+    background: linear-gradient(to left,#FED049,#007580);
+    margin: 0 auto;
+  }
+  
+  .month-number {
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    font-size: 50px;
+    color: #007580;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .year-number {
+    line-height: 1px;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  
+  /* highlight days */
+  .highlight-range {
+    position: relative;
+  }
+  .highlight-range::before {
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background-color: lightblue;
+    color: black;
+  }
+ .newcal{
+    position: absolute !important;
+        z-index: 300 !important;
+        right: -6% !important;
+        width: 31% !important;
+        top: 73% !important;
+ }

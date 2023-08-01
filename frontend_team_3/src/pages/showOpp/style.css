@@ -1,0 +1,144 @@
+:root {
+    --pirmay: #fed049;
+    --secondary: #007580;
+    --red: #e01b24;
+    --gray: #fafafa;
+    --black: #000;
+}
+
+.radius {
+    border-radius: 35px;
+}
+
+.color-pirmay {
+    background-color: var(--pirmay);
+}
+
+.color-secondary {
+    background-color: var(--secondary) !important;
+    color: #fff !important;
+}
+
+.color-red {
+    background-color: var(--red);
+}
+
+.color-gray {
+    background-color: var(--gray) !important;
+}
+
+.color-black {
+    background-color: var(--black);
+}
+
+.opp-info {
+    /* background: var(--gray); */
+    background: white;
+    overflow: hidden;
+}
+
+.opp {
+    position: relative;
+    height: auto;
+    padding-bottom: 200px !important;
+}
+
+.box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+    font-weight: 600;
+    text-transform: capitalize;
+    border-bottom-left-radius: 50px;
+    text-align: center;
+}
+
+.closed {
+    background-color: var(--red);
+}
+
+.open {
+    background-color: var(--secondary);
+}
+
+.mentorBtn {
+    background-color: var(--pirmay) !important;
+    border: none;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.data1 {
+    color: var(--secondary);
+}
+
+.des {
+    text-align: justify;
+}
+
+.info1 {
+    width: 33%;
+    font-weight: 600;
+}
+
+.user {
+    position: relative;
+}
+
+.userinfo {
+    margin-top: -250px;
+}
+
+.user-des {
+    text-align: justify;
+}
+
+.userAvatar {
+    margin-top: -75px;
+}
+
+.profileBtn {
+    /* background-color: var(--gray) !important; */
+    border: none;
+    font-weight: 700;
+    color: #777575;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
+.comments {
+    transition: .3s all ease-in-out;
+}
+
+.comments input,
+.comments input:focus {
+    height: 60px;
+    box-shadow: none;
+    border: none;
+    outline: none;
+}
+
+.comments input::placeholder {
+    color: var(--gray);
+}
+
+@media only screen and (max-width: 768px) {
+    .info1 {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .userinfo .info1 {
+        width: 100%;
+    }
+
+    .userAvatar {
+        margin-top: 0;
+    }
+
+    .user-des {
+        padding-top: 20px;
+    }
+}

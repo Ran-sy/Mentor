@@ -1,0 +1,68 @@
+
+.mySelect,
+.mySelect:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    height: 50px;
+    background-color: var(--gray) !important;
+    padding: 10px 30px 10px 10px !important;
+    border-radius: 30px 0 0 30px !important;
+}
+
+.mySelect option {
+    background: var(--secondary);
+    color: var(--gray);
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.mySelect option:hover {
+    background: #00758091 !important;
+}
+
+.search {
+    background-color: var(--gray);
+    border-radius: 0 30px 30px 0;
+    height: 52px;
+}
+
+.search .form-control,
+.search .form-control:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent !important;
+}
+
+.user-item {
+    position: relative;
+    width: 100px;
+}
+
+.user-item .menu {
+    position: absolute;
+    z-index: 20;
+    background: #02acac;
+    width: 300px;
+    right: 0;
+    top: 65px;
+    border-radius: 35px 0 35px 35px;
+    transition: 3s all ease-in-out;
+    color: var(--gray);
+}
+
+.btnUser {
+    transition: .2s all ease-in-out;
+}
+
+.btnUser:hover {
+    background: #00758091 !important;
+    color: white !important;
+}
+
+@media only screen and (max-width: 990px) {
+    .user-item .menu {
+        left: 0;
+    }
+}

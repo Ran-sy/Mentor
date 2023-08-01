@@ -1,0 +1,29 @@
+/* Start General Statments */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  --mainColor: #fed049;
+  --secondaryColor: #007580;
+  --red: #e01b24;
+  --grey: #fafafa;
+}
+
+textarea {
+  pointer-events: fill
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/Fonts/Inter-VariableFont_slnt,wght.ttf");
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-image: url(../src/assets/images/background_pattren.png);
+  background-size: contain;
+  background-repeat: repeat;
+}

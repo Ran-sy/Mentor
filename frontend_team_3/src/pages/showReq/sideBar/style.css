@@ -1,0 +1,75 @@
+.SidaNav2 ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+.sidnav-top {
+    /* background-color: rgb(220, 212, 200); */
+    padding-top: 8%;
+}
+
+.bg-blue {
+    background-color: #007580 !important;
+    color: #fff !important;
+}
+
+.sidnav-top ul {
+    /* background-color: rgb(86, 76, 62); */
+}
+
+.sidnav-top ul li {
+    /*background-color: rgb(255, 152, 18);
+    */
+    transition: all 0.3s ease;
+
+}
+
+.sidnav-top li:hover,
+.sidnavt-bottom-left:hover {
+    color: var(--Secondary);
+}
+
+.sidnavt-bottom {
+    transition: all 0.3s ease;
+    /* padding-top: 8%; */
+    /*background-color: rgb(150, 176, 176);*/
+}
+
+.sidnavt-bottom-left {
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+.sidnavt-bottom-left {
+    width: 200px;
+}
+
+.myReq {
+    margin: 10px 0 0 0;
+}
+
+.sidnavt-bottom-Right {
+    background-color: var(--Secondary);
+    color: white;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: 0.2rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    /* transform: translate(50%,50%); */
+    border-radius: 0.2rem;
+    -webkit-border-radius: 0.2rem;
+    -moz-border-radius: 0.2rem;
+    -ms-border-radius: 0.2rem;
+    -o-border-radius: 0.2rem;
+
+}

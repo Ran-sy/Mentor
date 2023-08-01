@@ -1,0 +1,9 @@
+.color-link{
+    color: var(--black) !important;
+    font-weight: 700 !important;
+    text-transform: capitalize;
+}
+.myBtn{
+    background-color: var(--secondary) !important;
+    color: #fff !important;
+}

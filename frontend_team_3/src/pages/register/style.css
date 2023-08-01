@@ -1,0 +1,120 @@
+.parent {
+    text-align: center;
+    display: flex;
+    min-height: 88vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.form {
+    align-items: center;
+}
+
+/* start register */
+.register-head {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.register-head p {
+    color: #000000;
+    font-weight: 500;
+}
+
+@media (min-width: 567px) {
+    .inp-holder {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(300px, 1fr));
+        column-gap: 60px;
+    }
+}
+
+.inp-container {
+    width: 300px;
+    position: relative;
+}
+
+.signup-social-holder {
+    margin: 40px 0;
+}
+
+.signup {
+    width: 100px;
+    background-color: #007580;
+    color: #fafafa;
+    border-radius: 30px;
+    margin: 0px 30px 0 0;
+
+}
+
+@media (min-width: 567px) {
+    .signup-social-holder {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .login-form .reg {
+        margin-right: 40px;
+    }
+}
+
+@media (max-width: 567px) {
+    .login-form .reg {
+        margin-bottom: 30px !important;
+    }
+
+    .signup-social {
+        margin-bottom: 20px;
+    }
+}
+
+.login-form .reg:hover {
+    background-color: #459aa2;
+    color: #fafafa;
+}
+
+.signup-social {
+    align-items: center;
+}
+
+.signup-social .soc-log-btn {
+    background-color: transparent;
+    width: 32px;
+    margin: 0 5px;
+}
+
+.signup-social p {
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.signup-social svg {
+    background-color: #000000;
+    color: #fafafa;
+    font-size: 30px;
+    border-radius: 50%;
+    padding: 5px 0;
+    margin: 0 10px;
+}
+
+.switch-register {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.switch-register p {
+    margin: 0 25px 0 0;
+    color: #007580;
+}
+
+.switch-register input[type="checkbox"] {
+    margin-top: 7px;
+}
+
+.switch-register input[type="checkbox"]:checked {
+    background-color: #fed049;
+    border: none;
+}
+
+/* end register */
