@@ -5,7 +5,10 @@ const getAllOpportunities = async (req, res) => {
         const page = req.query.page * 1 || 1;
         const limit = req.query.limit * 1 || 5;
         // const skip = (page - 1) * limit;
-        const allOpportunity = await Opportunity.find()
+        const allOpportunity = await Opportunity.find().populate({
+            path: "owner",
+            select: "-tokens",
+          })
         res.status(200).json({ results: allOpportunity.length, page, data: allOpportunity });
     } catch (error) {
         res.status(500).json(error.message);

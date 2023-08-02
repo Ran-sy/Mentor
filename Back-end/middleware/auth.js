@@ -14,7 +14,6 @@ const auth = (req, res, next) => {
 
       const user = await User.findById(obj.id)
       if (!user) return next(createError(404, "Token is not valid!"));
-      console.log(user);
       req.user = user;
       req.token = token
 

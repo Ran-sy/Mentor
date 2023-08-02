@@ -16,7 +16,9 @@ const RequestsFilter = (props) => {
             await axios
               .get(`${Localhost}/api/req/request`, { withCredentials: true })
               .then((response) => {
-                setFilterArr(response.data);
+                console.log(response);
+                setFilterArr(response.data[0]);
+                // setFilterArr(response.data);
               })
               .catch((error) => {
                 console.log(error);
@@ -26,16 +28,9 @@ const RequestsFilter = (props) => {
     }, []);
     let filterReqList = filterArr.filter((mentee) => {
         let x;
-        if (props.Paid && props.lookingJob) {
-            x = mentee.paid.isPaid && mentee.lookingJob;
-        } else if (props.Paid || props.lookingJob) {
-            if (props.Paid) {
-                x = mentee.paid.isPaid
-            }
-            else if (props.lookingJob) {
-                x = mentee.lookingJob
-            }
-        } else {
+        if (props.Availlable) {
+            x =mentee.lookingJob;
+        }else {
             x = mentee
         }
         return (

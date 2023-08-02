@@ -28,19 +28,18 @@ const FilterMenotrs = (props) => {
         };
         getMentors();
     }, []);
-    let filterProductList = filterMentor.filter((mentor) => {
-        let rating = mentor;
-        props.arrValue.forEach((item, index) => {
-            if (item) {
-                if (index + 1 === 6) {
-                    rating = mentor
-                }
-                else {
-                    rating |= Math.ceil(mentor.rating) === index + 1
-                }
-            }
-        })
-        return (rating) && mentor.location === props.locvalue;
+    let filterProductList = filterMentor.filter((mentee) => {
+        let x;
+        if (props.locvalue) {
+          x = mentee.location;
+        } else {
+          x = mentee;
+        }
+        return (
+          x &&
+          mentee.location === props.locvalue &&
+          (mentee.yearsOfExperence - 1 <= props.maxValue && mentee.yearsOfExperence - 1 >= props.minValue)
+        );
     })
     return (
         <>

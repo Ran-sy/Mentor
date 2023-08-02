@@ -118,6 +118,12 @@ p {
     outline: 0 !important;
     box-shadow: none !important;
 }
+.mentorPersons img {
+    /* background-size: cover; */
+    background-repeat: no-repeat;
+    height: 200px;
+    border-radius: 10px;
+}
 
 /* MenortPersons*/
 .mentorPersons {

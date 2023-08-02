@@ -3,7 +3,7 @@
 }
 
 .Left-Request {
-    padding-top: 40%;
+    padding-top: 10%;
 }
 
 .blue-color {
@@ -49,6 +49,7 @@
 
 .Left-Request-Top-container {
     position: relative;
+    padding-left: 30px;
 }
 
 .Left-Request-Top-left span:nth-of-type(1) {
@@ -62,6 +63,7 @@
 .nameh5span {
     color: var(--Secondary);
 }
+
 
 .right-green-title {
     background-color: #007580;
@@ -221,6 +223,7 @@
     .Right-Request {
         font-size: small;
         width: 98%;
+
     }
 
     .Left-Request-Top {
@@ -311,7 +314,6 @@
         justify-content: space-around;
         align-items: center;
         margin-right: auto;
-        background-color: rgb(97, 120, 118);
     }
 
     .RequestMentor2 .Right-Request .Left-Request-Top-left-list ul {
@@ -322,7 +324,130 @@
     .left-ul-span span:nth-child(3) {
         color: black;
     }
+}
+
+.listOfExperience,
+.listOfInfo,
+.descriptionOfPerson {
+    padding-left: 50px;
+    margin-bottom: 50px;
+}
+
+.descriptionOfPerson p {
+    width: 80%;
+
+}
+
+
+
+.title-info {
+    font-size: 22px;
+}
+
+.box-info {
+    margin-top: 0px;
+
+}
+
+.box-info .box-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.box-info .box-info-container .box-info-left {
+    display: flex;
+    justify-content: space-between;
+
+
+}
+
+.box-info-right {
+    width: 40%;
+}
+
+.sectionComment .singleComment {
+    display: flex;
+    gap: 20px;
+    border-bottom: 0.5px solid rgb(233, 233, 233);
+    margin-bottom: 15px;
+}
+
+.secondBetween {
+    padding-left: 40px;
+}
+
+.sectionComment .singleComment .commentContent {
+    padding-right: 60px;
+}
+
+.sectionComment .singleComment .commentContent h4 {
+    font-size: 18px;
+    margin-bottom: 0px;
+    font-weight: 700;
+}
+
+.sectionComment .singleComment .commentContent p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: rgb(102, 102, 102);
+}
+
+.postComment {
+    margin-bottom: 50px;
+}
+
+.postComment form input::placeholder {
+    color: rgb(214, 214, 214);
+    font-size: 15px;
+}
+
+.postComment form .btnContainer {
+    text-align: right;
+}
+
+.postComment form .btnComment {
+    color: white;
+    font-size: 25px;
+    margin-top: 20px;
+    background-color: #024a6e;
+    width: 120px;
+    border-radius: 20px;
+}
+
+.allBoxContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.justify-content-end {
+    max-width: -8px;
+}
+
+.smBoxLeft {
+    width: 80%;
+    display: flex;
+}
+
+.smBoxLeft {
+    width: 20%;
+    display: block;
+    flex-direction: column;
 } */
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -556,7 +681,6 @@
     .Right-Request {
         font-size: small;
         width: 98%;
-
     }
 
     .Left-Request-Top {
@@ -620,11 +744,9 @@
     .left-ul-span,
     .right-ul-span {
         display: flex;
-        /* gap: 2%; */
         align-items: flex-start;
         justify-content: flex-start;
         flex-direction: column;
-        /* background-color: rgb(255, 171, 255); */
         margin-right: auto;
         width: 96%;
     }
@@ -634,14 +756,7 @@
         width: 99%;
     }
 
-    /* .left-ul{
-    width: 80%;
- }
-.right-ul{
-    width: 100%;
-} */
     .Left-Request-Top-left-list {
-        /* background-color: yellowgreen; */
         width: 99%;
         display: flex;
         justify-content: center;
@@ -670,12 +785,14 @@
     }
 }
 
+
 /* //////////////////////////////////////// */
+
 .listOfExperience,
 .listOfInfo,
 .descriptionOfPerson {
     padding-left: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .descriptionOfPerson p {
@@ -683,43 +800,84 @@
 
 }
 
-
-
-/* /////////////////////////////// */
-.title-info {
-    /* padding-left: 50px; */
-    font-size: 22px;
-    /* margin-bottom: -20px; */
+.iconReact {
+    font-size: 18px;
+    font-family: bold;
+    color: black;
+    margin-top: 2px;
+    margin-right: 10px;
 }
+
+.info1 {
+    font-size: 13px;
+}
+
+.info1 span:nth-child(1) {
+    font-size: 13px;
+    font-weight: bold;
+    color: black;
+}
+
+/* //////////////////////////////// */
 
 .box-info {
     margin-top: 0px;
 
 }
 
+.title-info {
+    font-size: 20px;
+}
+
 .box-info .box-info-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    width: 100%;
+
 }
 
 .box-info .box-info-container .box-info-left {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between !important;
+    width: 60%;
 
+}
 
+.box-info .box-info-container .box-info-left .middleBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.boxBaragraph {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
 }
 
 .box-info-right {
     width: 40%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0px;
+
 }
 
+.listExperince {
+    width: 100%;
+    margin-left: 20px;
 
+}
 
+.listExperince .data12 {
+    color: var(--secondary) !important;
+    margin-top: 12px;
 
+}
 
+.userAvatar {
+    margin-top: -75px;
+}
 
+/* //////////////////////////////////////// */
 
 .sectionComment .singleComment {
     display: flex;
@@ -791,4 +949,39 @@
     width: 20%;
     display: block;
     flex-direction: column;
+}
+
+@media screen and (max-width:768px) {
+    .info1 {
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .box-info .box-info-container {
+        flex-direction: column;
+    }
+
+    .box-info-right {
+        width: 100%;
+        flex-direction: row;
+        margin-bottom: 0px;
+    }
+
+    .userinfo .info1 {
+        width: 50%;
+    }
+
+    .userAvatar {
+        margin-top: 0px;
+    }
+
+    .pragraphContainer {
+        margin-top: 20px !important;
+    }
+
+    .boxBaragraph {
+        font-size: 13px;
+    }
+
 }
