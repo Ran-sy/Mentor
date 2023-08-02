@@ -1,46 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import '../style.css'
 import img0 from '../../../assets/images/computer-g8dee30bb2_1280.jpg'
-import img1 from "../../../assets/images/computer-g8dee30bb2_1280.jpg"
-import img2 from "../../../assets/images/cellular-g87a5ca821_1280.jpg"
 import { BiSolidStar } from "react-icons/bi"
-import { useDispatch, useSelector } from 'react-redux';
-import { loginFailure } from '../../../features/user';
 import axios from 'axios';
 import { Localhost } from '../../../config/api';
 
 const FilterMenotrs = (props) => {
-    const [filterMentor, setFilterMentor] = useState([]);
-    const user = useSelector((state) => state.currentUser);
-    const dispatch = useDispatch();
+  axios.defaults.withCredentials = true;
+  const [filterProductList, setFilterProductList] = useState([])
 
     useEffect(() => {
         const getMentors = async () => {
-
+            console.log('mentor', props)
             await axios
                 .get(`${Localhost}/api/v1/mentorProfile`, { withCredentials: true })
                 .then((res) => {
-                    setFilterMentor(res.data);
+                    const filtered = res?.data?.filter((mentee) => {
+                        let x;
+                        if (props.locvalue) {
+                        x = mentee.location;
+                        } else {
+                        x = mentee;
+                        }
+                        if( props.locvalue === "null" || props.yearsOfExperence === null ){
+                            if(props.yearsOfExperence === null && props.locvalue==="null")
+                            return(x)
+                            if(props.yearsOfExperence === null)
+                            return (x && mentee.location !== props.locvalue)
+                            if(props.locvalue === "null")
+                            return (x && mentee.location !== props.locvalue && (mentee.yearsOfExperence - 1 <= props.maxValue && mentee.yearsOfExperence - 1 >= props.minValue))
+                        }
+                        return (
+                        x &&
+                        mentee.location === props.locvalue &&
+                        (mentee.yearsOfExperence - 1 <= props.maxValue && mentee.yearsOfExperence - 1 >= props.minValue)
+                        );
+                    })
+                    setFilterProductList(filtered)
                 })
                 .catch((error) => {
-                    console.log(error);
+                    Error(error.message);
                 });
         };
         getMentors();
     }, []);
-    let filterProductList = filterMentor.filter((mentee) => {
-        let x;
-        if (props.locvalue) {
-          x = mentee.location;
-        } else {
-          x = mentee;
-        }
-        return (
-          x &&
-          mentee.location === props.locvalue &&
-          (mentee.yearsOfExperence - 1 <= props.maxValue && mentee.yearsOfExperence - 1 >= props.minValue)
-        );
-    })
     return (
         <>
             {
@@ -48,7 +51,7 @@ const FilterMenotrs = (props) => {
                     return <div className='col-md-4 col-12 pt-4' key={mentorOne._id}>
                         {/* Mentor Persons */}
                         <div className={`mentorPersons mentorPersons position-relative`}>
-                            <img src={img0} />
+                            <img src={img0} alt="img"/>
                             <div className=' info bg-white d-inline-flex  justify-content-center align-items-center rounded position-absolute bottom-0 start-0 ms-2 mb-2 p-1'>
                                 <BiSolidStar className='text-main-color  text-small' />
                                 <span className='fw-bold  text-small'>{mentorOne.rating}</span>

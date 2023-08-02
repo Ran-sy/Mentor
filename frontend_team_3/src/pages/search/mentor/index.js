@@ -9,9 +9,9 @@ const SearchMentor = () => {
   const [mobileToggle, setmobileToggle] = useState(true);
 //   Experience
   const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(30);
 
-  const [locvalue, setlocvalue] = useState("cairo");
+  const [locvalue, setlocvalue] = useState("null");
 
 
   return (
@@ -39,10 +39,10 @@ const SearchMentor = () => {
               <div className={mobileToggle ? "mt-5 skills d-none d-sm-block" : "mt-5 skills d-sm-block"}>
                                 <h6 className='fw-bold '>Experience</h6>
                                 <MultiRangeSlider className='mt-5'
-                                    minValue={1}
-                                    maxValue={3}
+                                    minValue={-1}
+                                    maxValue={30}
                                     step={1}
-                                    min={0}
+                                    min={-1}
                                     max={30}
                                     minCaption={(minValue + 1) + " Years"}
                                     maxCaption={(maxValue + 1) + " Years"}
@@ -70,11 +70,9 @@ const SearchMentor = () => {
                 <div className="d-flex justify-content-center align-items-center">
                   <select
                     id="selectedtwo"
-                    defaultValue="cairo"
-                    onChange={(e) => setlocvalue(e.target.value)}
                     className="form-select bg-red m-0 d-inline-block  ps-2 selecteList-mentor"
-                    aria-label="Default select example"
-                  >
+                    defaultValue="null" onChange={(e) => setlocvalue(e.target.value)} aria-label="Default select example">
+                    <option value="null" className='bg-secondaryColor-op p-2 '>Location</option>
                     <option value="cairo" className="bg-secondaryColor-op p-2 ">
                       Cairo
                     </option>

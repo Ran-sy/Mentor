@@ -10,7 +10,7 @@ const SearchMentee = () => {
   const [Availlable, setAvaillable] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [arrayOfDivs, setarrayOfDivs] = useState([]);
-  const [locvalue, setlocvalue] = useState("cairo");
+  const [locvalue, setlocvalue] = useState("null");
   let [skills, setskills] = useState([]);
   function handleReset() {
     setarrayOfDivs([]);
@@ -81,10 +81,9 @@ const SearchMentee = () => {
                   <select
                     id="selectedtwo"
                     className="form-select bg-red m-0 d-inline-block  ps-2 selecteList-mentor"
-                    defaultValue="cairo"
-                    onChange={(e) => setlocvalue(e.target.value)}
-                    aria-label="Default select example"
-                  >
+                    aria-label="Default select example"defaultValue="null" 
+                    onChange={(e) => setlocvalue(e.target.value)}>
+                    <option value="null" className='bg-secondaryColor-op p-2 '>Location</option>
                     <option value="cairo" className="bg-secondaryColor-op p-2 ">
                       Cairo
                     </option>

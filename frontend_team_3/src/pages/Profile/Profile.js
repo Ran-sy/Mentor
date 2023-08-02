@@ -366,7 +366,7 @@ function Profile() {
                             </button>
                             :<button className="btn rounded-pill bg-warning" style={{ padding: "4px 21px" }}>
                             Applied
-                          </button>
+                            </button>
                             ) : ""}
                           </div>
                         </div>
