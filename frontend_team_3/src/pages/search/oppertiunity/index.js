@@ -9,11 +9,11 @@ const Opportunities = () => {
   const [mobileToggle, setmobileToggle] = useState(true);
   // Min Max of range
   const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(11);
   // chech boxes
-  const [locvalue, setlocvalue] = useState("cairo");
+  const [locvalue, setlocvalue] = useState("null");
   const [Availlable, setAvaillable] = useState(false);
-  const [Paid, setPaid] = useState(false);
+  const [Paid, setPaid] = useState(true);
   const [Certificate, setCertificate] = useState(false);
   // function HandleChange(e){
   //     let index = parseInt(e.target.value)
@@ -25,7 +25,7 @@ const Opportunities = () => {
       <div className="opportunites p-md-5 p-4">
         <div className="container">
           <div className="row">
-            <difv className="col-md-3 col-12">
+            <div className="col-md-3 col-12">
               {/* Headings */}
               <div className="d-flex justify-content-between align-items-center">
                 <h3 className="fw-bold h4">Filters</h3>
@@ -112,10 +112,8 @@ const Opportunities = () => {
                   <select
                     id="selectedtwo"
                     className="form-select bg-red m-0 d-inline-block  ps-2 selecteList-mentor"
-                    defaultValue="cairo"
-                    onChange={(e) => setlocvalue(e.target.value)}
-                    aria-label="Default select example"
-                  >
+                    defaultValue="null" onChange={(e) => setlocvalue(e.target.value)} aria-label="Default select example">
+                    <option value="null" className='bg-secondaryColor-op p-2 '>Location</option>
                     <option value="cairo" className="bg-secondaryColor-op p-2 ">
                       Cairo
                     </option>
@@ -147,10 +145,10 @@ const Opportunities = () => {
                 <h6 className="fw-bold ">Duration</h6>
                 <MultiRangeSlider
                   className="mt-5"
-                  minValue={1}
-                  maxValue={5}
+                  minValue={-1}
+                  maxValue={11}
                   step={1}
-                  min={0}
+                  min={-1}
                   max={11}
                   minCaption={minValue + 1 + " Months"}
                   maxCaption={maxValue + 1 + " Months"}
@@ -168,7 +166,7 @@ const Opportunities = () => {
                   thumbRightColor="#fed049"
                 />
               </div>
-            </difv>
+            </div>
             {/* Mentors */}
             <div className="col-md-9 col-12">
               <div className="row">

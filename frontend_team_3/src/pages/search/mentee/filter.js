@@ -2,44 +2,45 @@ import React, { useEffect, useState } from "react";
 import "../style.css";
 import img0 from "../../../assets/images/photo-1537511446984-935f663eb1f4.jpg";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 import { Localhost } from "../../../config/api";
-import { loginFailure } from "../../../features/user";
 
 
 const FilterMentee = (props) => {
-  const [filterMentee, setFilterMentee] = useState([]);
-  const user = useSelector((state) => state.currentUser);
-  const dispatch = useDispatch();
+  axios.defaults.withCredentials = true;
+  const [filterProductList, setFilterProductList] = useState([])
   
   useEffect(() => {
     const getMentees = async () => {
       await axios
         .get(`${Localhost}/api/v1/menteeProfile`, { withCredentials: true })
         .then((res) => {
-          setFilterMentee(res.data.response);
+          const filtered = res?.data?.response?.filter((mentee) => {
+            let x;
+            if (props.Availlable) {
+              x = mentee.availableForHiring;
+            } else {
+              x = mentee;
+            }
+            if( props.locvalue === "null" ){
+                return (x && mentee.location !== props.locvalue &&
+                  (props.skills.length ? props.skills.every((item) => mentee.skills.includes(item)) : []))}
+            return (
+              x &&
+              mentee.location === props.locvalue &&
+              (props.skills.length
+                ? props.skills.every((item) => mentee.skills.includes(item))
+                : [])
+            );
+          });
+          setFilterProductList(filtered)
         })
         .catch((error) => {
-          console.log(error);
+          Error(error.message);
         });
     };
     getMentees();
   }, []);
-  let filterProductList = filterMentee.filter((mentee) => {
-    let x;
-    if (props.Availlable) {
-      x = mentee.availableForHiring;
-    } else {
-      x = mentee;
-    }
-    return (
-      x &&
-      mentee.location === props.locvalue &&
-      (props.skills.length
-        ? props.skills.every((item) => mentee.skills.includes(item))
-        : [])
-    );
-  });
+  
   return (
     <>
       {filterProductList.map((menteeOne) => {
@@ -49,7 +50,7 @@ const FilterMentee = (props) => {
             <div
               className={`mentorPersons menteePersons position-relative`}
             >
-              <img src={img0} />
+              <img src={img0} alt="img" />
             </div>
             {/* Mentor Info */}
             <div>
@@ -70,6 +71,6 @@ const FilterMentee = (props) => {
       })}
     </>
   );
-};
+}
 
 export default FilterMentee;
