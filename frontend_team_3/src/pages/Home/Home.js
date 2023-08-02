@@ -17,10 +17,37 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { loginFailure, loginStart, loginSuccess } from "../../features/user";
 
+
 const Home = () => {
   const [input, setInput] = useState('')
   const [message, setMessage] = useState('')
 const dispatch = useDispatch();
+
+const [getOpp, setGetOpp] = useState([]);
+  // const user = useSelector((state) => state.currentUser);
+  // console.log(user.tokens);
+
+  useEffect(() => {
+    const getOpportunities = async () => {
+      // if (!user.tokens[0]) {
+      //   console.log("please login first");
+      //   dispatch(loginFailure());
+      // }
+      await axios
+        .get(`${Localhost}/api/opp/opp`, { withCredentials: true })
+        .then((res) => {
+         setGetOpp(res.data.data);
+         console.log(res.data.data);
+        })
+        .catch((error) => { 
+          console.log(error);
+        });
+      };
+      getOpportunities();
+      // ==================
+    }, []);
+ 
+
   const handleClick = async () => {
     try {
       const response = await axios.post(
@@ -54,7 +81,7 @@ const dispatch = useDispatch();
     <>
       <div id="home">
         <div className="main">
-          <div className="mentor-search" style={{ marginTop: '6%' }}>
+          <div className="mentor-search" style={{ marginTop: "6%" }}>
             <Container>
               <Row>
                 <Col>
@@ -68,25 +95,34 @@ const dispatch = useDispatch();
                         our global community
                       </p>
                       <Search details={initialDetails} />
-                      <a href='#'><p className="my-3" style={{ borderBottom: '1px dashed gainsboro' }}>Learn more about mentor and mentee</p></a>
+                      <a href="#">
+                        <p
+                          className="my-3"
+                          style={{ borderBottom: "1px dashed gainsboro" }}
+                        >
+                          Learn more about mentor and mentee
+                        </p>
+                      </a>
                     </div>
                   </div>
                 </Col>
               </Row>
             </Container>
           </div>
-          {/* <TopMentor /> */}
           <div className="recent-oppurtunities">
             <Container>
               <h2>Recent mentoring oppurtunities</h2>
-              <Row>
-                <Col lg={6}>
+              <Row>    
+                {
+                  getOpp.slice(0, 2).map((opp)=>{
+                    return(
+                      <Col lg={6} key={opp.id}>
                   <div className="mentor-opportunities">
                     <div className="ment-opp-head d-flex justify-content-between">
                       <div className="pb-3">
                         <h6>Website UI design implementaion</h6>
                         <p>
-                          get mentored By :<span>Karem mohamed</span>
+                          get mentored By :<span>{opp.owner.name}</span>
                         </p>
                       </div>
                       <div className="ment-opp-req">
@@ -96,13 +132,13 @@ const dispatch = useDispatch();
                     </div>
                     <div className="tags mb-4">
                       <Stack direction="horizontal" gap={2} className="mb-2">
-                        <Badge>Certificate</Badge>
-                        <Badge>Remote</Badge>
-                        <Badge>Open Duration</Badge>
+                        <Badge>{opp.certificate ? 'Certificate' : 'NotCertificate'}</Badge>
+                        <Badge>{opp.location}</Badge>
+                        <Badge>{opp.duration} Month</Badge>
                       </Stack>
                       <Stack direction="horizontal" gap={2}>
-                        <Badge>Paid</Badge>
-                        <Badge>Might get hired</Badge>
+                        <Badge>{opp.paid.isPaid ? 'Paid' : 'Not Paid'}</Badge>
+                        <Badge>{opp.getHired ? 'Might get hired' :'Not employable'}</Badge>
                       </Stack>
                     </div>
                     <p>
@@ -114,51 +150,22 @@ const dispatch = useDispatch();
                     </p>
                   </div>
                 </Col>
-                <Col lg={6}>
-                  <div className="mentor-opportunities">
-                    <div className="ment-opp-head d-flex justify-content-between">
-                      <div className="pb-3">
-                        <h6>Website UI design implementaion</h6>
-                        <p>
-                          get mentored By :<span>Karem mohamed</span>
-                        </p>
-                      </div>
-                      <div className="ment-opp-req ">
-                        <Button className="d-block mb-2">Request</Button>{" "}
-                        <Button className="d-block mb-2">View</Button>{" "}
-                      </div>
-                    </div>
-                    <div className="tags mb-4">
-                      <Stack direction="horizontal" gap={2} className="mb-2">
-                        <Badge>Certificate</Badge>
-                        <Badge>Remote</Badge>
-                        <Badge>Open Duration</Badge>
-                      </Stack>
-                      <Stack direction="horizontal" gap={2}>
-                        <Badge>Paid</Badge>
-                        <Badge>Might get hired</Badge>
-                      </Stack>
-                    </div>
-                    <p>
-                      Looking for someone who's intrested in project managment
-                      related tasks
-                      <br />
-                      and who's eagre to gain knowledge andhave fun during the
-                      experience !
-                    </p>
-                  </div>
-                </Col>
+                  )
+                })
+              }
               </Row>
-              <Link to="opp" className="more"><h5 className=" pt-5">More opportunities</h5></Link>
+              <Link to="opp" className="more">
+                <h5 className=" pt-5">More opportunities</h5>
+              </Link>
             </Container>
           </div>
           <div className="invite-mentor">
-            <Container>
+            <Container> 
               <Row className="flex-md-row flex-column-reverse">
                 <Col lg={5} className="ps-0 order-lg-1 ">
                   <Image src={invite} alt="Invite" />
                 </Col>
-                <Col lg={7} className=" order-lg-2">
+                <Col lg={7} className=" order-lg-2">  
                   <div className="invite-sec">
                     <h4>
                       Know someone who will <br />
@@ -168,8 +175,6 @@ const dispatch = useDispatch();
                     <div className="mail-invite">
                       <Form.Control
                         type="memaila"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
                         placeholder="Email Address"
                       />
                       <button onClick={handleClick}>Invite</button>
@@ -186,7 +191,9 @@ const dispatch = useDispatch();
                 <Row>
                   <RequestsFilter />
                 </Row>
-                <Link to='/reqs' className="more"><h5 className=" pt-5">More requests</h5></Link>
+                <Link to="/reqs" className="more">
+                  <h5 className=" pt-5">More requests</h5>
+                </Link>
               </Container>
             </div>
           </div>
@@ -264,7 +271,8 @@ const dispatch = useDispatch();
         </div>
       </div>
     </>
-  );
-}
-
-export default Home;
+      );
+    }
+    
+    export default Home;
+    

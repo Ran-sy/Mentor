@@ -7,6 +7,7 @@ import { loginFailure, loginStart } from "../../features/user";
 import { Localhost } from "../../config/api";
 import { Link } from "react-router-dom";
 import { Error, Success } from "../../components/Toast";
+import MyNavbar from "../../components/layout/navbar/Navbar";
 
 const MentoringOpportunityForm = () => {
   const [OppId, setOppId] = useState(null)
@@ -183,7 +184,7 @@ const MentoringOpportunityForm = () => {
                     <FaPlusSquare className="add-opp" />
                   </a>
                   <div className="sub-btn">
-                    <Link to={`ShowOpp/`} >
+                    <Link to={`/ShowOpp/${OppId}`} >
 
                       <input
                         className="mentor-submit"

@@ -4,7 +4,6 @@ import Comment from "./comment";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Localhost } from "../../config/api";
-import { useDispatch } from "react-redux";
 const Comments = ({ id }) => {
   const [inputComment, setInputComments] = useState("");
   const [comment, setComments] = useState([]);
@@ -24,7 +23,7 @@ const Comments = ({ id }) => {
 
   // }
 
-  const { currentUser } = useSelector((state) => state);
+  const { currentUser } = useSelector((state) => state.currentUser);
 
   function addReply(commentId, replyText) {
     let commentsWithNewReply = [...comment];

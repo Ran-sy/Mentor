@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 function SidaNav2() {
     const user = useSelector(state => state.currentUser)
     const userRole = user.role
+    console.log(userRole)
     return (
         <div className="SidaNav2 d-flex gap-4 justify-content-start align-items-start m-0 p-0 text-left ">
             <div className="container-fluid">
@@ -15,7 +16,7 @@ function SidaNav2() {
                             {" "}
                             <Link to="#" className="text-dark fw-bold text-decoration-none">
 
-                                edit profile
+                                Edit mentoring opportunity
                             </Link>
                         </li>
                         <li className="py-1">
@@ -35,28 +36,16 @@ function SidaNav2() {
                     </ul>
                 </div>{" "}
                 {/** end sidnav-top */}
+                
                 <ul className="sidnavt-bottom d-flex gap-2 myReq">
                     <Link
-                        to="/PostRequest"
+                        to="/PostOpp"
                         className="text-dark fw-bold text-decoration-none"
                     >
                         <li className="sidnavt-bottom-left">
                             {
-                                userRole ? 'My requests' : 'My oppertunities'
+                                userRole ? 'new mentoring oppertunity' : 'new mentoring request '
                             }
-                        </li>
-                    </Link>
-                </ul>
-                <ul className="sidnavt-bottom d-flex gap-2 myReq">
-                    <Link
-                        to="/PostRequest"
-                        className="text-dark fw-bold text-decoration-none"
-                    >
-                        <li className="sidnavt-bottom-left">
-                            {
-                                userRole ? 'new mentoring request' : 'new mentoring oppertunity'
-                            }
-                            
                         </li>
                     </Link>
 

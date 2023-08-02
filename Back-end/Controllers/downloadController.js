@@ -26,46 +26,6 @@ const uploadCV = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
-//////////////////////////////////////////////////////////////////////////
-
-// const uploadAV = async (req, res) => {
-//   const profileId = req.params.id;
-
-//   // const avatar = req.file?.path;
-//   const avatar = req.file ? req.file.fieldname : "";
-
-//   try {
-    
-//     const profile = await Profile.findById(profileId);
-    
-//     if (!profile) {
-//       res.status(404).send("profile not found");
-//       return;
-//     }
-//     profile.avatar = avatar; 
-//     await profile.save();
-//   // const userId = req.params.id;
-
-//   // const avatar = req.file?.path;
-
-//   // try {
-    
-//   //   const user = await Profile.findById(userId);
-    
-//   //   if (!user) {
-//   //     res.status(404).send("profile not found");
-//   //     return;
-//   //   }
-//   //   user.avatar = avatar; 
-//   //   await user.save();
-
-
-//     res.send("avatar uploaded successfully");
-//   } catch (error) {
-//     console.log("Error uploading avatar:", error);
-//     res.status(500).send("Internal Server Error");
-//   }
-// };
 const uploadAV = async (req, res) => {
   const profileId = req.params.id;
 

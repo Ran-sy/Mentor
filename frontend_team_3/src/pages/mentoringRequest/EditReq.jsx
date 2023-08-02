@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./style.css";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { MdRadioButtonChecked, MdRadioButtonUnchecked } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { Localhost } from "../../config/api";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,9 +10,10 @@ import { loginFailure, loginStart } from "../../features/user";
 import { Error, Success } from "../../components/Toast";
 import { ToastContainer } from "react-toastify";
 import { FaPlusSquare } from "react-icons/fa";
+import { useEffect } from "react";
 
-const MentorReqForm = () => {
-    const [id, setId] = useState(null)
+const EditReq = () => {
+    // const [id, setId] = useState(null)
     const [requirements, setRequirements] = useState([])
     const [paidChecked, setPaidChecked] = useState(false);
     const [helpWithCount, setHelpWithCount] = useState(0);
@@ -20,37 +21,59 @@ const MentorReqForm = () => {
     const [haveBgWith, setHaveBgWith] = useState([]);
     const [backgroundCount, setBackgroundCount] = useState(0);
     const [title, setTitle] = useState('');
-    const [experience, setExperince] = useState([]);
+    const [paid, setPaid] = useState(false);
+    const [currency, setCurrency] = useState('');
+    const [experience, setExperience] = useState([]);
     const [duration, setDuration] = useState('');
     const [values, setValues] = useState(['none', 'with'])
     const [helpWith, setHelp] = useState([]);
     const [amount, setAmount] = useState('');
     const [location, setLocation] = useState('');
-    const [description, setDescreption] = useState('');
+    const [description, setDescription] = useState('');
     const dispatch = useDispatch()
-    const body = { paidChecked, helpWithCount, helpWith, haveBgWith, requirements, requirementsCount, backgroundCount, title, description, location, amount, experience, duration }
+    const body = { paidChecked, helpWithCount, helpWith, haveBgWith, requirements, requirementsCount, backgroundCount, title, description, location, amount, experience, duration,paid: { isPaid: paid, amount, currency } }
+    const {id} = useParams()
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+    // dispatch(loginStart());
+    const editReq = async () =>{
+        try{
 
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(loginStart());
-
-        const addReq = async () => {
-            try {
-                const res = await axios.post(`${Localhost}/api/req/request`, body, {
-                    withCredentials: true,
-                });
-                setId(res.data._id)
-                console.log(res.data._id)
-                Success('added successfully')
-            } catch (e) {
-                dispatch(loginFailure());
-                console.log('unable create prfile: ' + e)
-                Error('filed add')
-            }
+            await axios.patch(`${Localhost}/api/req/request/${id}`, body, { withCredentials: true });
+        }catch(e){
+            dispatch(loginFailure());
+            console.log('unable create prfile: ' + e)
         }
-        addReq()
-    }
+      }
+    // console.log({title, description, duration, location, certificate, getHired, paid});
+    editReq()
+    };
+    const getReq = async () =>{
+        try{
+            await axios.get(`${Localhost}/api/req/request/${id}`, { withCredentials: true })
+            .then((res)=>{
+              console.log(res);
+                setTitle(res.data[0].title) 
+                setDescription(res.data[0].description)
+                setDuration(res.data[0].duration)
+                setLocation(res.data[0].location) 
+                setHelp(res.data[0].helpWith)
+                setRequirements(res.data[0].requirements)
+                setHaveBgWith(res.data[0].haveBgWith)
+                setPaid(res.data[0].paid.isPaid)
+                setAmount(res.data[0].paid.amount)
+                setCurrency(res.data[0].paid.currency)
+            })
+        }catch(e){
+            dispatch(loginFailure());
+            console.log('unable create prfile: ' + e)
+        }
+      }
+useEffect(()=>{
+  getReq()
+},[])
+console.log(helpWith);
+
     return (
         <>
             <div className="mentoring-section">
@@ -103,7 +126,7 @@ const MentorReqForm = () => {
                                     Request Description
                                 </label>
                                 <input
-                                    onChange={(e) => setDescreption(e.target.value)}
+                                    onChange={(e) => setDescription(e.target.value)}
                                     name="description"
                                     value={description}
                                     id="description"
@@ -151,7 +174,7 @@ const MentorReqForm = () => {
                                         Experince
                                     </label>
                                     <select
-                                        onChange={(e) => setExperince(e.target.value)}
+                                        onChange={(e) => setExperience(e.target.value)}
                                         name="experience"
                                         value={experience}
                                         id="select-data" className="input-data">
@@ -173,7 +196,7 @@ const MentorReqForm = () => {
                                         >
                                             <span
                                                 className="me-2"
-                                                onClick={() => setPaidChecked((prev) => !prev)}
+                                                onClick={() => setPaid((prev) => !prev)}
                                             >
                                                 Paid
                                             </span>
@@ -181,12 +204,12 @@ const MentorReqForm = () => {
                                                 type="button"
                                                 className="btn"
                                                 style={{ padding: 0, color: "#fed049" }}
-                                                onClick={() => setPaidChecked((prev) => !prev)}
+                                                onClick={() => setPaid((prev) => !prev)}
                                             >
-                                                {paidChecked ? (
-                                                    <MdRadioButtonUnchecked />
-                                                ) : (
-                                                    <MdRadioButtonChecked />
+                                                {paid ? (
+                                                  <MdRadioButtonChecked />
+                                                  ) : (
+                                                  <MdRadioButtonUnchecked />
                                                 )}
                                             </button>
                                         </label>
@@ -215,11 +238,12 @@ const MentorReqForm = () => {
                                         Currency
                                     </label>
                                     <select
-                                        onChange={(e) => e.target.value}
+                                        onChange={(e) => setCurrency(e.target.value)}
                                         name="currency"
+                                        value={currency}
                                         id="select-data" className="input-data">
                                         <option value="USD">USD</option>
-                                        <option value="EUR">EUR</option>
+                                        <option value="EGP">EUR</option>
                                     </select>
                                 </div>
                             </div>
@@ -357,11 +381,11 @@ const MentorReqForm = () => {
                                 </div>
                             </div>
                             <div className="finish-button">
-                                <Link to={`/ShowReq/${id}`}>
-                                    <button className="publish-btn" type="submit">
-                                        Publish
-                                    </button>
-                                </Link>
+                              <Link to={`/ShowReq/${id}`}>
+                                  <button className="publish-btn" type="submit" onClick={handleSubmit}>
+                                    Publish
+                                  </button>
+                              </Link>
                             </div>
                         </form>
                     </div>
@@ -370,4 +394,4 @@ const MentorReqForm = () => {
         </>
     );
 };
-export default MentorReqForm;
+export default EditReq;

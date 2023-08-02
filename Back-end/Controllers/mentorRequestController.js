@@ -19,7 +19,10 @@ const postRequests = (req, res) => {
 
 // getRequests////////////////////////
 const getRequests = (req, res) => {
-  Request.find({})
+  Request.find({}).populate({
+    path: "owner",
+    select: "-tokens",
+  })
     .then((request) => {
       if (!request) {
         return res.status(404).send("Unable to find user");
