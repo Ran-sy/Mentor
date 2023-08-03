@@ -72,7 +72,6 @@ userSchema.pre("save", async function () {
     const salt = await bcryptjs.genSalt(8);
     this.password = await bcryptjs.hash(this.password, salt);
   }
-  next();
 });
 
 userSchema.methods.sendEmail = function sendEmail(email, title, text) {

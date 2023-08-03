@@ -40,7 +40,13 @@ export const Login = (props) => {
           { withCredentials: true }
         );
         dispatch(loginSuccess(res.data));
-        navigate("/Profiles");
+        console.log(res.data)
+        if(res.data.profile){
+          navigate("/edituser");
+        }
+        else{
+          navigate("/Profiles");
+        }
         Success('login succufully')
       } catch (err) {
         dispatch(loginFailure());

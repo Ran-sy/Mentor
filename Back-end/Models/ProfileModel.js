@@ -34,8 +34,12 @@ const ProfileSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
-    avatar: {
+    avatar1: {
       type: String,
+      default:"",
+    },
+    avatar:{
+      type:String,
     },
 
     yearsOfExperence: {
