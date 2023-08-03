@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import "./style.css";
 import { FaPlusSquare } from "react-icons/fa";
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import axios from "axios";
-import { loginFailure, loginStart } from "../../features/user";
 import { Localhost } from "../../config/api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Error, Success } from "../../components/Toast";
-import MyNavbar from "../../components/layout/navbar/Navbar";
 
 const MentoringOpportunityForm = () => {
+  const navigate = useNavigate()
+  const user = useSelector(state=> state.currentUser)
   const [OppId, setOppId] = useState(null)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -21,31 +21,34 @@ const MentoringOpportunityForm = () => {
   const [amount, setAmount] = useState(0)
   const [currency, setCurrency] = useState('')
   const [responsibilities, setResponsibilities] = useState('')
+  const [responsibilitiesCount, setResponsibilitiesCount] = useState(0)
+  const [requirementsCount, setRequirementsCount] = useState(0)
+  const [expOutcomeCount, setExpOutcomeCount] = useState(0)
   const [requirements, setRequirements] = useState('')
   const [expOutcome, setExpOutcome] = useState('')
-  const dispatch = useDispatch()
-  const user = useSelector(state => state.currentUser)
-  console.log(user);
+  // const user = useSelector(state => state.currentUser)
 
-  const body = { title: title, description, duration, location, certificate, getHired, paid: { isPaid: paid, amount, currency }, responsibilities, requirements, expOutcome }
+  const body = { title, description, duration, location, certificate, getHired, 
+    paid: { isPaid: paid, amount, currency }, responsibilities, requirements, expOutcome }
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginStart());
-    const addNewOPP = async () => {
-      await axios
-        .post(`${Localhost}/api/opp/opp`, body, { withCredentials: true })
+    if(user?.role === "mentor"){
+      const addNewOPP = async () => {
+        await axios.post(`${Localhost}/api/opp/opp`, body, { withCredentials: true })
         .then((res) => {
           setOppId(res.data._id);
           Success("ADD OPPERTUNITY SUCCESSFULLY");
-        })
-        .catch((error) => {
-          dispatch(loginFailure());
-          Error("FAILED TO ADD OPPERTUNITY" + error);
+          navigate(`/showOpp/${res.data._id}`)
+        }).catch((error) => {
+          Error("FAILED TO ADD OPPERTUNITY" + error.message);
         });
+      }
+      addNewOPP()
+    }else{
+      Error("YOU NEED TO BE A MENTOR!!")
     }
-    addNewOPP()
   };
   return (
     <div className="parent">
@@ -96,7 +99,6 @@ const MentoringOpportunityForm = () => {
                     <select className="mentor-oppor-input1 mentor-select1 border-bottom border-warning-subtle border-2" onChange={(e) => setCertificate(e.target.value)}>
                       <option value={true}>Awarded</option>
                       <option value={false}>NOT Awarded</option>
-                      <option value={true}>Awarded</option>
                     </select>
                     <label className="mentor-oppor-label1">Duration</label>
                     <select className="mentor-oppor-input1 mentor-select2 border-bottom border-warning-subtle border-2" onChange={(e) => setDuration(e.target.value)}>
@@ -147,52 +149,90 @@ const MentoringOpportunityForm = () => {
                       </select>
                     </div>
                   </div>
+                  <div>
                   <label className="mentor-oppor-label">Responsibilities</label>
-                  <input
-                    className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
-                    type="text"
-                    placeholder="example"
-                    onChange={(e) => setResponsibilities(e.target.value)}
-
-                  />
-                  <a href="#">
+                  <input className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2" type="text" id="responsibilities"
+                    placeholder="example" name="responsibilities"
+                    onChange={(e) => setResponsibilities(prev=> { prev[0] = e.target.value; return [...prev] })} />
+                  <button  className="btn" style={{ color: "#007580", padding: 0 }}
+                  onClick={() => setResponsibilitiesCount((prev) => prev + 1)}>
                     {/* <i className="fas fa-plus-square"></i> */}
                     <FaPlusSquare className="add-opp" />
-                  </a>
+                  </button>
+                  <div>
+                    {Array.from({ length: responsibilitiesCount }, (_, i) => (
+                        <div key={i} className="d-flex flex-column">
+                            <input
+                                onChange={(e) => 
+                                  setResponsibilities(e.target.value)}
+                                name="responsibilities"
+                                id="responsibilities"
+                                type="text"
+                                className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
+                                placeholder="example"
+                            />
+                        </div>
+                    ))}
+                  </div>
+                  </div>
+
+                  <div>
                   <label className="mentor-oppor-label">Requirements</label>
-                  <input
-                    className="mentor-oppor-input1 mentor-input5 border-bottom border-warning-subtle border-2"
-                    type="text"
-                    placeholder="example"
-                    onChange={(e) => setRequirements(e.target.value)}
-
-                  />
-                  <a href="#">
-                    {/* <i className="fas fa-plus-square"></i> */}
+                  <input className="mentor-oppor-input1 mentor-input5 border-bottom border-warning-subtle border-2" type="text" placeholder="example"
+                  id="requirements" name="requirements"
+                  onChange={(e) => setRequirements(prev=> { prev[0] = e.target.value; return [...prev] })} />
+                  <button  className="btn" style={{ color: "#007580", padding: 0 }}
+                  onClick={() => setRequirementsCount((prev) => prev + 1)}>
                     <FaPlusSquare className="add-opp" />
-                  </a>
+                  </button>
+                  <div>
+                    {Array.from({ length: requirementsCount }, (_, i) => (
+                        <div key={i} className="d-flex flex-column">
+                            <input
+                                onChange={(e) => 
+                                  setRequirements(e.target.value)}
+                                name="responsibilities"
+                                id="responsibilities"
+                                type="text"
+                                className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
+                                placeholder="example"
+                            />
+                        </div>
+                    ))}
+                  </div>
+                  </div>
+                  <div>
                   <label className="mentor-oppor-label">Expected Outcome</label>
-                  <input
-                    className="mentor-oppor-input1 mentor-input6 border-bottom border-warning-subtle border-2"
-                    type="text"
-                    placeholder="example"
-                    onChange={(e) => setExpOutcome(e.target.value)}
-
-                  />
-                  <a href="#">
-                    {/* <i className="fas fa-plus-square"></i> */}
+                  <input className="mentor-oppor-input1 mentor-input6 border-bottom border-warning-subtle border-2" type="text" placeholder="example"
+                  id="expOutcome" name="expOutcome"
+                  onChange={(e) => setExpOutcome(prev=> { prev[0] = e.target.value; return [...prev] })} />
+                  <button  className="btn" style={{ color: "#007580", padding: 0 }}
+                  onClick={() => setExpOutcomeCount((prev) => prev + 1)}>
                     <FaPlusSquare className="add-opp" />
-                  </a>
+                  </button>
+                  <div>
+                    {Array.from({ length: expOutcomeCount }, (_, i) => (
+                        <div key={i} className="d-flex flex-column">
+                            <input
+                                onChange={(e) => 
+                                  setExpOutcome(e.target.value)}
+                                name="expOutcome"
+                                id="expOutcome"
+                                type="text"
+                                className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
+                                placeholder="example"
+                            />
+                        </div>
+                    ))}
+                  </div>
+                  </div>
                   <div className="sub-btn">
-                    <Link to={`/ShowOpp/${OppId}`} >
-
                       <input
                         className="mentor-submit"
                         type="submit"
                         value="Publish"
                         onClick={handleSubmit}
                       />
-                    </Link>
                   </div>
                 </form>
               </div>

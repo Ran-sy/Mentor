@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import "./style.css";
+import { locationList, durationList, currencyList } from "../../components/data/data";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { MdRadioButtonChecked, MdRadioButtonUnchecked } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector} from 'react-redux';
 import axios from "axios";
 import { Localhost } from "../../config/api";
-import { useDispatch, useSelector } from "react-redux";
-import { loginFailure, loginStart } from "../../features/user";
 import { Error, Success } from "../../components/Toast";
-import { ToastContainer } from "react-toastify";
 import { FaPlusSquare } from "react-icons/fa";
 
 const MentorReqForm = () => {
+    const navigate = useNavigate()
+    const user = useSelector(state=> state.currentUser)
     const [id, setId] = useState(null)
     const [requirements, setRequirements] = useState([])
     const [paidChecked, setPaidChecked] = useState(false);
@@ -25,31 +26,32 @@ const MentorReqForm = () => {
     const [values, setValues] = useState(['none', 'with'])
     const [helpWith, setHelp] = useState([]);
     const [amount, setAmount] = useState('');
-    const [location, setLocation] = useState('');
+    const [location, setLocation] = useState(locationList[0].value);
+    const [currency, setCurrency] = useState(currencyList[0].value)
     const [description, setDescreption] = useState('');
-    const dispatch = useDispatch()
-    const body = { paidChecked, helpWithCount, helpWith, haveBgWith, requirements, requirementsCount, backgroundCount, title, description, location, amount, experience, duration }
+    const body = { title: title, description: description, location: location, helpWith: helpWith, haveBgWith: [...haveBgWith], requirements: [...requirements], 
+        paid: { isPaid: paidChecked, amount, currency }, experience: [...experience], duration }
 
 
     const handleSubmit = (e) => {
+        console.log(body)
+        console.log({ title: title, description: description, location: location, helpWith: [...helpWith], haveBgWith: [...haveBgWith], requirements: [...requirements], 
+            paid: { isPaid: paidChecked, amount, currency }, experience: experience, duration })
         e.preventDefault();
-        dispatch(loginStart());
-
-        const addReq = async () => {
-            try {
-                const res = await axios.post(`${Localhost}/api/req/request`, body, {
+        if(user?.role === "mentee"){
+            const addReq = async () => {
+                await axios.post(`${Localhost}/api/req/request`, body, {
                     withCredentials: true,
-                });
-                setId(res.data._id)
-                console.log(res.data._id)
-                Success('added successfully')
-            } catch (e) {
-                dispatch(loginFailure());
-                console.log('unable create prfile: ' + e)
-                Error('filed add')
+                }).then(res=>{
+                    setId(res.data._id)
+                    Success('added successfully')
+                    navigate(`/showOpp/${res.data._id}`)
+                }).catch(e=>Error('Unable to create request '+ e.message))
             }
+            addReq()
+        }else{
+            Error('YOU NEED TO BE A MENTEE!!')
         }
-        addReq()
     }
     return (
         <>
@@ -60,17 +62,13 @@ const MentorReqForm = () => {
                         style={{ gap: "5px" }}
                     >
                         <h5>
-                            <Link to={`/ShowReq/${id}`}>View Mentoring Request</Link>
+                            <Link to='/reqs'>View Mentoring Request</Link>
                         </h5>
-                        <h5>Settings</h5>
+                        <h5><Link to='/mentorreqapp'>Settings</Link></h5>
                         <h5>Terms and Privacy</h5>
                         <div>
-                            <h5 className="d-inline-block mt-4">Post a new opportunity</h5>
-                            <Link
-                                className="btn"
-                                style={{ color: "#007580" }}
-                                to={'/PostOpp'}
-                            >
+                            <Link className="btn" style={{ color: "#007580" }} to="#" >
+                                <h5 className="d-inline-block mt-4">Post a new request</h5>
                                 <FaPlusSquare className="add-opp" />
                             </Link>
                         </div>
@@ -83,7 +81,7 @@ const MentorReqForm = () => {
                         </div>
                     </div>
                     <div className="main-content">
-                        <form onSubmit={handleSubmit} method="POST" >
+                        <form >
                             <div className="main-data">
                                 <label htmlFor="request-title" className="label-title ">
                                     Mentoring Request Title
@@ -114,33 +112,23 @@ const MentorReqForm = () => {
                             </div>
                             <div className="select-diagram">
                                 <div className="main-data-select">
-                                    <label
-                                        htmlFor="select-data1"
-                                        className="label-title name-input"
-                                    >
-                                        Location
-                                    </label>
+                                    <label htmlFor="select-data1" className="label-title name-input" > Location </label>
                                     <select onChange={(e) => setLocation(e.target.value)}
-                                        name="location"
-                                        value={location}
-                                        id="select-data" className="input-data">
-                                        <option value="Remote">Remote</option>
-                                        <option value="Onsite">Onsite</option>
+                                    name="location" id="select-data" className="input-data">
+                                        {locationList?.map(list =>
+                                            <option value={list.value}>{list.label}</option>
+                                        )}
                                     </select>
                                 </div>
                                 <div className="main-data-select">
                                     <label htmlFor="select-data2" className="label-title">
                                         Duration
                                     </label>
-                                    <select
-                                        onChange={(e) => setDuration(e.target.value)}
-                                        name="duration"
-                                        value={duration}
-                                        id="select-data" className="input-data">
-                                        <option value="3">3 months</option>
-                                        <option value="6">6 months</option>
-                                        <option value="9">9 months</option>
-                                        <option value="12">12 months</option>
+                                    <select onChange={(e) => setDuration(e.target.value)}
+                                    name="duration" id="select-data" className="input-data">
+                                        {durationList?.map(list =>
+                                            <option value={list.value}>{list.label}</option>
+                                        )}
                                     </select>
                                 </div>
                                 <div className="main-data-select">
@@ -157,7 +145,7 @@ const MentorReqForm = () => {
                                         id="select-data" className="input-data">
                                         {
                                             values.map((item) => (
-                                                <option>{item}</option>
+                                                <option value={item}>{item}</option>
                                             ))
                                         }
                                     </select>
@@ -214,12 +202,11 @@ const MentorReqForm = () => {
                                     >
                                         Currency
                                     </label>
-                                    <select
-                                        onChange={(e) => e.target.value}
-                                        name="currency"
-                                        id="select-data" className="input-data">
-                                        <option value="USD">USD</option>
-                                        <option value="EUR">EUR</option>
+                                    <select onChange={(e) => setCurrency(e.target.value)}
+                                    name="currency" id="select-data" className="input-data">
+                                        {currencyList?.map(list =>
+                                            <option value={list.value}>{list.label}</option>
+                                        )}
                                     </select>
                                 </div>
                             </div>
@@ -233,7 +220,7 @@ const MentorReqForm = () => {
                                     style={{ gap: "6px", alignItems: "flex-start" }}
                                 >
                                     <input
-                                        onChange={(e) => setHelp(e.target.value)}
+                                        onChange={(e) => setHelp(prev=> { prev[0] = e.target.value; return [...prev] })}
                                         name="helpWith"
                                         value={helpWith}
                                         id="help-with"
@@ -257,7 +244,7 @@ const MentorReqForm = () => {
                                                 Looking for help with
                                             </label>
                                             <input
-                                                onChange={(e) => e.target.value}
+                                                onChange={(e) => setHelp(e.target.value)}
                                                 name="helpWith"
                                                 id="help-with"
                                                 type="text"
@@ -277,7 +264,7 @@ const MentorReqForm = () => {
                                     style={{ gap: "6px", alignItems: "flex-start" }}
                                 >
                                     <input
-                                        onChange={(e) => setRequirements(e.target.value)}
+                                        onChange={(e) => setRequirements(prev=> { prev[0] = e.target.value; return [...prev] })}
                                         name="requirements"
                                         id="requirements"
                                         value={requirements}
@@ -301,7 +288,7 @@ const MentorReqForm = () => {
                                                 Requirements
                                             </label>
                                             <input
-                                                onChange={(e) => (e.target.value)}
+                                                onChange={(e) => setRequirements(e.target.value)}
                                                 name="requirements"
                                                 id="requirements"
                                                 type="text"
@@ -345,7 +332,7 @@ const MentorReqForm = () => {
                                                 I have background
                                             </label>
                                             <input
-                                                onChange={(e) => (e.target.value)}
+                                                onChange={(e) => setHaveBgWith(e.target.value)}
                                                 name="haveBgWith"
                                                 id="background"
                                                 type="text"
@@ -357,11 +344,9 @@ const MentorReqForm = () => {
                                 </div>
                             </div>
                             <div className="finish-button">
-                                <Link to={`/ShowReq/${id}`}>
-                                    <button className="publish-btn" type="submit">
-                                        Publish
-                                    </button>
-                                </Link>
+                                <input className="publish-btn" 
+                                type="submit" value="Publish"
+                                onClick={handleSubmit} />
                             </div>
                         </form>
                     </div>

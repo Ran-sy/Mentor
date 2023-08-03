@@ -94,7 +94,6 @@ const PatchMentor = async (req, res) => {
     const _id = req.params.id;
     const mentor = await Profile.findByIdAndUpdate(_id, {
       ...req.body,
-      avatar: req.file ? req.file.filename : "",
     }, {
       new: true,
       runValidators: true,

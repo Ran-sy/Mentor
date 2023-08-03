@@ -26,6 +26,7 @@ const uploadCV = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
+
 const uploadAV = async (req, res) => {
   const profileId = req.params.id;
 
@@ -45,11 +46,10 @@ const uploadAV = async (req, res) => {
       return;
     }
 
-    profile.avatar = avatarPath; 
-    await profile.save(); 
+    profile.avatar = avatarPath;
+    await profile.save(); // Save the updated profile with the avatar URL
     res.send({ avatarPath });
     
-    // res.send("Avatar uploaded successfully");
   } catch (error) {
     console.log("Error uploading avatar:", error);
     res.status(500).send("Internal Server Error");

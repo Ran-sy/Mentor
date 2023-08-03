@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 function SidaNav2() {
     const user = useSelector(state => state.currentUser)
-    const userRole = user.role
+    const userRole = user.role === 'mentee'
     return (
         <div className="SidaNav2 d-flex gap-4 justify-content-start align-items-start m-0 p-0 text-left ">
             <div className="container-fluid">
@@ -13,14 +13,14 @@ function SidaNav2() {
                     <ul>
                         <li className="py-1 ">
                             {" "}
-                            <Link to="#" className="text-dark fw-bold text-decoration-none">
+                            <Link to="/edituser" className="text-dark fw-bold text-decoration-none">
 
                                 edit profile
                             </Link>
                         </li>
                         <li className="py-1">
                             {" "}
-                            <Link to="#" className="text-dark fw-bold text-decoration-none">
+                            <Link to={userRole ? '/mentorreqapp' : '/mentoroppapp'} className="text-dark fw-bold text-decoration-none">
                                 {" "}
                                 settings{" "}
                             </Link>{" "}
@@ -37,7 +37,7 @@ function SidaNav2() {
                 {/** end sidnav-top */}
                 <ul className="sidnavt-bottom d-flex gap-2 myReq">
                     <Link
-                        to="/PostRequest"
+                        to = {userRole ? '/mentorreqapp' : '/mentoroppapp'} 
                         className="text-dark fw-bold text-decoration-none"
                     >
                         <li className="sidnavt-bottom-left">
@@ -49,7 +49,7 @@ function SidaNav2() {
                 </ul>
                 <ul className="sidnavt-bottom d-flex gap-2 myReq">
                     <Link
-                        to="/PostRequest"
+                        to = {userRole ? "/PostRequest" : "/PostOpp"} 
                         className="text-dark fw-bold text-decoration-none"
                     >
                         <li className="sidnavt-bottom-left">
@@ -60,7 +60,7 @@ function SidaNav2() {
                         </li>
                     </Link>
 
-                    <Link to="#" className="text-dark fw-bold text-decoration-none">
+                    <Link to = {userRole ? "/PostRequest" : "/PostOpp"}  className="text-dark fw-bold text-decoration-none">
                         <li className="sidnavt-bottom-Right flex-shrink-1 bg-blue">+</li>{" "}
                     </Link>
                 </ul>

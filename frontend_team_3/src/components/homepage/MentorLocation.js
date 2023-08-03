@@ -106,7 +106,7 @@ function MentorInLocation() {
                     </div>
 
                     <div className="mentor-details">
-                      <h4>{men.user.name}</h4>
+                      <h4>{men.user?.name || "unknown"}</h4>
                       <p>{men.designation}</p>
                     </div>
                   </div>

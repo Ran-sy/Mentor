@@ -19,7 +19,7 @@ const auth = (req, res, next) => {
 
       const profile = await Profile.findOne({ user: user._id });
       if (profile) {
-        req.Profile = profile
+        req.profile = profile
       }
       next();
     });
