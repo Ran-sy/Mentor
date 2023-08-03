@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { comments } from "../data/data";
+// import { comments } from "../data/data";
 import Comment from "./comment";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -10,20 +10,11 @@ const Comments = ({ id }) => {
   const [replie, setReplies] = useState([]);
 
   // do add reply comment
-  const merge = async () => {
-    const updatedComments = await comment?.map((com) => {
-      const comReplies = replie.filter((rep) => rep.commentId === com._id);
-      if (comReplies.length > 0) {
-        com.children = comReplies;
-      }
-      return com;
-    });
-    setComments([...updatedComments]);
-  };
+
 
   // }
 
-  const { currentUser } = useSelector((state) => state.currentUser);
+  const { currentUser } = useSelector((state) => state);
 
   function addReply(commentId, replyText) {
     let commentsWithNewReply = [...comment];
@@ -92,22 +83,26 @@ const Comments = ({ id }) => {
   }, []);
 
   const handleSubmit = async () => {
-    console.log(comment);
-
+    
     try {
-      await axios.post(
+     const res=await axios.post(
         `${Localhost}/api/v1/comment/${id}`,
         {
           desc: inputComment,
         },
         { withCredentials: true }
       );
-      setComments([...comment, newComment(inputComment)]);
+      res.data["children"] = [];
+      setComments(comment=>[...comment,res.data]);
       setInputComments("");
+      
+      console.log(res.data);
+
     } catch (error) {
       console.log(error.message);
     }
   };
+
   return (
     <div className="px-5 comments mt-4">
       {/* comment list  */}

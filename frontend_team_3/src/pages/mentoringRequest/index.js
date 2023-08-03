@@ -45,7 +45,7 @@ const MentorReqForm = () => {
                 }).then(res=>{
                     setId(res.data._id)
                     Success('added successfully')
-                    navigate(`/showOpp/${res.data._id}`)
+                    navigate(`/ShowReq/${res.data._id}`);
                 }).catch(e=>Error('Unable to create request '+ e.message))
             }
             addReq()
@@ -53,7 +53,7 @@ const MentorReqForm = () => {
             Error('YOU NEED TO BE A MENTEE!!')
         }
     }
-    return (
+    return ( 
         <>
             <div className="mentoring-section">
                 <div className="left-col">

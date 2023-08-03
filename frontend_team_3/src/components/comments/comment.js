@@ -7,7 +7,6 @@ const Comment = ({ com, user, rep, addReply ,id}) => {
   const [showReplyBox, setShowReplyBox] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const parentEle = useRef(null);
-
   const handleMouseOver = () => {
     setIsHovering(true);
   };
