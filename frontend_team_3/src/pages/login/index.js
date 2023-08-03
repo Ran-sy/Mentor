@@ -43,10 +43,10 @@ export const Login = (props) => {
         );
         dispatch(loginSuccess(res.data));
         console.log(res.data)
-        if(res.data.profile){
+        if (res.data.profile) {
           navigate("/edituser");
         }
-        else{
+        else {
           navigate("/Profiles");
         }
         Success('login succufully')
@@ -130,8 +130,8 @@ export const Login = (props) => {
 
   return (
     <div>
-      <Logo/>
-      <div className="all">
+      <Logo />
+      <div className="all1">
         <div className="auth-form-container item">
           <h3>Login</h3>
           <form className="login-form d-flex flex-column form" onSubmit={handleSubmit}>

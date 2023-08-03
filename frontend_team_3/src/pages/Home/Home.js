@@ -16,53 +16,45 @@ import { Localhost } from "../../config/api";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { loginFailure, loginStart, loginSuccess } from "../../features/user";
+import Logo from "../../components/logo";
 
 
 const Home = () => {
   const [input, setInput] = useState('')
   const [message, setMessage] = useState('')
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-const [getOpp, setGetOpp] = useState([]);
-  // const user = useSelector((state) => state.currentUser);
-  // console.log(user.tokens);
+  const [getOpp, setGetOpp] = useState([]);
 
   useEffect(() => {
     const getOpportunities = async () => {
-      // if (!user.tokens[0]) {
-      //   console.log("please login first");
-      //   dispatch(loginFailure());
-      // }
       await axios
         .get(`${Localhost}/api/opp/opp`, { withCredentials: true })
         .then((res) => {
-         setGetOpp(res.data.data);
-         console.log(res.data.data);
+          setGetOpp(res.data.data);
+          console.log(res.data.data);
         })
-        .catch((error) => { 
+        .catch((error) => {
           console.log(error);
         });
-      };
-      getOpportunities();
-      // ==================
-    }, []);
- 
+    };
+    getOpportunities();
+    // ==================
+  }, []);
+
 
   const handleClick = async () => {
     try {
       const response = await axios.post(
         `${Localhost}/api/v1/subscribe`,
         { email: input },
-        // {
-        //   // withCredentials: true,
-        // }
       );
       setMessage(response.data);
     } catch (error) {
       setMessage('Failed to send email initaivion');
     }
   }
-  
+
   const getUser = async () => {
     try {
       const url = `http://localhost:5000/auth/login/success`;
@@ -79,6 +71,22 @@ const [getOpp, setGetOpp] = useState([]);
 
   return (
     <>
+      <nav className="navbar">
+        <Logo />
+        <ul>
+          <li>
+            <button>
+              <Link to={'/register'}>Sign up</Link>
+            </button>
+          </li>
+          <li>
+            <button>
+              <Link to={'/login'}>Login</Link>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
       <div id="home">
         <div className="main">
           <div className="mentor-search" style={{ marginTop: "6%" }}>
@@ -112,47 +120,47 @@ const [getOpp, setGetOpp] = useState([]);
           <div className="recent-oppurtunities">
             <Container>
               <h2>Recent mentoring oppurtunities</h2>
-              <Row>    
+              <Row>
                 {
-                  getOpp.slice(0, 2).map((opp)=>{
-                    return(
+                  getOpp.slice(0, 2).map((opp) => {
+                    return (
                       <Col lg={6} key={opp.id}>
-                  <div className="mentor-opportunities">
-                    <div className="ment-opp-head d-flex justify-content-between">
-                      <div className="pb-3">
-                        <h6>Website UI design implementaion</h6>
-                        <p>
-                          get mentored By :<span>{opp.owner.name}</span>
-                        </p>
-                      </div>
-                      <div className="ment-opp-req">
-                        <Button className="d-block mb-2">Request</Button>{" "}
-                        <Button className="d-block mb-2">View</Button>{" "}
-                      </div>
-                    </div>
-                    <div className="tags mb-4">
-                      <Stack direction="horizontal" gap={2} className="mb-2">
-                        <Badge>{opp.certificate ? 'Certificate' : 'NotCertificate'}</Badge>
-                        <Badge>{opp.location}</Badge>
-                        <Badge>{opp.duration} Month</Badge>
-                      </Stack>
-                      <Stack direction="horizontal" gap={2}>
-                        <Badge>{opp.paid.isPaid ? 'Paid' : 'Not Paid'}</Badge>
-                        <Badge>{opp.getHired ? 'Might get hired' :'Not employable'}</Badge>
-                      </Stack>
-                    </div>
-                    <p>
-                      Looking for someone who's intrested in project managment
-                      related tasks
-                      <br />
-                      and who's eagre to gain knowledge andhave fun during the
-                      experience !
-                    </p>
-                  </div>
-                </Col>
-                  )
-                })
-              }
+                        <div className="mentor-opportunities">
+                          <div className="ment-opp-head d-flex justify-content-between">
+                            <div className="pb-3">
+                              <h6>Website UI design implementaion</h6>
+                              <p>
+                                get mentored By :<span>{opp.owner.name}</span>
+                              </p>
+                            </div>
+                            <div className="ment-opp-req">
+                              <Button className="d-block mb-2">Request</Button>{" "}
+                              <Button className="d-block mb-2">View</Button>{" "}
+                            </div>
+                          </div>
+                          <div className="tags mb-4">
+                            <Stack direction="horizontal" gap={2} className="mb-2">
+                              <Badge>{opp.certificate ? 'Certificate' : 'NotCertificate'}</Badge>
+                              <Badge>{opp.location}</Badge>
+                              <Badge>{opp.duration} Month</Badge>
+                            </Stack>
+                            <Stack direction="horizontal" gap={2}>
+                              <Badge>{opp.paid.isPaid ? 'Paid' : 'Not Paid'}</Badge>
+                              <Badge>{opp.getHired ? 'Might get hired' : 'Not employable'}</Badge>
+                            </Stack>
+                          </div>
+                          <p>
+                            Looking for someone who's intrested in project managment
+                            related tasks
+                            <br />
+                            and who's eagre to gain knowledge andhave fun during the
+                            experience !
+                          </p>
+                        </div>
+                      </Col>
+                    )
+                  })
+                }
               </Row>
               <Link to="opp" className="more">
                 <h5 className=" pt-5">More opportunities</h5>
@@ -160,12 +168,12 @@ const [getOpp, setGetOpp] = useState([]);
             </Container>
           </div>
           <div className="invite-mentor">
-            <Container> 
+            <Container>
               <Row className="flex-md-row flex-column-reverse">
                 <Col lg={5} className="ps-0 order-lg-1 ">
                   <Image src={invite} alt="Invite" />
                 </Col>
-                <Col lg={7} className=" order-lg-2">  
+                <Col lg={7} className=" order-lg-2">
                   <div className="invite-sec">
                     <h4>
                       Know someone who will <br />
@@ -271,8 +279,7 @@ const [getOpp, setGetOpp] = useState([]);
         </div>
       </div>
     </>
-      );
-    }
-    
-    export default Home;
-    
+  );
+}
+
+export default Home;
