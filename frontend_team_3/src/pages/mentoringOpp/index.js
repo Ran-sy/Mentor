@@ -28,8 +28,7 @@ const MentoringOpportunityForm = () => {
   const [expOutcome, setExpOutcome] = useState('')
   // const user = useSelector(state => state.currentUser)
 
-  const body = { title, description, duration, location, certificate, getHired, 
-    paid: { isPaid: paid, amount, currency }, responsibilities, requirements, expOutcome }
+  const body = { title, description, duration, location, certificate, getHired, responsibilities, requirements, expOutcome, paid: { isPaid: paid, amount, currency } }
 
 
   const handleSubmit = (e) => {
@@ -62,11 +61,11 @@ const MentoringOpportunityForm = () => {
             <span>Terms and Privacy</span>
             <br />
             <br />
+              <Link to="/">
             <span>Post a new opportunity &nbsp;
-              <a href="#">
                 <FaPlusSquare className="add-opp" />
-              </a>
             </span>
+              </Link>
           </div>
           <div className="div2 col-lg-10">
             <section className="mentoring-opportunity">
@@ -153,7 +152,11 @@ const MentoringOpportunityForm = () => {
                   <label className="mentor-oppor-label">Responsibilities</label>
                   <input className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2" type="text" id="responsibilities"
                     placeholder="example" name="responsibilities"
-                    onChange={(e) => setResponsibilities(prev=> { prev[0] = e.target.value; return [...prev] })} />
+                    onChange={(e) => setResponsibilities(prev=>{
+                      let arr = [...prev];
+                      arr[0] = e.target.value;
+                      return arr
+                    })} />
                   <button  className="btn" style={{ color: "#007580", padding: 0 }}
                   onClick={() => setResponsibilitiesCount((prev) => prev + 1)}>
                     {/* <i className="fas fa-plus-square"></i> */}
@@ -164,7 +167,11 @@ const MentoringOpportunityForm = () => {
                         <div key={i} className="d-flex flex-column">
                             <input
                                 onChange={(e) => 
-                                  setResponsibilities(e.target.value)}
+                                  setResponsibilities(prev=>{
+                                    let arr = [...prev];
+                                    arr[i] = e.target.value;
+                                    return arr
+                                  })}
                                 name="responsibilities"
                                 id="responsibilities"
                                 type="text"
@@ -180,7 +187,11 @@ const MentoringOpportunityForm = () => {
                   <label className="mentor-oppor-label">Requirements</label>
                   <input className="mentor-oppor-input1 mentor-input5 border-bottom border-warning-subtle border-2" type="text" placeholder="example"
                   id="requirements" name="requirements"
-                  onChange={(e) => setRequirements(prev=> { prev[0] = e.target.value; return [...prev] })} />
+                  onChange={(e) => setRequirements(prev=>{
+                    let arr = [...prev];
+                    arr[0] = e.target.value;
+                    return arr
+                  })} />
                   <button  className="btn" style={{ color: "#007580", padding: 0 }}
                   onClick={() => setRequirementsCount((prev) => prev + 1)}>
                     <FaPlusSquare className="add-opp" />
@@ -190,7 +201,11 @@ const MentoringOpportunityForm = () => {
                         <div key={i} className="d-flex flex-column">
                             <input
                                 onChange={(e) => 
-                                  setRequirements(e.target.value)}
+                                  setRequirements(prev=>{
+                                    let arr = [...prev];
+                                    arr[i] = e.target.value;
+                                    return arr
+                                  })}
                                 name="responsibilities"
                                 id="responsibilities"
                                 type="text"
@@ -205,7 +220,11 @@ const MentoringOpportunityForm = () => {
                   <label className="mentor-oppor-label">Expected Outcome</label>
                   <input className="mentor-oppor-input1 mentor-input6 border-bottom border-warning-subtle border-2" type="text" placeholder="example"
                   id="expOutcome" name="expOutcome"
-                  onChange={(e) => setExpOutcome(prev=> { prev[0] = e.target.value; return [...prev] })} />
+                  onChange={(e) => setExpOutcome(prev=>{
+                    let arr = [...prev];
+                    arr[0] = e.target.value;
+                    return arr
+                  })} />
                   <button  className="btn" style={{ color: "#007580", padding: 0 }}
                   onClick={() => setExpOutcomeCount((prev) => prev + 1)}>
                     <FaPlusSquare className="add-opp" />
@@ -215,7 +234,11 @@ const MentoringOpportunityForm = () => {
                         <div key={i} className="d-flex flex-column">
                             <input
                                 onChange={(e) => 
-                                  setExpOutcome(e.target.value)}
+                                  setExpOutcome(prev=>{
+                                    let arr = [...prev];
+                                    arr[i] = e.target.value;
+                                    return arr
+                                  })}
                                 name="expOutcome"
                                 id="expOutcome"
                                 type="text"

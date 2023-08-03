@@ -46,6 +46,8 @@ const login = async function (req, res, next) {
       },
       "secretKey"
     );
+    user.tokens=user.tokens.concat(token);
+    user.save(); 
     const { password, ...info } = user._doc;
     res
       .cookie("accessToken", token, {

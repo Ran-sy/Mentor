@@ -28,6 +28,7 @@ const UpdateProfile = () => {
     const user = useSelector(state=> state.currentUser)
     const userId = user?._id;
     const userRole = user?.role;
+    const baseURL = "http://localhost:5000/"
     const [data, setData]= useState({})
     const [editedData, setEditedData] = useState({ avatar: ""}); 
     // const [editedSkills, setEditedSkills] = useState([]);
@@ -40,6 +41,9 @@ const UpdateProfile = () => {
 //////////////////////////////////////////////////////FETCH DATA 
 useEffect(() => {
     
+    const storedAvatar = localStorage.getItem("avatar");
+    if (storedAvatar) { setEditedData((prevData) => ({ ...prevData, avatar: storedAvatar }));}
+
     const fetchData = async () => {
         await axios.get(`http://localhost:5000/api/v1/mentorProfile/user/${userId}`)
         .then(async response=>{
@@ -49,11 +53,13 @@ useEffect(() => {
 
         ////////////////////////Upload Part////////////////////////////////////
         if (editedData && editedData.avatar && (editedData.avatar instanceof Blob || editedData.avatar instanceof File)) {
-            setAvatarURL(URL.createObjectURL(editedData.avatar));
+            setAvatarURL(baseURL+ URL.createObjectURL(editedData.avatar))
+            .then(()=>console.log(avatarURL))
         } else if (editedData && editedData.avatar) {
         // If editedData.avatar is defined but not a Blob or File, attempt to replace backslashes with forward slashes
         const sanitizedAvatar = editedData.avatar.replace(/\\/g, "/");
-            setAvatarURL(URL.createObjectURL(sanitizedAvatar));
+        console.log('sanitizedAvatar',baseURL+ sanitizedAvatar)
+            setAvatarURL(baseURL + sanitizedAvatar);
         } else {
         // Handle the case where editedData.avatar is not a valid object or undefined
         // You might want to set a default avatar URL or handle this case differently
@@ -78,8 +84,6 @@ useEffect(() => {
     }
     fetchData();
 
-    const storedAvatar = localStorage.getItem("avatar");
-    if (storedAvatar) { setEditedData((prevData) => ({ ...prevData, avatar: storedAvatar }));}
   }, []);
 
   const handleSearch = (event) => {

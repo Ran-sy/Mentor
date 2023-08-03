@@ -15,15 +15,13 @@ const Items = ({ item, removeItem }) => {
   useEffect(()=>{
     if(!user) return console.log('please login first')
 
+    document.cookie = 'accessToken=' + user?.tokens[0]?.slice(1, -1)
     if(!element.doneOnce){
     let storedApplicants = [];
       element.applicants.forEach( async (applicant, i) => {
-      const config = {
-        headers: { 'Cookie': `accessToken=${user.tokens[0]}`, },
-      };
       try{
-        const res = await axios.get(`${Localhost}/api/v1/mentorProfile/user/${applicant}`, config)
-        const res1 = await axios.get(`${Localhost}/api/auth/user/${applicant}`, config)
+        const res = await axios.get(`${Localhost}/api/v1/mentorProfile/user/${applicant}`)
+        const res1 = await axios.get(`${Localhost}/api/auth/user/${applicant}`)
         storedApplicants.push({
           _id: applicant,
           designation: res?.data?.designation || "Front end developer",
@@ -57,9 +55,6 @@ const Items = ({ item, removeItem }) => {
   }, [])
 
   const acceptApplicant = async(acceptedUser) => {
-    const config = {
-      headers: { 'Cookie': `accessToken=${user.tokens[0]}`, },
-    };
     const url = user.role === 'mentee' 
     ?`${Localhost}/api/auth/accept/request`
     :`${Localhost}/api/auth/accept/opp`
@@ -67,7 +62,7 @@ const Items = ({ item, removeItem }) => {
       const res = await axios.patch(url,{
         id: element._id,
         acceptedUser
-      }, config)
+      })
       console.log(res.data, 'accepted success')
       window.location.reload()
     }catch(e){
@@ -76,9 +71,6 @@ const Items = ({ item, removeItem }) => {
   }
 
   const rejectApplicant = async(rejectedUser) => {
-    const config = {
-      headers: { 'Cookie': `accessToken=${user.tokens[0]}`, },
-    };
     const url = user.role === 'mentee' 
     ?`${Localhost}/api/auth/reject/request`
     :`${Localhost}/api/auth/reject/opp`
@@ -86,7 +78,7 @@ const Items = ({ item, removeItem }) => {
       const res = await axios.patch(url,{
         id: element._id,
         rejectedUser
-      }, config)
+      })
       console.log(res.data, 'reject success')
       window.location.reload()
     }catch(e){

@@ -4,6 +4,7 @@ import Items from "./Items";
 import { FaPlusSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Error, Success } from '../Toast';
 import axios from "axios";
 import { Localhost } from "../../config/api";
 
@@ -14,41 +15,26 @@ const MentoringRequest = () => {
   const [data, setData] = useState([]);
   
   useEffect(() => {
-    const config = {
-      headers: { 'Cookie': `accessToken=${user.tokens[0]}` },
-    };
     const getMenteeRequests = async () => {
       if(!user.tokens[0]) {
         return console.log('please login first')
       }
-      try{
-        axios.get(`${Localhost}/api/req/request/owner/${user._id}`, config)
-        .then((res, err)=>{
-          if(err) console.log('error getting data..', err.message)
+      document.cookie = 'accessToken=' + user?.tokens[0]?.slice(1, -1)
+        axios.get(`${Localhost}/api/req/request/owner/${user._id}`)
+        .then((res)=>{
           setData(res.data)
-        })
-      }catch(e){
-          console.log('unable get requests: ' + e)
-      }
+        }).catch(e=>Error('unable get requests: ' + e.message))
     }
     getMenteeRequests()
   }, []);
 
   const removeItem = (index, item) => {
-    const config = {
-      headers: { 'Cookie': `accessToken=${user.tokens[0]}`, },
-    };
-    try{
-      axios.delete(`${Localhost}/api/req/request/${item._id}`, config)
-      .then((res, err)=>{
-        if(err) console.log('error deleting data..', err.message)
-        console.log('deleted successfully ', item._id)
-        setData(res.data)
-        setData(data.filter((_, i) => i !== index))
-      })
-    }catch(e){
-        console.log('unable delete request: ' + e.message)
-    }
+    axios.delete(`${Localhost}/api/req/request/${item._id}`)
+    .then(res=>{
+      Success('deleted successfully '+item._id)
+      setData(res.data)
+      setData(data.filter((_, i) => i !== index))
+    }).catch(e=>Error('unable delete request: ' + e.message))
   }
 
   return (
