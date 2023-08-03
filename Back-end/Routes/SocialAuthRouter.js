@@ -59,7 +59,7 @@ router.get(
    }
   ),
   (req, res) => {
-    console.log('object :>> ');
+    console.log(req.user._id, req.user.role);
     const token = jwt.sign(
       {
         id: req.user._id,
