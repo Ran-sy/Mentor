@@ -8,6 +8,30 @@
   position: relative;
 }
 
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+}
+
+.navbar ul {
+  display: flex;
+
+}
+
+.navbar ul li {
+  list-style: none;
+  margin-left: 10px;
+}
+
+.navbar ul li button {
+  background-color: #007580;
+  width: 120px;
+  padding: 5px;
+  color: #fff;
+  border-radius: 20px;
+}
+
 .best-mentor {
   position: absolute;
   top: 50%;
