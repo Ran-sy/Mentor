@@ -325,7 +325,7 @@ function ShowReqest() {
                   </div>
                 </div>
                 <Info />
-                <Comments />
+                <Comments id={id}/>
               </div>
             </div>
           </div>
