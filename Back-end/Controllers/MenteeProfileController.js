@@ -103,7 +103,6 @@ const updateMentee = async (req, res, next) => {
         designation: req.body.designation,
         location: req.body.location,
         skills: req.body.skills,
-        avatar: req.file ? req.file.filename : "",
         availableForHiring: req.body.availableForHiring,
       },
       {

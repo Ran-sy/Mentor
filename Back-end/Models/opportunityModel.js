@@ -12,7 +12,7 @@ const opportunitySchema = new mongoose.Schema({
         trim: true,
         required: [true, 'Description is required'],
     },
-    certificate: { type: String },
+    certificate: { type: Boolean },
     duration: {
         type: Number,
         required: [true, 'Duration in days required']

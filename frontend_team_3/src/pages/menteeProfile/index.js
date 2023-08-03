@@ -17,7 +17,7 @@ const Mentee = ({ options, choose, setChoose }) => {
     const navigate = useNavigate()
     const [file, setFile] = useState(null);
     const [profile, setProfile] = useState({
-        lookingFor: choose,
+        lookingFor: 'mentor',
         designation: 'Computer Science',
         availableForHiring: false,
         skills: [],

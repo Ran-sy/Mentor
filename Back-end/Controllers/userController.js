@@ -70,6 +70,7 @@ const getUser = async function (req, res) {
   }
 }
 const logout = async function (req, res) {
+  req.user.tokens = []
   res
     .clearCookie("accessToken", {
       sameSite: "none",

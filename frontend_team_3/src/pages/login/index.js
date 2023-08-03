@@ -1,5 +1,5 @@
 import "./style.css";
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import {
   FaFacebookF,
   FaLinkedinIn,
@@ -16,12 +16,14 @@ import { Error, Success } from "../../components/Toast";
 import Logo from "../../components/logo";
 
 export const Login = (props) => {
+  axios.defaults.withCredentials = true;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [show, setShow] = useState("Show");
   const [passType, setPassType] = useState("password");
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

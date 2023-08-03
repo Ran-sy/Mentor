@@ -4,7 +4,7 @@ const { Request } = require("../Models/mentorRequestModel");
 const postRequests = (req, res) => {
   const request = new Request({
     ...req.body,
-    owner: req.user.id,
+    owner: req.user._id, 
     profile: req.profile._id
   });
   request
