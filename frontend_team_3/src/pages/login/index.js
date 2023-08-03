@@ -189,12 +189,12 @@ export const Login = (props) => {
           </div>
           <div className="switch1">
             <p style={{ fontSize: "15px" }}>Not a member yet ? </p>
-            <button
+            <Link
               className="link-btn"
-              onClick={() => props.onFormSwitch("register")}
+              to={'/register'}
             >
               click here to sign up
-            </button>
+            </Link>
           </div>
         </div>
       </div>
