@@ -96,21 +96,6 @@ const user = useSelector((state) => state.currentUser);
 
   return (
     <>
-      <nav className="navbar">
-        <Logo />
-        <ul>
-          <li>
-            <button>
-              <Link to={'/register'}>Sign up</Link>
-            </button>
-          </li>
-          <li>
-            <button>
-              <Link to={'/login'}>Login</Link>
-            </button>
-          </li>
-        </ul>
-      </nav>
       <div id="home">
         <nav className="navbar">
         <Logo />

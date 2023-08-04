@@ -157,7 +157,7 @@ useEffect(() => {
             if (response.status === 200) {
                 Success('Avatar uploaded successfully');
                 // console.log(response.data)
-                setEditedData((prevData) => ({ ...prevData, avatar: response.data.avatarPath }));
+                setEditedData((prevData) => ({ ...prevData, avatar: baseURL+response.data.avatarPath }));
                 localStorage.setItem('avatar', response.data.avatarPath);
             } else {
                 Error('avatar upload failed');

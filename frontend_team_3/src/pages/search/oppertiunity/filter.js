@@ -8,8 +8,9 @@ import { Localhost } from '../../../config/api';
 
 const OpportunitiesFilter = (props) => {
     const user = useSelector(state => state.currentUser);
-    const [filterProductList, setFilterProductList] = useState([])
- 
+  const [productList, setProductList] = useState([])
+  const [filterProductList, setFilterProductList] = useState([])
+
     useEffect(() => {
         axios.defaults.withCredentials = true;
         const getOpportunities = async () => {
@@ -17,7 +18,8 @@ const OpportunitiesFilter = (props) => {
             await axios
               .get(`${Localhost}/api/opp/opp`, { withCredentials: true })
               .then((res) => {
-                const filtered = res.data.data.filter((mentee) => {
+                    setProductList(res?.data?.data)
+                    const filtered = res?.data?.data?.filter((mentee) => {
                     let x;
                     if (props.Certificate && props.Paid && props.getHired) {
                         x = mentee.certificate && mentee.paid.isPaid && mentee.getHired
@@ -39,7 +41,8 @@ const OpportunitiesFilter = (props) => {
                     if( props.locvalue === "null" ){
                         return (x )}
                     return (x && mentee.location === props.locvalue && (mentee.duration - 1 <= props.maxValue && mentee.duration - 1 >= props.minValue) && (props.Certifiacte ? mentee.certificate : true))
-                })
+                    })
+                    console.log("Opp: ",res?.data?.data)
                 setFilterProductList(filtered)
               })
               .catch((error) => {
@@ -48,6 +51,33 @@ const OpportunitiesFilter = (props) => {
         }
         getOpportunities()
     }, []);
+    
+  useEffect(()=>{
+    const filtered = productList.filter((mentee) => {
+        let x;
+        if (props.Certificate && props.Paid && props.getHired) {
+            x = mentee.certificate && mentee.paid.isPaid && mentee.getHired
+        }
+        else if (props.Certificate || props.Paid || props.getHired) {
+            if (props.Certificate) {
+                x = mentee.certificate
+            }
+            if (props.Paid) {
+                x = mentee.paid.isPaid
+            }
+            if (props.getHired) {
+                x = mentee.getHired
+            }
+        }
+        else {
+            x = mentee
+        }
+        if( props.locvalue === "null" ){
+            return (x )}
+        return (x && mentee.location === props.locvalue && (mentee.duration - 1 <= props.maxValue && mentee.duration - 1 >= props.minValue) && (props.Certifiacte ? mentee.certificate : true))
+    })
+    setFilterProductList(filtered)
+  }, [props.Certificate, props.Paid, props.getHired, props.locvalue, props.maxValue, props.minValue])
 
     const applyForOpp = async (id) => {
         await axios.patch(`${Localhost}/api/auth/applicant/opp/${id}`)

@@ -2,24 +2,31 @@ import React, { useState } from "react";
 import '../style.css'
 import MultiRangeSlider from "multi-range-slider-react";
 import OpportunitiesFilter from "./filter";
+import { locationList } from "../../../components/data/data";
 import { IoFilterOutline } from "react-icons/io5";
 
+
 const Opportunities = () => {
-  // Toogle in mobile view
-  const [mobileToggle, setmobileToggle] = useState(true);
-  // Min Max of range
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(11);
-  // chech boxes
-  const [locvalue, setlocvalue] = useState("null");
-  const [Availlable, setAvaillable] = useState(false);
-  const [Paid, setPaid] = useState(true);
-  const [Certificate, setCertificate] = useState(false);
-  // function HandleChange(e){
-  //     let index = parseInt(e.target.value)
-  //     arrValue[index] = e.target.checked
-  //     setarrValue(arrValue)
-  // }
+
+const [location, setLocation] = useState(locationList[0].value);
+const [mobileToggle, setmobileToggle] = useState(true);
+const [minValue, setMinValue] = useState(0);
+const [maxValue, setMaxValue] = useState(11);
+const [availlable, setAvaillable] = useState(false);
+const [paid, setPaid] = useState(true);
+const [certificate, setCertificate] = useState(false);
+
+
+function handleClear(){
+  setMinValue(0)
+  setMaxValue(11)
+  setLocation("null")
+  setAvaillable(false)
+  setPaid(false)
+  setCertificate(false)
+}
+
+
   return (
     <>
       <div className="opportunites p-md-5 p-4">
@@ -29,7 +36,7 @@ const Opportunities = () => {
               {/* Headings */}
               <div className="d-flex justify-content-between align-items-center">
                 <h3 className="fw-bold h4">Filters</h3>
-                <button className="small bg-transparent border-0 d-none d-sm-block">
+                <button className="small bg-transparent border-0 d-none d-sm-block" onClick={handleClear}>
                   Clear All
                 </button>
                 <button
@@ -56,11 +63,9 @@ const Opportunities = () => {
                   </label>
                   <input
                     className="form-check-input float-end"
-                    value={2}
-                    checked={Certificate}
-                    onChange={() =>
-                      setCertificate((Certificate) => !Certificate)
-                    }
+                    value={certificate}
+                    checked={certificate}
+                    onChange={() => setCertificate((prev) => !prev) }
                     type="checkbox"
                     id="flexCheckDefault"
                   />
@@ -75,9 +80,9 @@ const Opportunities = () => {
                   </label>
                   <input
                     className="form-check-input float-end"
-                    value={1}
-                    checked={Paid}
-                    onChange={() => setPaid((Paid) => !Paid)}
+                    value={paid}
+                    checked={paid}
+                    onChange={() => setPaid((prev) => !prev)}
                     type="checkbox"
                     id="flexCheckDefault"
                   />
@@ -92,9 +97,9 @@ const Opportunities = () => {
                   </label>
                   <input
                     className="form-check-input float-end"
-                    value={0}
-                    checked={Availlable}
-                    onChange={() => setAvaillable((Availlable) => !Availlable)}
+                    value={availlable}
+                    checked={availlable}
+                    onChange={() => setAvaillable((prev) => !prev)}
                     type="checkbox"
                     id="flexCheckDefault"
                   />
@@ -109,28 +114,13 @@ const Opportunities = () => {
               >
                 <h6 className="fw-bold ">Location</h6>
                 <div className="d-flex justify-content-center align-items-center">
-                  <select
-                    id="selectedtwo"
-                    className="form-select bg-red m-0 d-inline-block  ps-2 selecteList-mentor"
-                    defaultValue="null" onChange={(e) => setlocvalue(e.target.value)} aria-label="Default select example">
-                    <option value="null" className='bg-secondaryColor-op p-2 '>Location</option>
-                    <option value="cairo" className="bg-secondaryColor-op p-2 ">
-                      Cairo
-                    </option>
-                    <option
-                      value="giza"
-                      className="bg-secondaryColor-op p-2 fw-bold"
-                    >
-                      Giza
-                    </option>
-                    <option
-                      value="alex"
-                      className="bg-secondaryColor-op p-2 fw-bold"
-                    >
-                      Alex
-                    </option>
+                  <select onChange={(e) => setLocation(e.target.value)}
+                  name="location" id="select-data" className="form-select bg-red m-0 d-inline-block  ps-2 selecteList-mentor" defaultValue={"null"} >
+                      {locationList?.map(list =>
+                          <option value={list.value}>{list.label}</option>
+                      )}
                   </select>
-                  <span className="arrow arrow-mentor  d-inline-block mt-2"></span>
+                  <span className="arrow arrow-mentor d-inline-block mt-2"></span>
                 </div>
               </div>
 
@@ -153,8 +143,8 @@ const Opportunities = () => {
                   minCaption={minValue + 1 + " Months"}
                   maxCaption={maxValue + 1 + " Months"}
                   onInput={(e) => {
-                    setMinValue(e.minValue);
-                    setMaxValue(e.maxValue);
+                    setMinValue(e?.minValue || e?.target?.minValue);
+                    setMaxValue(e.maxValue || e?.target?.setMaxValue);
                   }}
                   label={false}
                   ruler={false}
@@ -171,10 +161,10 @@ const Opportunities = () => {
             <div className="col-md-9 col-12">
               <div className="row">
                 <OpportunitiesFilter
-                  locvalue={locvalue}
-                  Paid={Paid}
-                  Certificate={Certificate}
-                  Availlable={Availlable}
+                  locvalue={location}
+                  Paid={paid}
+                  Certificate={certificate}
+                  Availlable={availlable}
                   minValue={minValue}
                   maxValue={maxValue}
                 />

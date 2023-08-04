@@ -7,6 +7,7 @@ import { Localhost } from "../../../config/api";
 
 const FilterMentee = (props) => {
   axios.defaults.withCredentials = true;
+  const [productList, setProductList] = useState([])
   const [filterProductList, setFilterProductList] = useState([])
   
   useEffect(() => {
@@ -14,6 +15,7 @@ const FilterMentee = (props) => {
       await axios
         .get(`${Localhost}/api/v1/menteeProfile`, { withCredentials: true })
         .then((res) => {
+          setProductList(res?.data?.response)
           const filtered = res?.data?.response?.filter((mentee) => {
             let x;
             if (props.Availlable) {
@@ -40,6 +42,28 @@ const FilterMentee = (props) => {
     };
     getMentees();
   }, []);
+
+  useEffect(()=>{
+    const filtered = productList?.filter((mentee) => {
+      let x;
+      if (props.Availlable) {
+        x = mentee.availableForHiring;
+      } else {
+        x = mentee;
+      }
+      if( props.locvalue === "null" ){
+          return (x && mentee.location !== props.locvalue &&
+            (props.skills.length ? props.skills.every((item) => mentee.skills.includes(item)) : []))}
+      return (
+        x &&
+        mentee.location === props.locvalue &&
+        (props.skills.length
+          ? props.skills.every((item) => mentee.skills.includes(item))
+          : [])
+      );
+    });
+    setFilterProductList(filtered)
+  }, [props.Availlable, props.locvalue, props.skills])
   
   return (
     <>
@@ -50,16 +74,16 @@ const FilterMentee = (props) => {
             <div
               className={`mentorPersons menteePersons position-relative`}
             >
-              <img src={img0} alt="img" />
+              <img src={ menteeOne?.avatar? Localhost+menteeOne?.avatar:img0} alt="img" />
             </div>
             {/* Mentor Info */}
             <div>
-              <p className="my-2 fw-bold">{menteeOne.user.name}</p>
-              <p className="text-muted text-small">{menteeOne.designation}</p>
+              <p className="my-2 fw-bold">{menteeOne?.user?.name || "Ahmed"}</p>
+              <p className="text-muted text-small">{menteeOne?.designation}</p>
               <p className="mt-4">
-                {menteeOne.skills.map((item) => {
+                {menteeOne?.skills?.map((item) => {
                   return (
-                    <span className="me-1   text-white rounded p-1 bg-secondaryColor">
+                    <span className="me-1 text-white rounded p-1 bg-secondaryColor">
                       {item}
                     </span>
                   );

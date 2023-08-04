@@ -2,18 +2,29 @@ import React, { useState } from 'react';
 import '../style.css'
 import MultiRangeSlider from "multi-range-slider-react";
 import RequestsFilter from './filter';
+import { locationList } from "../../../components/data/data";
 import { IoFilterOutline } from "react-icons/io5"
 
 const Requests = () => {
-    // Toogle in mobile view
+    
+    const [location, setLocation] = useState(locationList[0].value);
+    const [availlable, setAvaillable] = useState(false);
+    const [paid, setPaid] = useState(true);
+    const [certificate, setCertificate] = useState(false);
     const [mobileToggle, setmobileToggle] = useState(true)
-    // Min Max of range
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(11);
-    // chech boxes
     const [locvalue, setlocvalue] = useState("null")
-    const [Availlable, setAvaillable] = useState(false)
-    const [Paid, setPaid] = useState(false)
+
+    function handleClear(){
+        setMinValue(0)
+        setMaxValue(11)
+        setLocation("null")
+        setAvaillable(false)
+        setPaid(false)
+        setCertificate(false)
+    }
+  
     return (
         <>
             <div className="opportunites p-md-5 p-4">
@@ -23,18 +34,18 @@ const Requests = () => {
                             {/* Headings */}
                             <div className='d-flex justify-content-between align-items-center'>
                                 <h3 className='fw-bold h4'>Filters</h3>
-                                <button className='small bg-transparent border-0 d-none d-sm-block' >Clear All</button>
+                                <button className='small bg-transparent border-0 d-none d-sm-block'  onClick={handleClear}>Clear All</button>
                                 <button className='small bg-transparent border-0 d-sm-none text-main-color ' onClick={() => setmobileToggle((mobileToggle) => !mobileToggle)} ><IoFilterOutline className='h2 fw-bold' /></button>                        </div>
                             {/* Check boxes */}
                             <div className={mobileToggle ? "mt-3 d-none d-sm-block" : "mt-3 d-sm-block"}>
                                 <div className="form-check ps-0">
                                     <label className="form-check-label small " htmlFor="flexCheckDefault">Paid</label>
-                                    <input className="form-check-input float-end" value={1} checked={Paid} onChange={() => setPaid((Paid) => !Paid)} type="checkbox" id="flexCheckDefault" />
+                                    <input className="form-check-input float-end" value={1} checked={paid} onChange={() => setPaid((prev) => !prev)} type="checkbox" id="flexCheckDefault" />
                                 </div>
 
                                 <div className="form-check ps-0">
                                     <label className="form-check-label small " htmlFor="flexCheckDefault">Looking for a job</label>
-                                    <input className="form-check-input float-end" value={2} checked={Availlable} onChange={() => setAvaillable((Availlable) => !Availlable)} type="checkbox" id="flexCheckDefault" />
+                                    <input className="form-check-input float-end" value={2} checked={availlable} onChange={() => setAvaillable((prev) => !prev)} type="checkbox" id="flexCheckDefault" />
                                 </div>
                             </div>
 
@@ -42,13 +53,12 @@ const Requests = () => {
                             <div className={mobileToggle ? "mt-5 d-none d-sm-block" : "mt-5 d-sm-block"}>
                                 <h6 className='fw-bold '>Location</h6>
                                 <div className='d-flex justify-content-center align-items-center'>
-                                    <select id='selectedtwo'
-                                        className="form-select bg-red m-0 d-inline-block  ps-2 selecteList-mentor" defaultValue="null" onChange={(e) => setlocvalue(e.target.value)} aria-label="Default select example">
-                                        <option value="null" className='bg-secondaryColor-op p-2 '>Location</option>
-                                        <option value="cairo" className='bg-secondaryColor-op p-2 '>Cairo</option>
-                                        <option value="giza" className='bg-secondaryColor-op p-2 fw-bold'>Giza</option>
-                                        <option value="alex" className='bg-secondaryColor-op p-2 fw-bold'>Alex</option>
-                                    </select>
+                                <select onChange={(e) => setLocation(e.target.value)}
+                                name="location" id="select-data" className="form-select bg-red m-0 d-inline-block  ps-2 selecteList-mentor" defaultValue={"null"} >
+                                    {locationList?.map(list =>
+                                        <option value={list.value}>{list.label}</option>
+                                    )}
+                                </select>
                                     <span className='arrow arrow-mentor  d-inline-block mt-2'></span>
                                 </div>
                             </div>
@@ -65,8 +75,8 @@ const Requests = () => {
                                     minCaption={(minValue + 1) + " Months"}
                                     maxCaption={(maxValue + 1) + " Months"}
                                     onInput={(e) => {
-                                        setMinValue(e.minValue);
-                                        setMaxValue(e.maxValue);
+                                        setMinValue(e?.minValue || e?.target?.minValue);
+                                        setMaxValue(e.maxValue || e?.target?.setMaxValue);
                                     }}
                                     label={false}
                                     ruler={false}
@@ -82,7 +92,7 @@ const Requests = () => {
                         {/* Mentors */}
                         <div className="col-md-9 col-12">
                             <div className='row'>
-                                <RequestsFilter locvalue={locvalue} Availlable={Availlable} Paid={Paid} maxValue={maxValue} minValue={minValue} />
+                                <RequestsFilter locvalue={locvalue} Availlable={availlable} Paid={paid} maxValue={maxValue} minValue={minValue} />
                             </div>
                         </div>
                     </div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import '../style.css';
 import FilterMentee from "./filter";
 import { IoFilterOutline } from "react-icons/io5";
+import { locationList } from "../../../components/data/data";
 
 const SearchMentee = () => {
   // Toogle in mobile view
@@ -10,11 +11,18 @@ const SearchMentee = () => {
   const [Availlable, setAvaillable] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [arrayOfDivs, setarrayOfDivs] = useState([]);
-  const [locvalue, setlocvalue] = useState("null");
+  const [location, setLocation] = useState(locationList[0].value);
   let [skills, setskills] = useState([]);
   function handleReset() {
     setarrayOfDivs([]);
     setskills([]);
+  }
+  function handleClear(){
+    setAvaillable(false)
+    setInputValue("")
+    setarrayOfDivs([])
+    setLocation("null")
+    setskills([])
   }
   function addSkill() {
     arrayOfDivs.push(
@@ -36,7 +44,7 @@ const SearchMentee = () => {
               {/* Headings */}
               <div className="d-flex justify-content-between align-items-center">
                 <h3 className="fw-bold h4">Filters</h3>
-                <button className="small bg-transparent border-0 d-none d-sm-block">
+                <button className="small bg-transparent border-0 d-none d-sm-block" onClick={handleClear}>
                   Clear All
                 </button>
                 <button
@@ -63,7 +71,8 @@ const SearchMentee = () => {
                   </label>
                   <input
                     className="form-check-input float-end"
-                    onChange={() => setAvaillable((Availlable) => !Availlable)}
+                    onChange={() => setAvaillable(avail=>!avail)}
+                    value={Availlable}
                     type="checkbox"
                     id="flexCheckDefault"
                   />
@@ -78,28 +87,12 @@ const SearchMentee = () => {
               >
                 <h6 className="fw-bold ">Location</h6>
                 <div className="d-flex justify-content-center align-items-center">
-                  <select
-                    id="selectedtwo"
-                    className="form-select bg-red m-0 d-inline-block  ps-2 selecteList-mentor"
-                    aria-label="Default select example"defaultValue="null" 
-                    onChange={(e) => setlocvalue(e.target.value)}>
-                    <option value="null" className='bg-secondaryColor-op p-2 '>Location</option>
-                    <option value="cairo" className="bg-secondaryColor-op p-2 ">
-                      Cairo
-                    </option>
-                    <option
-                      value="giza"
-                      className="bg-secondaryColor-op p-2 fw-bold"
-                    >
-                      Giza
-                    </option>
-                    <option
-                      value="alex"
-                      className="bg-secondaryColor-op p-2 fw-bold"
-                    >
-                      Alex
-                    </option>
-                  </select>
+                <select onChange={(e) => setLocation(e.target.value)}
+                name="location" id="select-data" className="input-data" defaultValue="null" >
+                    {locationList?.map(list =>
+                        <option value={list.value}>{list.label}</option>
+                    )}
+                </select>
                   <span className="arrow arrow-mentor  d-inline-block mt-2"></span>
                 </div>
               </div>
@@ -146,7 +139,7 @@ const SearchMentee = () => {
               <div className="row">
                 <FilterMentee
                   Availlable={Availlable}
-                  locvalue={locvalue}
+                  locvalue={location}
                   skills={skills}
                 />
               </div>

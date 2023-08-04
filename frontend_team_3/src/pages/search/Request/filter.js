@@ -8,14 +8,16 @@ import { Localhost } from '../../../config/api';
 
 const RequestsFilter = (props) => {
     const user = useSelector(state => state.currentUser);
+    const [productList, setProductList] = useState([])
     const [filterProductList, setFilterProductList] = useState([])
-   
+  
     useEffect(() => {
         axios.defaults.withCredentials = true;
         const getRequests = async () => {
             await axios
               .get(`${Localhost}/api/req/request`, { withCredentials: true })
               .then((response) => {
+                setProductList(response?.data[0])
                 const filtered = response.data[0].filter((mentee) => {
                     let x;
                     if (props.Availlable) {
@@ -29,6 +31,7 @@ const RequestsFilter = (props) => {
                         x && mentee.location === props.locvalue && (mentee.duration - 1 <= props.maxValue && mentee.duration - 1 >= props.minValue)
                     );
                 });
+                console.log("Request: ",response?.data[0])
                 setFilterProductList(filtered)
               })
               .catch((error) => {
@@ -37,6 +40,29 @@ const RequestsFilter = (props) => {
         }
         getRequests()
     }, []);
+
+    
+  useEffect(()=>{
+    const filtered = productList.filter((mentee) => {
+        let x;
+        if (props.Paid || props.Availlable) {
+            if (props.Paid) {
+                x = mentee.paid.isPaid
+            }
+            if (props.Availlable) {
+                x = mentee.lookingJob
+            }
+        }else {
+            x = mentee
+        }
+        if( props.locvalue === "null" ){
+            return (x && mentee.location !== props.locvalue && (mentee.duration - 1 <= props.maxValue && mentee.duration - 1 >= props.minValue))}
+        return (
+            x && mentee.location === props.locvalue && (mentee.duration - 1 <= props.maxValue && mentee.duration - 1 >= props.minValue)
+        );
+    });
+    setFilterProductList(filtered)
+  }, [props.Availlable, props.Paid, props.locvalue, props.maxValue, props.minValue])
 
     const applyForReq = async (id) => {
         await axios.patch(`${Localhost}/api/auth/applicant/request/${id}`)
