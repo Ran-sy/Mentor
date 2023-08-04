@@ -179,9 +179,41 @@ function Profile() {
 
     fetchData();
   }, []);
+const [loading, setLoading]= useState(false)
+
+  const downloadCV = async () => {
+    setLoading(true);
+
+    try {
+      // const user = useSelector((state) => state.currentUser);
+      // const token = user.tokens[0];
+      // const userId = user._id;
+
+      const response = await axios.get(`${Localhost}/api/v1/cv/download/${id}`, {
+        responseType: 'arraybuffer',
+        headers: {
+          // Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'CV.pdf');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link); // Remove the link after download
+      setLoading(false);
+
+    } catch (error) {
+      console.error('Error downloading CV:', error);
+      setLoading(false);
+    }
+  };
 
   const baseUrl="http://localhost:5000/"
   const avatar= baseUrl + profile?.avatar
+  console.log(avatar)
   
  const changeCurrentDay = (day = date.currentDay) => {
     setDate({ currentDay: new Date(day.year, day.month, day.number) });
@@ -242,10 +274,10 @@ function Profile() {
           <div className="d-lg-block d-sm-none" style={{ lineHeight: "35px" }}>
             <ul className="list-group list-unstyled">
               <li className="list-item">
-                <Link to = {'/edituser/'+user?._id} >Edit Profile</Link>
+                <Link to = {'/edituser'} >Edit Profile</Link>
               </li>
               <li className="list-item">
-                <Link to= {'/edituser/'+user?._id} >Settings</Link>
+                <Link to= {'/edituser'} >Settings</Link>
               </li>
               <li className="list-item">
                 <Link to="">Terms and Privacys</Link>
@@ -417,7 +449,8 @@ function Profile() {
                     </div>)}
                   )}
                   </div>
-                  <button className="btn rounded-pill text-white mt-5" style={{ backgroundColor: "#007580", padding: "10px 42px" }} >
+                  <button className="btn rounded-pill text-white mt-5" style={{ backgroundColor: "#007580", padding: "10px 42px" }} onClick={downloadCV} disabled={loading}
+                    >
                     Download Cv
                   </button>
                 </div>
@@ -505,6 +538,7 @@ function Profile() {
                   <button
                     className="btn rounded-pill text-white mt-5"
                     style={{ backgroundColor: "#007580", padding: "10px 42px" }}
+                    onClick={downloadCV} disabled={loading}
                   >
                     Download Cv
                   </button>

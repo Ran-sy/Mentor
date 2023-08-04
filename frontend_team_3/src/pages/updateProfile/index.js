@@ -16,7 +16,7 @@ import { Upload, Button } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Success, Error } from "../../components/Toast";
 import woman from "../../assets/images/woman2.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 
 const { Dragger } = Upload;
 
@@ -31,6 +31,7 @@ const UpdateProfile = () => {
     const userRole = user?.role;
     const [data, setData]= useState({})
     const [editedData, setEditedData] = useState({ avatar: ""}); 
+    const baseURL= "http://localhost:5000/"
     // const [editedSkills, setEditedSkills] = useState([]);
     const [editingIndex, setEditingIndex] = useState(-1);
     const [file, setFile] = useState(null);
@@ -50,10 +51,10 @@ useEffect(() => {
 
         ////////////////////////Upload Part////////////////////////////////////
         if (editedData && editedData.avatar && (editedData.avatar instanceof Blob || editedData.avatar instanceof File)) {
-            setAvatarURL(URL.createObjectURL(editedData.avatar));
+            setAvatarURL(baseURL+URL.createObjectURL(editedData.avatar));
         } else if (editedData && editedData.avatar) {
         // If editedData.avatar is defined but not a Blob or File, attempt to replace backslashes with forward slashes
-        const sanitizedAvatar = editedData.avatar.replace(/\\/g, "/");
+        const sanitizedAvatar =baseURL+ editedData.avatar.replace(/\\/g, "/");
             setAvatarURL(URL.createObjectURL(sanitizedAvatar));
         } else {
         // Handle the case where editedData.avatar is not a valid object or undefined
@@ -270,7 +271,7 @@ useEffect(() => {
                   maxWidth: '400px', 
                 },
               });
-              navigate('/external/'+`${userId}`)
+             redirect(`/external/${data?._id}`);
           } else {
             console.log('Profile data update failed');
             Error('Failed on updating Profile. Please  try again.');

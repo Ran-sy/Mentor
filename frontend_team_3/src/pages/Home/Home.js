@@ -19,10 +19,12 @@ import { loginFailure, loginStart, loginSuccess } from "../../features/user";
 import Logo from "../../components/logo";
 
 
+
 const Home = () => {
   const [input, setInput] = useState('')
   const [message, setMessage] = useState('')
   const dispatch = useDispatch();
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
   const [getOpp, setGetOpp] = useState([]);
 
@@ -61,8 +63,10 @@ const Home = () => {
       const { data } = await axios.get(url, { withCredentials: true });
       console.log(data);
       dispatch(loginSuccess(data));
+      setIsLoggedIn(true);
     } catch (err) {
       console.log(err);
+      setIsLoggedIn(false);
     }
   };
   useEffect(() => {
@@ -72,20 +76,26 @@ const Home = () => {
   return (
     <>
       <nav className="navbar">
-        <Logo />
-        <ul>
-          <li>
-            <button>
-              <Link to={'/register'}>Sign up</Link>
-            </button>
-          </li>
-          <li>
-            <button>
-              <Link to={'/login'}>Login</Link>
-            </button>
-          </li>
-        </ul>
-      </nav>
+      <Logo />
+
+      <ul>
+        {!isLoggedIn && (
+          <>
+            <li>
+              <button>
+                <Link to={'/register'}>Sign up</Link>
+              </button>
+            </li>
+            <li>
+              <button>
+                <Link to={'/login'}>Login</Link>
+              </button>
+            </li>
+          </>
+        )}
+        {/* Additional menu items for logged-in users can be added here */}
+      </ul>
+    </nav>
 
       <div id="home">
         <div className="main">
