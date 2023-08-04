@@ -30,7 +30,6 @@ const ResetPassword = () => {
 
     return (
         <>
-            <Logo />
             <div className="container1">
                 <h3>Reset Password</h3>
                 <form onSubmit={handleSubmit}>

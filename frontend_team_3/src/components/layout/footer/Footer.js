@@ -3,6 +3,7 @@ import './footer.css'
 import logo from '../../../assets/images/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FaTwitter } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <div className="mentor-oppor-fotter-container">
@@ -15,12 +16,14 @@ const Footer = () => {
         </p>
       </article>
       <nav className="nav1">
-        <a href="#">Overview</a>
+        <Link to="/">Overview</Link>
         <a href="#">Become a Mentor</a>
         <a href="#">Become a Mentee</a>
         <a href="#">VIP</a>
         <a href="#">Privacy</a>
+        <Link to="/contact">Contact us</Link>
       </nav>
+
       <hr className="footer-hr" />
       <nav className="nav2">
         <a className="sticky-lg-bottom" href="#">

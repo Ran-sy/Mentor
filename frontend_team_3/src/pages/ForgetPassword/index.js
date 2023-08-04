@@ -27,7 +27,6 @@ const ForgetPassword = () => {
 
     return (
         <>
-            <Logo />
             <div className="container1">
                 <h3>Forget Password</h3>
                 <form onSubmit={handleSubmit}>
