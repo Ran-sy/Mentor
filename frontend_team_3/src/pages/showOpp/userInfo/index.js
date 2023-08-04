@@ -1,15 +1,16 @@
-
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import './style.css'
 import { NavLink, useParams } from 'react-router-dom'
 import { Localhost } from '../../../config/api'
 import { FaLessThan } from 'react-icons/fa'
 
 const Info = () => {
+  // const [data, setData] = useState([])
   const [datainfo, setDataInfo] = useState([])
   const [dataProfile, setDataProfile] = useState([])
-  const [avatar, setAvatar]= useState =("")
+  const [avatar, setAvatar] = useState("");
   const { id } = useParams()
   useEffect(() => {
     const getOpp = async () => {
@@ -19,19 +20,29 @@ const Info = () => {
         });
         // setData([response.data]);
         setDataInfo([response.data[0].owner]);
-        setDataProfile([response.data[0].profile])
-        console.log([response.data[0].profile])
-        console.log(response.data[0].profile.avatar)
-        setAvatar(response.data[0].profile.avatar)
-        .then (console.log(avatar))
+      setDataProfile([response.data[0].profile]);
+      console.log([response.data[0].profile]);
+      setAvatar(response.data[0].profile.avatar)
+      console.log("Avatar URL:",response.data[0].profile.avatar)
+      console.log(avatar); // Corrected
       } catch (error) {
         console.log(error);
       }
     };
     getOpp();
   }, [id]);
-  const baseURL = "http://localhost/5000/"
-  console.log(avatar)
+
+  const baseURL = "http://localhost:5000/";
+  const avatar2 = baseURL + avatar;
+  console.log("Complete Avatar URL:", avatar2);
+    if (datainfo.length === 0) {
+        return <div>Loading...</div>;
+      }
+    
+
+    if (datainfo.length === 0) {
+        return <div>Loading...</div>;
+    }
 
   // let avatar = baseURL + .avatar
 
@@ -108,19 +119,17 @@ const Info = () => {
                       )} */}
                     </ul>
                   </div>
-                  {dataProfile.map((items)=>(
-
-                
-                  <img
-                  src={baseURL+items.avatar}
-                    alt="avatar"
-                    width="100"
-                    height="100"
-                    className="rounded-circle shadow-1-strong mb-3"
-                  />
-                  ))}
+                  {datainfo.length > 0 && 
+                             
+                             <img
+                             src={avatar2}
+                                 alt="avatar"
+                                 width="80"
+                                 height="80"
+                                 className="rounded-circle shadow-1-strong mb-3"
+                             />}
                   <NavLink
-                    to="/external"
+                   to={`/external/${id}`} 
                     className="profileBtn px-4 py-2 rounded-pill "
                     style={{
                       backgroundColor: "darkgray",

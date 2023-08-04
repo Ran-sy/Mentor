@@ -61,9 +61,10 @@ const uploadAV = async (req, res) => {
 // Controller function to handle CV download
 const downloadcv = async (req, res) => {
   const userId = req.params.id;
-  try {
 
+  try {
     const user = await User.findById(userId);
+
     if (!user) {
       res.status(404).send("CV not found");
       return;

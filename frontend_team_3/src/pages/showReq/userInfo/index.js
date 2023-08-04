@@ -119,7 +119,7 @@ const Info = () => {
                                     className="rounded-circle shadow-1-strong mb-3"
                                 />}
                                 <NavLink
-                                    to="/external"
+                                    to={`/external/${id}`} 
                                     className="profileBtn px-4 py-2 rounded-pill "
                                     style={{
                                         backgroundColor: "darkgray",
