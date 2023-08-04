@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 function SidaNav2() {
     const user = useSelector(state => state.currentUser)
-    const userRole = user.role
+    const userRole = user?.role
     console.log(userRole)
     return (
         <div className="SidaNav2 d-flex gap-4 justify-content-start align-items-start m-0 p-0 text-left ">

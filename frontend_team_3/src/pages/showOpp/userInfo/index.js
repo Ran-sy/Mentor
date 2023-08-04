@@ -1,67 +1,3 @@
-/**
- * 
- *  <>
-      <div className='mb-2 userinfo px-5 pt-5'>
-        {data && data.map((item) => (
-          <div className='bg-white p-4 radius d-flex flex-column-reverse flex-md-column'>
-            <div className='box-info d-flex flex-wrap text-capitalize'>
-              <div className='info1 my-2 d-flex flex-column'>
-                <div className='flex'>
-                  <p className=' d-flex flex-column'>
-                    <span className='data1 mb-2'>job title</span>
-                    <span>{item.designation}</span>
-                  </p>
-                  <p className=' d-flex flex-column'>
-                    <span className='data1 mb-2'>location</span>
-                    <span>{item.location}</span>
-                  </p>
-
-                  <div className='info1 d-flex flex-column'>
-                    <ul className=' my-2 ms-0 d-flex flex-column'>
-                      <span className='data1 mb-2'> experise  </span>
-                      {item.expertise.map((e, i) => <li key={i}>{e.name}</li>)}
-                    </ul>
-                  </div>
-
-                  {
-                    datainfo.map((item) => (
-                      <>
-                        <p className='my-2 d-flex flex-column'>
-                          <span className='data1 mb-2'>email  </span>
-                          <span>{item.email}</span>
-                        </p>
-                        <p className='my-2 d-flex flex-column'>
-                          <span className='data1 mb-2'>Name  </span>
-                          <span>{item.name}</span>
-                        </p>
-                      </>
-                    ))
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-        <div className='flex1'>
-        </div>
-      </div>
-    </>
-  )
-}
-export default Info
- * 
- * 
- */
-
-
-
-
-
-
-
-
-
-
 
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
@@ -71,7 +7,6 @@ import { Localhost } from '../../../config/api'
 import { FaLessThan } from 'react-icons/fa'
 
 const Info = () => {
-  // const [data, setData] = useState([])
   const [datainfo, setDataInfo] = useState([])
   const [dataProfile, setDataProfile] = useState([])
   const [avatar, setAvatar]= useState =("")

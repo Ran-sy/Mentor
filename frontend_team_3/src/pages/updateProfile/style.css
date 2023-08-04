@@ -35,7 +35,7 @@
 }
 
 .info-top {
-    padding: 4%;
+    padding: 1%;
     width: 70%;
 }
 
@@ -50,12 +50,14 @@
 .personal-top-img {
     width: 100%;
     background-position: right bottom;
+    height: 120px;
 }
 
 .personal-top-img img {
     width: 100%;
     border-radius: 1rem;
 }
+
 
 .PersonalInfo .mdl-box-personal button {
     width: 18%;

@@ -27,6 +27,7 @@ const { Dragger } = Upload;
 const UpdateProfile = () => {
     axios.defaults.withCredentials =true;
     const user = useSelector(state=> state.currentUser)
+    console.log(user)
     const userId = user?._id;
     const userRole = user?.role;
     const [data, setData]= useState({})
@@ -47,7 +48,7 @@ useEffect(() => {
         .then(async response=>{
             setData(response.data);
             setEditedData(response.data);
-            console.log('data', response.data)
+            // console.log('data', response.data)
 
         ////////////////////////Upload Part////////////////////////////////////
         if (editedData && editedData.avatar && (editedData.avatar instanceof Blob || editedData.avatar instanceof File)) {
@@ -155,7 +156,7 @@ useEffect(() => {
         .then(response=>{
             if (response.status === 200) {
                 Success('Avatar uploaded successfully');
-                console.log(response.data)
+                // console.log(response.data)
                 setEditedData((prevData) => ({ ...prevData, avatar: response.data.avatarPath }));
                 localStorage.setItem('avatar', response.data.avatarPath);
             } else {
