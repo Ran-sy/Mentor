@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Error, Success } from '../../components/Toast';
 import axios from "axios";
 import { loginFailure, loginStart, loginSuccess } from "../../features/user";
-import Logo from "../../components/logo";
 
 
 const Home = () => {
