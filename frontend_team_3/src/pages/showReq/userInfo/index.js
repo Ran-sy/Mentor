@@ -8,6 +8,7 @@ import { Localhost } from '../../../config/api'
 const Info = () => {
     const [data, setData] = useState([])
     const [datainfo, setDataInfo] = useState([])
+    const [avatar, setAvatar]= useState("")
     const { id } = useParams()
     useEffect(() => {
         const getReq = async () => {
@@ -16,14 +17,30 @@ const Info = () => {
                     withCredentials: true,
                 });
                 setData([response.data[0].profile]);
+                console.log(response.data[0].profile)
                 setDataInfo([response.data[0].owner]);
+               
+                setAvatar(response.data[0].profile.avatar)
+                console.log("Avatar URL:",response.data[0].profile.avatar)
+                // console.log(avatar)
             } catch (error) {
                 console.log(error);
             }
         };
         getReq();
     }, [id]);
-    const baseURL= "http://localhost:5000/"
+  
+ 
+    // console.log(baseURL+ data.avatar)
+   
+  const baseURL = "http://localhost:5000/";
+  const avatar2 = baseURL + avatar;
+  console.log("Complete Avatar URL:", avatar2);
+    if (data.length === 0) {
+        return <div>Loading...</div>;
+      }
+    
+
     if (data.length === 0) {
         return <div>Loading...</div>;
     }
@@ -92,13 +109,15 @@ const Info = () => {
                                 </ul>
                             </div>
                             <div className="d-flex flex-column align-items-center  userAvatar">
+                            {data.length > 0 && 
+                             
                                 <img
-                                    src={baseURL+ data.avatar}
+                                src={avatar2}
                                     alt="avatar"
                                     width="80"
                                     height="80"
                                     className="rounded-circle shadow-1-strong mb-3"
-                                />
+                                />}
                                 <NavLink
                                     to="/external"
                                     className="profileBtn px-4 py-2 rounded-pill "
