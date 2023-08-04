@@ -17,7 +17,7 @@ const MentoringOpportunities = () => {
       if(!user.tokens[0]) {
         return console.log('please login first')
       }
-      document.cookie = 'accessToken=' + user?.tokens[0]?.slice(1, -1)
+      document.cookie = 'accessToken=' + user?.tokens[0]
       axios.get(`${Localhost}/api/opp/opp/owner/${user._id}`)
       .then(res=>{
         setData(res.data)

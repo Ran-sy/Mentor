@@ -19,7 +19,7 @@ const MentoringRequest = () => {
       if(!user.tokens[0]) {
         return console.log('please login first')
       }
-      document.cookie = 'accessToken=' + user?.tokens[0]?.slice(1, -1)
+      document.cookie = 'accessToken=' + user?.tokens[0]
         axios.get(`${Localhost}/api/req/request/owner/${user._id}`)
         .then((res)=>{
           setData(res.data)

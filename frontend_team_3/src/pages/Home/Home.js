@@ -10,6 +10,7 @@ import invite from "../../assets/images/invite.jpg";
 import initialDetails from "../../components/homepage/mentoringdata";
 import Search from "./search/Search";
 import MentorInLocation from "../../components/homepage/MentorLocation";
+import Logo from "../../components/logo";
 import { Link } from "react-router-dom";
 import { Localhost } from "../../config/api";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,7 +25,8 @@ const Home = () => {
 const dispatch = useDispatch();
 
 const [getOpp, setGetOpp] = useState([]);
-const [getReq, setGetReq] = useState([]);
+const [getReq, setGetReq] = useState([]);  
+const [isLoggedIn, setIsLoggedIn] = useState(false); 
 const user = useSelector((state) => state.currentUser);
   // console.log(user.tokens);
 
@@ -67,8 +69,10 @@ const user = useSelector((state) => state.currentUser);
       const { data } = await axios.get(url, { withCredentials: true });
       console.log(data);
       dispatch(loginSuccess(data));
+      setIsLoggedIn(true);
     } catch (err) {
       console.log(err);
+      setIsLoggedIn(false);
     }
   };
   useEffect(() => {
@@ -94,6 +98,26 @@ const applyForOpp = async (id) => {
   return (
     <>
       <div id="home">
+        <nav className="navbar">
+        <Logo />
+          <ul>
+            {!isLoggedIn && (
+              <>
+                <li>
+                  <button>
+                    <Link to={'/register'}>Sign up</Link>
+                  </button>
+                </li>
+                <li>
+                  <button>
+                    <Link to={'/login'}>Login</Link>
+                  </button>
+                </li>
+              </>
+            )}
+            {/* Additional menu items for logged-in users can be added here */}
+          </ul>
+          </nav>
         <div className="main">
           <div className="mentor-search" style={{ marginTop: "6%" }}>
             <Container>
