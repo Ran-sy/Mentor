@@ -15,18 +15,18 @@ const Items = ({ item, removeItem }) => {
   useEffect(()=>{
     if(!user) return console.log('please login first')
 
-    document.cookie = 'accessToken=' + user?.tokens[0]?.slice(1, -1)
+    document.cookie = 'accessToken=' + user?.tokens[0]
     if(!element.doneOnce){
     let storedApplicants = [];
       element.applicants.forEach( async (applicant, i) => {
       try{
         const res = await axios.get(`${Localhost}/api/v1/mentorProfile/user/${applicant}`)
-        const res1 = await axios.get(`${Localhost}/api/auth/user/${applicant}`)
+        console.log(res)
         storedApplicants.push({
           _id: applicant,
           designation: res?.data?.designation || "Front end developer",
-          avatar: res?.data?.avatar || "https://image.lexica.art/md2/37d7fb15-eed3-472b-bbae-57240a15704a",
-          name: res1.data?.name || "Balquees Hamdi",
+          avatar: Localhost+res?.data?.avatar || "https://image.lexica.art/md2/37d7fb15-eed3-472b-bbae-57240a15704a",
+          name: res.data?.user?.name || "Balquees Hamdi",
         })
       }catch{
         storedApplicants.push({

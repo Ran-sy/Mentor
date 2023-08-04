@@ -16,6 +16,7 @@ import { Upload, Button } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Success, Error } from "../../components/Toast";
 import woman from "../../assets/images/woman2.png";
+import { Link, redirect, useNavigate } from "react-router-dom";
 
 const { Dragger } = Upload;
 
@@ -29,22 +30,19 @@ const UpdateProfile = () => {
     console.log(user)
     const userId = user?._id;
     const userRole = user?.role;
-    const baseURL = "http://localhost:5000/"
     const [data, setData]= useState({})
     const [editedData, setEditedData] = useState({ avatar: ""}); 
+    const baseURL= "http://localhost:5000/"
     // const [editedSkills, setEditedSkills] = useState([]);
     const [editingIndex, setEditingIndex] = useState(-1);
     const [file, setFile] = useState(null);
     const [avatarURL, setAvatarURL] = useState()
   const [searchTerm, setSearchTerm] = useState("");
   const [messages, setMessages] = useState([]);
-    
+  const navigate = useNavigate();
 //////////////////////////////////////////////////////FETCH DATA 
 useEffect(() => {
     
-    const storedAvatar = localStorage.getItem("avatar");
-    if (storedAvatar) { setEditedData((prevData) => ({ ...prevData, avatar: storedAvatar }));}
-
     const fetchData = async () => {
         await axios.get(`http://localhost:5000/api/v1/mentorProfile/user/${userId}`)
         .then(async response=>{
@@ -54,13 +52,11 @@ useEffect(() => {
 
         ////////////////////////Upload Part////////////////////////////////////
         if (editedData && editedData.avatar && (editedData.avatar instanceof Blob || editedData.avatar instanceof File)) {
-            setAvatarURL(baseURL+ URL.createObjectURL(editedData.avatar))
-            .then(()=>console.log(avatarURL))
+            setAvatarURL(baseURL+URL.createObjectURL(editedData.avatar));
         } else if (editedData && editedData.avatar) {
         // If editedData.avatar is defined but not a Blob or File, attempt to replace backslashes with forward slashes
-        const sanitizedAvatar = editedData.avatar.replace(/\\/g, "/");
-        console.log('sanitizedAvatar',baseURL+ sanitizedAvatar)
-            setAvatarURL(baseURL + sanitizedAvatar);
+        const sanitizedAvatar =baseURL+ editedData.avatar.replace(/\\/g, "/");
+            setAvatarURL(URL.createObjectURL(sanitizedAvatar));
         } else {
         // Handle the case where editedData.avatar is not a valid object or undefined
         // You might want to set a default avatar URL or handle this case differently
@@ -85,6 +81,8 @@ useEffect(() => {
     }
     fetchData();
 
+    const storedAvatar = localStorage.getItem("avatar");
+    if (storedAvatar) { setEditedData((prevData) => ({ ...prevData, avatar: storedAvatar }));}
   }, []);
 
   const handleSearch = (event) => {
@@ -274,6 +272,7 @@ useEffect(() => {
                   maxWidth: '400px', 
                 },
               });
+             redirect(`/external/${data?._id}`);
           } else {
             console.log('Profile data update failed');
             Error('Failed on updating Profile. Please  try again.');

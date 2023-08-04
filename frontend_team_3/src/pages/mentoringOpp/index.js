@@ -20,15 +20,16 @@ const MentoringOpportunityForm = () => {
   const [paid, setPaid] = useState(true)
   const [amount, setAmount] = useState(0)
   const [currency, setCurrency] = useState('')
-  const [responsibilities, setResponsibilities] = useState([])
-  const [responsibilitiesCount, setResponsibilitiesCount] = useState(0)
-  const [requirementsCount, setRequirementsCount] = useState(0)
-  const [expOutcomeCount, setExpOutcomeCount] = useState(0)
-  const [requirements, setRequirements] = useState([])
-  const [expOutcome, setExpOutcome] = useState([])
+  const [responsibilities, setResponsibilities] = useState('')
+  const [responsibilitiesCount, setResponsibilitiesCount] = useState([])
+  const [requirementsCount, setRequirementsCount] = useState([])
+  const [expOutcomeCount, setExpOutcomeCount] = useState([])
+  const [requirements, setRequirements] = useState('')
+  const [expOutcome, setExpOutcome] = useState('')
   // const user = useSelector(state => state.currentUser)
 
-  const body = { title, description, duration, location, certificate, getHired, responsibilities, requirements, expOutcome, paid: { isPaid: paid, amount, currency } }
+  const body = { title, description, duration, location, certificate, getHired, 
+    paid: { isPaid: paid, amount, currency }, responsibilities:[...responsibilities], requirements, expOutcome }
 
 
   const handleSubmit = (e) => {
@@ -50,29 +51,59 @@ const MentoringOpportunityForm = () => {
     // }
   };
   return (
-    <>
-      <div className="parent">
-        <div className="container">
-          <div className="row">
-            <div className="div1 d-none d-lg-block col-lg-2">
-              <span>
-                <Link to={`/ShowOpp/${OppId}`}>View Mentoring Opportunity</Link>
-              </span>
-              <span>Settings</span>
-              <span>Terms and Privacy</span>
-              <br />
-              <br />
-              <Link to="/">
-                <span>Post a new opportunity &nbsp;
-                  <FaPlusSquare className="add-opp" />
-                </span>
-              </Link>
-            </div>
-            <div className="div2 col-lg-10">
-              <section className="mentoring-opportunity">
-                <div className="mentoring-opportunity-container">
-                  <div className="mentoring-opportunity-div1">
-                    <p style={{ fontSize: '19px', padding: '5px', color: '#fff' }}>Mentoring opportunity</p>
+    <div className="parent">
+      <div className="container">
+        <div className="row">
+          <div className="div1 d-none d-lg-block col-lg-2">
+            <span>
+              <Link to={`/ShowOpp/${OppId}`}>View Mentoring Opportunity</Link>
+            </span>
+            <span>Settings</span>
+            <span>Terms and Privacy</span>
+            <br />
+            <br />
+            <span>Post a new opportunity &nbsp;
+                <FaPlusSquare className="add-opp" />
+            </span>
+          </div>
+          <div className="div2 col-lg-10">
+            <section className="mentoring-opportunity">
+              <div className="mentoring-opportunity-container">
+                <div className="mentoring-opportunity-div1">
+                  <p style={{ fontSize: '19px', padding: '5px', color: '#fff' }}>Mentoring opportunity</p>
+                </div>
+                <form className="mentoring-opportunity-form w-md-100">
+                  <label className="mentor-oppor-label">
+                    Mentoring opportunity title
+                  </label>
+                  <input
+                    className="mentor-oppor-input mentor-input1 border-bottom border-warning-subtle border-2"
+                    type="text"
+                    placeholder="example"
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                  <label className="mentor-oppor-label d-none d-lg-block">
+                    Opportunity Description
+                  </label>
+                  <textarea
+                    className="mentor-oppor-input border-bottom border-warning-subtle border-2 d-none d-lg-block"
+                    cols="88"
+                    rows="1"
+                    placeholder="example"
+                    onChange={(e) => setDescription(e.target.value)}
+                  ></textarea>
+                  <div className="certi">
+                    <label className="mentor-oppor-label1">Certificate</label>
+                    <select className="mentor-oppor-input1 mentor-select1 border-bottom border-warning-subtle border-2" onChange={(e) => setCertificate(e.target.value)}>
+                      <option value={true}>Awarded</option>
+                      <option value={false}>NOT Awarded</option>
+                    </select>
+                    <label className="mentor-oppor-label1">Duration</label>
+                    <select className="mentor-oppor-input1 mentor-select2 border-bottom border-warning-subtle border-2" onChange={(e) => setDuration(e.target.value)}>
+                      <option value={3}>3 months</option>
+                      <option value={2}>2 months</option>
+                      <option value={1}>1 months</option>
+                    </select>
                   </div>
                   <form className="mentoring-opportunity-form w-md-100">
                     <label className="mentor-oppor-label">
@@ -149,102 +180,100 @@ const MentoringOpportunityForm = () => {
                         </select>
                       </div>
                     </div>
-                    <div>
-                      <label className="mentor-oppor-label">Responsibilities</label>
-                      <input className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2" type="text" id="responsibilities"
-                        placeholder="example" name="responsibilities"
-                        onChange={(e) => setResponsibilities(prev => {
-                          let arr = [...prev];
-                          arr[0] = e.target.value;
-                          return arr
-                        })} />
-                      <button className="btn" style={{ color: "#007580", padding: 0 }}
-                        onClick={() => setResponsibilitiesCount((prev) => prev + 1)}>
-                        {/* <i className="fas fa-plus-square"></i> */}
-                        <FaPlusSquare className="add-opp" />
-                      </button>
-                      <div>
-                        {Array.from({ length: responsibilitiesCount }, (_, i) => (
-                          <div key={i} className="d-flex flex-column">
+                  </div>
+                  <div>
+                  <label className="mentor-oppor-label">Responsibilities</label>
+                  <input className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2" type="text" id="responsibilities"
+                    placeholder="example" name="responsibilities"
+                    onChange={(e) => setResponsibilities(prev => {
+                      // Split the current string responsibilities into an array of strings
+                      const prevArray = prev.split(',');
+                      // Update the value at index 0
+                      prevArray[0] = e.target.value;
+                      // Join the updated array back into a comma-separated string
+                      return prevArray.join(',');
+                    })}
+                     />
+                  <button  className="btn" style={{ color: "#007580", padding: 0 }}
+                  onClick={() => setResponsibilitiesCount((prev) => prev + 1)}>
+                    {/* <i className="fas fa-plus-square"></i> */}
+                    <FaPlusSquare className="add-opp" />
+                  </button>
+                  <div>
+                    {Array.from({ length: responsibilitiesCount }, (_, i) => (
+                        <div key={i} className="d-flex flex-column">
                             <input
-                              onChange={(e) =>
-                                setResponsibilities(prev => {
-                                  let arr = [...prev];
-                                  arr[i] = e.target.value;
-                                  return arr
-                                })}
-                              name="responsibilities"
-                              id="responsibilities"
-                              type="text"
-                              className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
-                              placeholder="example"
+                                onChange={(e) => 
+                                  setResponsibilities(e.target.value)}
+                                name="responsibilities"
+                                id="responsibilities"
+                                type="text"
+                                className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
+                                placeholder="example"
                             />
                           </div>
                         ))}
                       </div>
                     </div>
-
-                    <div>
-                      <label className="mentor-oppor-label">Requirements</label>
-                      <input className="mentor-oppor-input1 mentor-input5 border-bottom border-warning-subtle border-2" type="text" placeholder="example"
-                        id="requirements" name="requirements"
-                        onChange={(e) => setRequirements(prev => {
-                          let arr = [...prev];
-                          arr[0] = e.target.value;
-                          return arr
-                        })} />
-                      <button className="btn" style={{ color: "#007580", padding: 0 }}
-                        onClick={() => setRequirementsCount((prev) => prev + 1)}>
-                        <FaPlusSquare className="add-opp" />
-                      </button>
-                      <div>
-                        {Array.from({ length: requirementsCount }, (_, i) => (
-                          <div key={i} className="d-flex flex-column">
+                  <div>
+                  <label className="mentor-oppor-label">Requirements</label>
+                  <input className="mentor-oppor-input1 mentor-input5 border-bottom border-warning-subtle border-2" type="text" placeholder="example"
+                  id="requirements" name="requirements"
+                  onChange={(e) => setResponsibilities(prev => {
+                    // Split the current string responsibilities into an array of strings
+                    const prevArray = prev.split(',');
+                    // Update the value at index 0
+                    prevArray[0] = e.target.value;
+                    // Join the updated array back into a comma-separated string
+                    return prevArray.join(',');
+                  })} />
+                  <button  className="btn" style={{ color: "#007580", padding: 0 }}
+                  onClick={() => setRequirementsCount((prev) => prev + 1)}>
+                    <FaPlusSquare className="add-opp" />
+                  </button>
+                  <div>
+                    {Array.from({ length: requirementsCount }, (_, i) => (
+                        <div key={i} className="d-flex flex-column">
                             <input
-                              onChange={(e) =>
-                                setRequirements(prev => {
-                                  let arr = [...prev];
-                                  arr[i] = e.target.value;
-                                  return arr
-                                })}
-                              name="responsibilities"
-                              id="responsibilities"
-                              type="text"
-                              className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
-                              placeholder="example"
+                                onChange={(e) => 
+                                  setRequirements(e.target.value)}
+                                name="responsibilities"
+                                id="responsibilities"
+                                type="text"
+                                className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
+                                placeholder="example"
                             />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <label className="mentor-oppor-label">Expected Outcome</label>
-                      <input className="mentor-oppor-input1 mentor-input6 border-bottom border-warning-subtle border-2" type="text" placeholder="example"
-                        id="expOutcome" name="expOutcome"
-                        onChange={(e) => setExpOutcome(prev => {
-                          let arr = [...prev];
-                          arr[0] = e.target.value;
-                          return arr
-                        })} />
-                      <button className="btn" style={{ color: "#007580", padding: 0 }}
-                        onClick={() => setExpOutcomeCount((prev) => prev + 1)}>
-                        <FaPlusSquare className="add-opp" />
-                      </button>
-                      <div>
-                        {Array.from({ length: expOutcomeCount }, (_, i) => (
-                          <div key={i} className="d-flex flex-column">
+                        </div>
+                    ))}
+                  </div>
+                  </div>
+                  <div>
+                  <label className="mentor-oppor-label">Expected Outcome</label>
+                  <input className="mentor-oppor-input1 mentor-input6 border-bottom border-warning-subtle border-2" type="text" placeholder="example"
+                  id="expOutcome" name="expOutcome"
+                  onChange={(e) => setResponsibilities(prev => {
+                    // Split the current string responsibilities into an array of strings
+                    const prevArray = prev.split(',');
+                    // Update the value at index 0
+                    prevArray[0] = e.target.value;
+                    // Join the updated array back into a comma-separated string
+                    return prevArray.join(',');
+                  })} />
+                  <button  className="btn" style={{ color: "#007580", padding: 0 }}
+                  onClick={() => setExpOutcomeCount((prev) => prev + 1)}>
+                    <FaPlusSquare className="add-opp" />
+                  </button>
+                  <div>
+                    {Array.from({ length: expOutcomeCount }, (_, i) => (
+                        <div key={i} className="d-flex flex-column">
                             <input
-                              onChange={(e) =>
-                                setExpOutcome(prev => {
-                                  let arr = [...prev];
-                                  arr[i] = e.target.value;
-                                  return arr
-                                })}
-                              name="expOutcome"
-                              id="expOutcome"
-                              type="text"
-                              className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
-                              placeholder="example"
+                                onChange={(e) => 
+                                  setExpOutcome(e.target.value)}
+                                name="expOutcome"
+                                id="expOutcome"
+                                type="text"
+                                className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
+                                placeholder="example"
                             />
                           </div>
                         ))}

@@ -4,10 +4,12 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import { NavLink, useParams } from 'react-router-dom'
 import { Localhost } from '../../../config/api'
+import { FaLessThan } from 'react-icons/fa'
 
 const Info = () => {
   const [datainfo, setDataInfo] = useState([])
   const [dataProfile, setDataProfile] = useState([])
+  const [avatar, setAvatar]= useState =("")
   const { id } = useParams()
   useEffect(() => {
     const getOpp = async () => {
@@ -18,13 +20,21 @@ const Info = () => {
         // setData([response.data]);
         setDataInfo([response.data[0].owner]);
         setDataProfile([response.data[0].profile])
-        // console.log([response.data[0].profile])
+        console.log([response.data[0].profile])
+        console.log(response.data[0].profile.avatar)
+        setAvatar(response.data[0].profile.avatar)
+        .then (console.log(avatar))
       } catch (error) {
         console.log(error);
       }
     };
     getOpp();
   }, [id]);
+  const baseURL = "http://localhost/5000/"
+  console.log(avatar)
+
+  // let avatar = baseURL + .avatar
+
 
   if (datainfo.length === 0) {
     return <div>Loading...</div>;
@@ -33,6 +43,7 @@ const Info = () => {
     <div className="mb-2 userinfo px-5 box-info">
       {
         datainfo.map((item) => (
+          
           <>
             <h3 className=" text-capitalize fw-bold blue-color title-info">
               About {item.name}
@@ -97,15 +108,16 @@ const Info = () => {
                       )} */}
                     </ul>
                   </div>
-                  {dataProfile.map((i) => (
+                  {dataProfile.map((items)=>(
 
-                    <img
-                      src={i.avatar}
-                      alt="avatar"
-                      width="80"
-                      height="80"
-                      className="rounded-circle shadow-1-strong mb-3"
-                    />
+                
+                  <img
+                  src={baseURL+items.avatar}
+                    alt="avatar"
+                    width="100"
+                    height="100"
+                    className="rounded-circle shadow-1-strong mb-3"
+                  />
                   ))}
                   <NavLink
                     to="/external"

@@ -35,20 +35,60 @@ function ShowOpp() {
         };
         getOpp();
     }, [id]);
+    console.log(data)
+
+    let message;
+    let backgroundColor;
+    let textColor;
+    if (data.progress === "close") {
+      message = "Closed Mentoring opportunity";
+      backgroundColor = "red";
+      textColor = "white";
+    } else  if (data.progress==="open"){
+      message = "Open mentoring";
+      backgroundColor = "green";
+      textColor = "white";
+    } else{
+        message = "in progress mentoring";
+      backgroundColor = "brown";
+      textColor = "white";
+
+    }
 
     if (data.length === 0) {
         return <div>Loading...</div>;
     }
 
     return (
-        <>
-            <div className="RequestMentor2">
-                {data && data.map((items) => (
-                    <div className="container mt-4">
-                        <div className="row">
-                            <div className="col col-lg-3 d-none d-lg-block">
-                                <div className="Left-Request d-sm-flex d-none justify-content-start align-items-start">
-                                    <SidaNav2 />
+        <div className="RequestMentor2">
+            {data && data.map((items) => (
+                <div className="container mt-4">
+                    <div className="row">
+                        <div className="col col-lg-3 d-none d-lg-block">
+                            <div className="Left-Request d-sm-flex d-none justify-content-start align-items-start">
+                                <SidaNav2 />
+                            </div>
+                        </div>
+                        <div className="col-sm">
+                            <div className="Right-Request ">
+                                <div className="right-green-title-box d-flex justify-content-end align-items-center ">
+                                    <div className="right-green-title text-white  text-center " style={{
+                                        backgroundColor,
+                                        color: textColor,
+                                         // Optional: Add padding to improve the look
+                                        }}>
+
+                                     <span
+                                     
+                                        // style={{
+                                        // backgroundColor,
+                                        // color: textColor,
+                                        //  // Optional: Add padding to improve the look
+                                        // }}
+                                    >
+                                        {message}
+                                    </span>
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-sm">
@@ -185,7 +225,6 @@ function ShowOpp() {
 
 
 export default ShowOpp;
-
 
 
 

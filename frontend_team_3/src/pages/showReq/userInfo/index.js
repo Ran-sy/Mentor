@@ -23,7 +23,7 @@ const Info = () => {
         };
         getReq();
     }, [id]);
-
+    const baseURL= "http://localhost:5000/"
     if (data.length === 0) {
         return <div>Loading...</div>;
     }
@@ -92,15 +92,13 @@ const Info = () => {
                                 </ul>
                             </div>
                             <div className="d-flex flex-column align-items-center  userAvatar">
-                                {data.map((i) => (
-                                    <img
-                                        src={i.avatar}
-                                        alt="avatar"
-                                        width="80"
-                                        height="80"
-                                        className="rounded-circle shadow-1-strong mb-3"
-                                    />
-                                ))}
+                                <img
+                                    src={baseURL+ data.avatar}
+                                    alt="avatar"
+                                    width="80"
+                                    height="80"
+                                    className="rounded-circle shadow-1-strong mb-3"
+                                />
                                 <NavLink
                                     to="/external"
                                     className="profileBtn px-4 py-2 rounded-pill "
