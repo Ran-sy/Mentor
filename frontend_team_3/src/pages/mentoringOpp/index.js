@@ -20,12 +20,12 @@ const MentoringOpportunityForm = () => {
   const [paid, setPaid] = useState(true)
   const [amount, setAmount] = useState(0)
   const [currency, setCurrency] = useState('')
-  const [responsibilities, setResponsibilities] = useState('')
+  const [responsibilities, setResponsibilities] = useState([])
   const [responsibilitiesCount, setResponsibilitiesCount] = useState(0)
   const [requirementsCount, setRequirementsCount] = useState(0)
   const [expOutcomeCount, setExpOutcomeCount] = useState(0)
-  const [requirements, setRequirements] = useState('')
-  const [expOutcome, setExpOutcome] = useState('')
+  const [requirements, setRequirements] = useState([])
+  const [expOutcome, setExpOutcome] = useState([])
   // const user = useSelector(state => state.currentUser)
 
   const body = { title, description, duration, location, certificate, getHired, responsibilities, requirements, expOutcome, paid: { isPaid: paid, amount, currency } }
