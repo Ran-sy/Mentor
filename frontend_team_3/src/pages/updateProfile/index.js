@@ -16,6 +16,7 @@ import { Upload, Button } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Success, Error } from "../../components/Toast";
 import woman from "../../assets/images/woman2.png";
+import { Link, useNavigate } from "react-router-dom";
 
 const { Dragger } = Upload;
 
@@ -36,7 +37,7 @@ const UpdateProfile = () => {
     const [avatarURL, setAvatarURL] = useState()
   const [searchTerm, setSearchTerm] = useState("");
   const [messages, setMessages] = useState([]);
-    
+  const navigate = useNavigate();
 //////////////////////////////////////////////////////FETCH DATA 
 useEffect(() => {
     
@@ -269,6 +270,7 @@ useEffect(() => {
                   maxWidth: '400px', 
                 },
               });
+              navigate('/external/'+`${userId}`)
           } else {
             console.log('Profile data update failed');
             Error('Failed on updating Profile. Please  try again.');

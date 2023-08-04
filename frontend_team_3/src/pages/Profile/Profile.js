@@ -40,69 +40,148 @@ function Profile() {
   const months = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'];
 
-  useEffect(() => {
-    const getProfile = async() => {
-        document.cookie = 'accessToken=' + user?.tokens[0]?.slice(1, -1)
-        // get guest and user
-        await axios.get(`${Localhost}/api/v1/mentorProfile/user/${id}`)
-        .then(async res=>{
-          setProfile(res?.data)
+  // useEffect(() => {
+  //   const getProfile = async() => {
+  //       // document.cookie = 'accessToken=' + user?.tokens[0]?.slice(1, -1)
+  //       if (user && user.tokens && user.tokens[0]) {
+  //         // Access user.tokens[0] safely
+  //         document.cookie = 'accessToken=' + user.tokens[0].slice(1, -1);
+  //         console.log(user.tokens[0]);
+  //       } else {
+  //         console.log('user or tokens[0] is undefined');
+  //       }
+        
+  //       // get guest and user
+        
+  //       await axios.get(`${Localhost}/api/v1/mentorProfile/user/${id}`)
+  //       .then(async res=>{
+  //         setProfile(res?.data)
           
-        // get user opportunities
-        if(res?.data?.user?.role === "mentor"){
-          await axios.get(`${Localhost}/api/opp/opp/owner/${id}`)
-          .then(getOpenOppOrReq=>setOppOrReq(getOpenOppOrReq?.data))
-        }else{
-          console.log(res?.data?.user?.role)
-          await axios.get(`${Localhost}/api/req/request/owner/${id}`)
-          .then(getOpenOppOrReq=>setOppOrReq(getOpenOppOrReq?.data))
+  //       // get user opportunities
+  //       if(res?.data?.user?.role === "mentor"){
+  //         await axios.get(`${Localhost}/api/opp/opp/owner/${id}`)
+  //         .then(getOpenOppOrReq=>setOppOrReq(getOpenOppOrReq?.data))
+  //       }else{
+  //         console.log(res?.data?.user?.role)
+  //         await axios.get(`${Localhost}/api/req/request/owner/${id}`)
+  //         .then(getOpenOppOrReq=>setOppOrReq(getOpenOppOrReq?.data))
+  //       }
+  //         // get dealtWith
+  //         if(res?.data?.dealtWith){
+  //           let dealers = [];
+  //           res?.data?.dealtWith?.forEach(async dealer =>{
+  //             await axios.get(`${Localhost}/api/v1/mentorProfile/user/${dealer?._id}`)
+  //             .then(deal=>{
+  //             dealers.push({
+  //               avatar: deal?.data?.avatar,
+  //               designation: deal?.data?.designation,
+  //               name: dealer?.name,
+  //               _id: dealer._id
+  //             })
+  //             }).catch(e=> Error(e.message))
+  //           })
+  //           setDealtWith(dealers)
+  //         }
+  //       }).catch(e=> Error(e.message))
+  //       await axios.get(`${Localhost}/api/v1/mentorProfile/user/${(user._id)}`)
+  //       .then(guestRes=>setGuestProfile(guestRes?.data)).catch(e=> Error(e.message))
+
+  //       // get user messages
+  //       await axios.get(`${Localhost}/api/v1/message/receiver/${id}`)
+  //       .then(getMessages=>{
+  //       const fullMsg = getMessages?.data?.map((msg)=>{
+  //          return({
+  //             id: messages.length, 
+  //             name: msg?.sender?.name || 'Unknown', 
+  //             avatar: msg?.sender?.avatar || "https://images.unsplash.com/photo-1489753735160-2cbf3d9006d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+  //             messageContent: msg?.messageContent || 'none'
+  //           })
+  //         })
+  //         setMessages([...fullMsg]);
+  //       }).catch(e=>Error(e.message))
+  //     }
+
+  //   const calendarbusy = async () => {
+  //     try {
+  //       const res = await axios.get(`${Localhost}/calendar`);
+  //       setCalendarDate(res.data);
+  //     } catch (e) {
+  //       Error(e.message);
+  //     }
+  //   };
+  //   getProfile()
+  //   calendarbusy();
+  // }, []);
+  useEffect(() => {
+    const Localhost = 'http://localhost:5000'; // Replace this with your API base URL
+    const id = user._id; // Replace this with the user ID you want to fetch data for
+
+    const fetchData = async () => {
+      try {
+        // Get user profile
+        const profileResponse = await axios.get(`${Localhost}/api/v1/mentorProfile/user/${id}`);
+        setProfile(profileResponse?.data);
+
+        // Get user opportunities or requests based on user role
+        if (profileResponse?.data?.user?.role === 'mentor') {
+          const oppOrReqResponse = await axios.get(`${Localhost}/api/opp/opp/owner/${id}`);
+          setOppOrReq(oppOrReqResponse?.data);
+        } else {
+          const oppOrReqResponse = await axios.get(`${Localhost}/api/req/request/owner/${id}`);
+          setOppOrReq(oppOrReqResponse?.data);
         }
-          // get dealtWith
-          if(res?.data?.dealtWith){
-            let dealers = [];
-            res?.data?.dealtWith?.forEach(async dealer =>{
-              await axios.get(`${Localhost}/api/v1/mentorProfile/user/${dealer?._id}`)
-              .then(deal=>{
-              dealers.push({
+
+        // Get dealtWith
+        if (profileResponse?.data?.dealtWith) {
+          const dealersPromises = profileResponse.data.dealtWith.map(async (dealer) => {
+            try {
+              const deal = await axios.get(`${Localhost}/api/v1/mentorProfile/user/${dealer?._id}`);
+              return {
                 avatar: deal?.data?.avatar,
                 designation: deal?.data?.designation,
                 name: dealer?.name,
-                _id: dealer._id
-              })
-              }).catch(e=> Error(e.message))
-            })
-            setDealtWith(dealers)
-          }
-        }).catch(e=> Error(e.message))
-        await axios.get(`${Localhost}/api/v1/mentorProfile/user/${(user._id)}`)
-        .then(guestRes=>setGuestProfile(guestRes?.data)).catch(e=> Error(e.message))
+                _id: dealer._id,
+              };
+            } catch (error) {
+              console.error('Error fetching dealer data:', error.message);
+              return null;
+            }
+          });
 
-        // get user messages
-        await axios.get(`${Localhost}/api/v1/message/receiver/${id}`)
-        .then(getMessages=>{
-        const fullMsg = getMessages?.data?.map((msg)=>{
-           return({
-              id: messages.length, 
-              name: msg?.sender?.name || 'Unknown', 
-              avatar: msg?.sender?.avatar || "https://images.unsplash.com/photo-1489753735160-2cbf3d9006d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
-              messageContent: msg?.messageContent || 'none'
-            })
-          })
-          setMessages([...fullMsg]);
-        }).catch(e=>Error(e.message))
-      }
+          const dealersData = await Promise.all(dealersPromises);
+          setDealtWith(dealersData.filter((dealer) => dealer !== null));
+        }
 
-    const calendarbusy = async () => {
-      try {
-        const res = await axios.get(`${Localhost}/calendar`);
-        setCalendarDate(res.data);
-      } catch (e) {
-        Error(e.message);
+        // Get guest profile
+        const guestResponse = await axios.get(`${Localhost}/api/v1/mentorProfile/user/${user._id}`);
+        setGuestProfile(guestResponse?.data);
+
+        // Get user messages
+        const messagesResponse = await axios.get(`${Localhost}/api/v1/message/receiver/${id}`);
+        const fullMsg = messagesResponse?.data?.map((msg) => ({
+          id: messages.length,
+          name: msg?.sender?.name || 'Unknown',
+          avatar:
+            msg?.sender?.avatar ||
+            'https://images.unsplash.com/photo-1489753735160-2cbf3d9006d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+          messageContent: msg?.messageContent || 'none',
+        }));
+        setMessages([...fullMsg]);
+
+        // Get calendar data
+        const calendarResponse = await axios.get(`${Localhost}/calendar`);
+        setCalendarDate(calendarResponse.data);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+        // Handle errors here, e.g., show an error message to the user
       }
     };
-    getProfile()
-    calendarbusy();
+
+    fetchData();
   }, []);
+
+  const baseUrl="http://localhost:5000/"
+  const avatar= baseUrl + profile?.avatar
   
  const changeCurrentDay = (day = date.currentDay) => {
     setDate({ currentDay: new Date(day.year, day.month, day.number) });
@@ -195,7 +274,7 @@ function Profile() {
               <button className="btn btn-warning rounded-pill">Message</button>
             </div>
             <div className="--profile-body d-flex flex-column flex-wrap justify-content-center align-items-center">
-              <img src={profile?.avatar} alt="userImage" className="w-25 h-25 rounded-circle" />
+              <img src={avatar} alt="userImage" className="w-25 h-25 rounded-circle" />
               <h4 className="fs-5 pt-4">{ profile?.user?.name }</h4>
               <h5 className="fs-6 p-1">{ profile?.designation }</h5>
               <span className="text-white text-uppercase">{ profile?.user?.role }</span>
