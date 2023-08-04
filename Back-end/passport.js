@@ -56,7 +56,7 @@ passport.use(
       clientID: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
       callbackURL: "/auth/github/callback",
-      scope: ["profile", "email"],
+      scope: ["profile", "user:email"],
     },
     async function (accessToken, refreshToken, profile, done) {
       try {
@@ -71,7 +71,7 @@ passport.use(
           const newUser = {
             gitId: profile.id,
             name: profile.username,
-            email: profile.profileUrl,
+            email:profile.emails[0].value
           };
           const user = await User.create(newUser);
 

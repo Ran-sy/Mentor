@@ -80,7 +80,6 @@ router.get(
   "/github/callback",
   passport.authenticate("github", {
     failureRedirect: "/login",
-    session: false,
   }),
   (req, res) => {
     console.log("object :>> ");
@@ -100,14 +99,13 @@ router.get(
 
 router.get(
   "/facebook",
-  passport.authenticate("facebook", { scope: ["profile", "email"] })
+  passport.authenticate("facebook", { scope: ["profile", "emails"] })
 );
 
 router.get(
   "/facebook/callback",
   passport.authenticate("facebook", {
     failureRedirect: "/login",
-    session: false,
   }),
   (req, res) => {
     console.log("object :>> ");
