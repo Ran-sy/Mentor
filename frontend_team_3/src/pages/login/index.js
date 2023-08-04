@@ -189,12 +189,12 @@ export const Login = (props) => {
           </div>
           <div className="switch1">
             <p style={{ fontSize: "15px" }}>Not a member yet ? </p>
-            <Link
+            <button
               className="link-btn"
-              to={'/register'}
+              onClick={() => navigate('/register')}
             >
               click here to sign up
-            </Link>
+            </button>
           </div>
         </div>
       </div>

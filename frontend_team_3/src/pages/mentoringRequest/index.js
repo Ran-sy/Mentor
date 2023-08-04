@@ -29,14 +29,10 @@ const MentorReqForm = () => {
     const [location, setLocation] = useState(locationList[0].value);
     const [currency, setCurrency] = useState(currencyList[0].value)
     const [description, setDescreption] = useState('');
-    const body = { title: title, description: description, location: location, helpWith: helpWith, haveBgWith: [...haveBgWith], requirements: [...requirements], 
-        paid: { isPaid: paidChecked, amount, currency }, experience: [...experience], duration }
+    const body = { title, description, location, helpWith, haveBgWith, requirements, experience, duration, paid: { isPaid: paidChecked, amount, currency }  }
 
 
     const handleSubmit = (e) => {
-        console.log(body)
-        console.log({ title: title, description: description, location: location, helpWith: [...helpWith], haveBgWith: [...haveBgWith], requirements: [...requirements], 
-            paid: { isPaid: paidChecked, amount, currency }, experience: experience, duration })
         e.preventDefault();
         if(user?.role === "mentee"){
             const addReq = async () => {
@@ -45,7 +41,7 @@ const MentorReqForm = () => {
                 }).then(res=>{
                     setId(res.data._id)
                     Success('added successfully')
-                    navigate(`/ShowReq/${res.data._id}`);
+                    navigate(`/showReq/${res.data._id}`)
                 }).catch(e=>Error('Unable to create request '+ e.message))
             }
             addReq()
@@ -53,7 +49,7 @@ const MentorReqForm = () => {
             Error('YOU NEED TO BE A MENTEE!!')
         }
     }
-    return ( 
+    return (
         <>
             <div className="mentoring-section">
                 <div className="left-col">
@@ -220,7 +216,11 @@ const MentorReqForm = () => {
                                     style={{ gap: "6px", alignItems: "flex-start" }}
                                 >
                                     <input
-                                        onChange={(e) => setHelp(prev=> { prev[0] = e.target.value; return [...prev] })}
+                                        onChange={(e) => setHelp(prev=>{
+                                            let arr = [...prev];
+                                            arr[0] = e.target.value;
+                                            return arr
+                                          })}
                                         name="helpWith"
                                         value={helpWith}
                                         id="help-with"
@@ -244,7 +244,11 @@ const MentorReqForm = () => {
                                                 Looking for help with
                                             </label>
                                             <input
-                                                onChange={(e) => setHelp(e.target.value)}
+                                                onChange={(e) => setHelp(prev=>{
+                                                    let arr = [...prev];
+                                                    arr[i] = e.target.value;
+                                                    return arr
+                                                  })}
                                                 name="helpWith"
                                                 id="help-with"
                                                 type="text"
@@ -264,7 +268,11 @@ const MentorReqForm = () => {
                                     style={{ gap: "6px", alignItems: "flex-start" }}
                                 >
                                     <input
-                                        onChange={(e) => setRequirements(prev=> { prev[0] = e.target.value; return [...prev] })}
+                                        onChange={(e) => setRequirements(prev=>{
+                                            let arr = [...prev];
+                                            arr[0] = e.target.value;
+                                            return arr
+                                          })}
                                         name="requirements"
                                         id="requirements"
                                         value={requirements}
@@ -288,7 +296,11 @@ const MentorReqForm = () => {
                                                 Requirements
                                             </label>
                                             <input
-                                                onChange={(e) => setRequirements(e.target.value)}
+                                                onChange={(e) => setRequirements(prev=>{
+                                                    let arr = [...prev];
+                                                    arr[i] = e.target.value;
+                                                    return arr
+                                                  })}
                                                 name="requirements"
                                                 id="requirements"
                                                 type="text"
