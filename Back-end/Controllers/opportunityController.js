@@ -71,7 +71,7 @@ const createOpportunity = async (req, res) => {
     try {
         const opportunity = new Opportunity({
             ...req.body,
-            owner: req.user.id,
+            owner: req.user._id,
             profile: req.profile._id
         });
         opportunity.save()

@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Localhost } from "../../config/api";
+import { Link } from "react-router-dom";
 import { loginFailure } from "../../features/user";
 import { mentor1, } from "../../assets/index";
 
@@ -90,6 +91,7 @@ function MentorInLocation() {
             <Slider {...settings} className="slider">
               {getMentor.map((men) => {
                 return (
+                  <Link to={'/external/'+men._id}>
                   <div className="mentorlocation">
                     <div className="top-ment-info">
                       <Image src={mentor1} />
@@ -110,6 +112,7 @@ function MentorInLocation() {
                       <p>{men.designation}</p>
                     </div>
                   </div>
+                  </Link>
                 );
               })}
             </Slider>
