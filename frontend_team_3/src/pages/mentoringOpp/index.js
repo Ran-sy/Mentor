@@ -28,24 +28,26 @@ const MentoringOpportunityForm = () => {
   const [expOutcome, setExpOutcome] = useState('')
   // const user = useSelector(state => state.currentUser)
 
-  const body = { title, description, duration, location, certificate, getHired, 
-    paid: { isPaid: paid, amount, currency }, responsibilities:[...responsibilities], requirements, expOutcome }
+  const body = {
+    title, description, duration, location, certificate, getHired,
+    paid: { isPaid: paid, amount, currency }, responsibilities: [...responsibilities], requirements, expOutcome
+  }
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // if (user?.role === "mentor") {
-      const addNewOPP = async () => {
-        await axios.post(`${Localhost}/api/opp/opp`, body, { withCredentials: true })
-          .then((res) => {
-            setOppId(res.data._id);
-            Success("ADD OPPERTUNITY SUCCESSFULLY");
-            navigate(`/showOpp/${res.data._id}`)
-          }).catch((error) => {
-            Error("FAILED TO ADD OPPERTUNITY" + error.message);
-          });
-      }
-      addNewOPP()
+    const addNewOPP = async () => {
+      await axios.post(`${Localhost}/api/opp/opp`, body, { withCredentials: true })
+        .then((res) => {
+          setOppId(res.data._id);
+          Success("ADD OPPERTUNITY SUCCESSFULLY");
+          navigate(`/showOpp/${res.data._id}`)
+        }).catch((error) => {
+          Error("FAILED TO ADD OPPERTUNITY" + error.message);
+        });
+    }
+    addNewOPP()
     // } else {
     //   Error("YOU NEED TO BE A MENTOR!!")
     // }
@@ -63,7 +65,7 @@ const MentoringOpportunityForm = () => {
             <br />
             <br />
             <span>Post a new opportunity &nbsp;
-                <FaPlusSquare className="add-opp" />
+              <FaPlusSquare className="add-opp" />
             </span>
           </div>
           <div className="div2 col-lg-10">
@@ -179,101 +181,101 @@ const MentoringOpportunityForm = () => {
                           <option value='kwd'>KWD</option>
                         </select>
                       </div>
+                      {/* </div> */}
                     </div>
-                  </div>
-                  <div>
-                  <label className="mentor-oppor-label">Responsibilities</label>
-                  <input className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2" type="text" id="responsibilities"
-                    placeholder="example" name="responsibilities"
-                    onChange={(e) => setResponsibilities(prev => {
-                      // Split the current string responsibilities into an array of strings
-                      const prevArray = prev.split(',');
-                      // Update the value at index 0
-                      prevArray[0] = e.target.value;
-                      // Join the updated array back into a comma-separated string
-                      return prevArray.join(',');
-                    })}
-                     />
-                  <button  className="btn" style={{ color: "#007580", padding: 0 }}
-                  onClick={() => setResponsibilitiesCount((prev) => prev + 1)}>
-                    {/* <i className="fas fa-plus-square"></i> */}
-                    <FaPlusSquare className="add-opp" />
-                  </button>
-                  <div>
-                    {Array.from({ length: responsibilitiesCount }, (_, i) => (
-                        <div key={i} className="d-flex flex-column">
+                    <div>
+                      <label className="mentor-oppor-label">Responsibilities</label>
+                      <input className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2" type="text" id="responsibilities"
+                        placeholder="example" name="responsibilities"
+                        onChange={(e) => setResponsibilities(prev => {
+                          // Split the current string responsibilities into an array of strings
+                          const prevArray = prev.split(',');
+                          // Update the value at index 0
+                          prevArray[0] = e.target.value;
+                          // Join the updated array back into a comma-separated string
+                          return prevArray.join(',');
+                        })}
+                      />
+                      <button className="btn" style={{ color: "#007580", padding: 0 }}
+                        onClick={() => setResponsibilitiesCount((prev) => prev + 1)}>
+                        {/* <i className="fas fa-plus-square"></i> */}
+                        <FaPlusSquare className="add-opp" />
+                      </button>
+                      <div>
+                        {Array.from({ length: responsibilitiesCount }, (_, i) => (
+                          <div key={i} className="d-flex flex-column">
                             <input
-                                onChange={(e) => 
-                                  setResponsibilities(e.target.value)}
-                                name="responsibilities"
-                                id="responsibilities"
-                                type="text"
-                                className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
-                                placeholder="example"
+                              onChange={(e) =>
+                                setResponsibilities(e.target.value)}
+                              name="responsibilities"
+                              id="responsibilities"
+                              type="text"
+                              className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
+                              placeholder="example"
                             />
                           </div>
                         ))}
                       </div>
                     </div>
-                  <div>
-                  <label className="mentor-oppor-label">Requirements</label>
-                  <input className="mentor-oppor-input1 mentor-input5 border-bottom border-warning-subtle border-2" type="text" placeholder="example"
-                  id="requirements" name="requirements"
-                  onChange={(e) => setResponsibilities(prev => {
-                    // Split the current string responsibilities into an array of strings
-                    const prevArray = prev.split(',');
-                    // Update the value at index 0
-                    prevArray[0] = e.target.value;
-                    // Join the updated array back into a comma-separated string
-                    return prevArray.join(',');
-                  })} />
-                  <button  className="btn" style={{ color: "#007580", padding: 0 }}
-                  onClick={() => setRequirementsCount((prev) => prev + 1)}>
-                    <FaPlusSquare className="add-opp" />
-                  </button>
-                  <div>
-                    {Array.from({ length: requirementsCount }, (_, i) => (
-                        <div key={i} className="d-flex flex-column">
+                    <div>
+                      <label className="mentor-oppor-label">Requirements</label>
+                      <input className="mentor-oppor-input1 mentor-input5 border-bottom border-warning-subtle border-2" type="text" placeholder="example"
+                        id="requirements" name="requirements"
+                        onChange={(e) => setResponsibilities(prev => {
+                          // Split the current string responsibilities into an array of strings
+                          const prevArray = prev.split(',');
+                          // Update the value at index 0
+                          prevArray[0] = e.target.value;
+                          // Join the updated array back into a comma-separated string
+                          return prevArray.join(',');
+                        })} />
+                      <button className="btn" style={{ color: "#007580", padding: 0 }}
+                        onClick={() => setRequirementsCount((prev) => prev + 1)}>
+                        <FaPlusSquare className="add-opp" />
+                      </button>
+                      <div>
+                        {Array.from({ length: requirementsCount }, (_, i) => (
+                          <div key={i} className="d-flex flex-column">
                             <input
-                                onChange={(e) => 
-                                  setRequirements(e.target.value)}
-                                name="responsibilities"
-                                id="responsibilities"
-                                type="text"
-                                className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
-                                placeholder="example"
+                              onChange={(e) =>
+                                setRequirements(e.target.value)}
+                              name="responsibilities"
+                              id="responsibilities"
+                              type="text"
+                              className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
+                              placeholder="example"
                             />
-                        </div>
-                    ))}
-                  </div>
-                  </div>
-                  <div>
-                  <label className="mentor-oppor-label">Expected Outcome</label>
-                  <input className="mentor-oppor-input1 mentor-input6 border-bottom border-warning-subtle border-2" type="text" placeholder="example"
-                  id="expOutcome" name="expOutcome"
-                  onChange={(e) => setResponsibilities(prev => {
-                    // Split the current string responsibilities into an array of strings
-                    const prevArray = prev.split(',');
-                    // Update the value at index 0
-                    prevArray[0] = e.target.value;
-                    // Join the updated array back into a comma-separated string
-                    return prevArray.join(',');
-                  })} />
-                  <button  className="btn" style={{ color: "#007580", padding: 0 }}
-                  onClick={() => setExpOutcomeCount((prev) => prev + 1)}>
-                    <FaPlusSquare className="add-opp" />
-                  </button>
-                  <div>
-                    {Array.from({ length: expOutcomeCount }, (_, i) => (
-                        <div key={i} className="d-flex flex-column">
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="mentor-oppor-label">Expected Outcome</label>
+                      <input className="mentor-oppor-input1 mentor-input6 border-bottom border-warning-subtle border-2" type="text" placeholder="example"
+                        id="expOutcome" name="expOutcome"
+                        onChange={(e) => setResponsibilities(prev => {
+                          // Split the current string responsibilities into an array of strings
+                          const prevArray = prev.split(',');
+                          // Update the value at index 0
+                          prevArray[0] = e.target.value;
+                          // Join the updated array back into a comma-separated string
+                          return prevArray.join(',');
+                        })} />
+                      <button className="btn" style={{ color: "#007580", padding: 0 }}
+                        onClick={() => setExpOutcomeCount((prev) => prev + 1)}>
+                        <FaPlusSquare className="add-opp" />
+                      </button>
+                      <div>
+                        {Array.from({ length: expOutcomeCount }, (_, i) => (
+                          <div key={i} className="d-flex flex-column">
                             <input
-                                onChange={(e) => 
-                                  setExpOutcome(e.target.value)}
-                                name="expOutcome"
-                                id="expOutcome"
-                                type="text"
-                                className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
-                                placeholder="example"
+                              onChange={(e) =>
+                                setExpOutcome(e.target.value)}
+                              name="expOutcome"
+                              id="expOutcome"
+                              type="text"
+                              className="mentor-oppor-input1 mentor-input4 border-bottom border-warning-subtle border-2"
+                              placeholder="example"
                             />
                           </div>
                         ))}
@@ -287,14 +289,16 @@ const MentoringOpportunityForm = () => {
                         onClick={handleSubmit}
                       />
                     </div>
+                    {/* </div> */}
                   </form>
-                </div>
-              </section>
-            </div>
+                </form>
+              </div>
+            </section>
           </div>
         </div>
       </div>
-    </>
+    </div>
+    // </>
   );
 };
 

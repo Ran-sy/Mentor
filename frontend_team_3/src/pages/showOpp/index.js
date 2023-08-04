@@ -41,17 +41,17 @@ function ShowOpp() {
     let backgroundColor;
     let textColor;
     if (data.progress === "close") {
-      message = "Closed Mentoring opportunity";
-      backgroundColor = "red";
-      textColor = "white";
-    } else  if (data.progress==="open"){
-      message = "Open mentoring";
-      backgroundColor = "green";
-      textColor = "white";
-    } else{
+        message = "Closed Mentoring opportunity";
+        backgroundColor = "red";
+        textColor = "white";
+    } else if (data.progress === "open") {
+        message = "Open mentoring";
+        backgroundColor = "green";
+        textColor = "white";
+    } else {
         message = "in progress mentoring";
-      backgroundColor = "brown";
-      textColor = "white";
+        backgroundColor = "brown";
+        textColor = "white";
 
     }
 
@@ -75,19 +75,19 @@ function ShowOpp() {
                                     <div className="right-green-title text-white  text-center " style={{
                                         backgroundColor,
                                         color: textColor,
-                                         // Optional: Add padding to improve the look
-                                        }}>
+                                        // Optional: Add padding to improve the look
+                                    }}>
 
-                                     <span
-                                     
+                                        <span
+
                                         // style={{
                                         // backgroundColor,
                                         // color: textColor,
                                         //  // Optional: Add padding to improve the look
                                         // }}
-                                    >
-                                        {message}
-                                    </span>
+                                        >
+                                            {message}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -217,9 +217,9 @@ function ShowOpp() {
                             </div>
                         </div>
                     </div>
-                ))}
-            </div>
-        </>
+                </div>
+            ))}
+        </div>
     );
 }
 
